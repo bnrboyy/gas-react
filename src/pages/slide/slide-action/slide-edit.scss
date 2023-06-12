@@ -1,0 +1,139 @@
+@import './../../../variables';
+#slide-edit-modal {
+    @apply p-1 lg:p-0;
+    height: 100vh; 
+    max-width: 900px;
+    margin: auto;
+    padding: .25rem;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @media screen and (min-width: $xl) {
+        max-height: 730px;
+    }
+    
+}
+#slide-edit-page {
+    width: 100%;
+    height: 100%;
+    .text-field-custom { 
+        @apply mb-1 mx-0 w-full;
+        input {
+            font-weight: 300;
+        }
+        &.inp-hidden {
+            display: none;
+        }
+    }
+
+    .card-control {
+        margin: 0 auto; 
+        height: 100%;
+
+        .card-head {
+            .head-action {
+                .head-title {
+                    font-weight: 400;
+                }
+            }
+        }
+        .card-body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            form {
+                .image-setting {
+                    @apply flex gap-x-4 w-full xl:w-2/3 mx-auto;
+                   
+                    .edit-image {
+                        margin: auto 0;
+                    }
+                    .image-detail {
+                        margin-right: auto
+                    }
+                    &.error {
+                        .image-upload {
+                            @apply shadow-md border-2 shadow-red-400 border-red-400;
+                        }
+                    }
+                }
+                .slide-details {
+                    @apply flex flex-wrap justify-between xl:justify-around my-3 2xl:gap-y-1;
+
+                    .slide-detail-title {
+                        font-weight: 400;
+                        width: 100%;
+                    }
+                    .input-full {
+                        @apply w-full;
+                    }
+                    .input-half {
+                        width: 49%;
+                        height: 52px;
+                        .date-input  {
+                            @apply mx-0 w-full;
+                            label {
+                                top: -8px;
+                                &.MuiInputLabel-shrink {
+                                    top: 0;
+                                }
+                            }
+                            input {
+                                @apply py-2 ;
+                            }
+                        }
+                    }
+                    .input-xl-half {
+                        width: 100%;
+                        height: 52px;
+                        @media screen and (min-width: $xl) {
+                            width: 49%;
+                        }
+                    }
+                    .input-sm-half {
+                        display: flex;
+                        align-items: center;
+                        height: 52px;
+                        width: 100%; 
+                        @media screen and (min-width: $lg) {
+                            width: 49%;
+                        }
+                    }
+                    .center {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+                    }
+                    .form-control {
+                        @apply mx-0 w-full;
+                    }
+                    .input-group {
+                        @apply flex items-center w-full xs:w-1/2 border border-gray-300 ;
+                        max-width: 49%;
+                        border-radius: 5px;
+                        justify-content: space-between;
+                        padding: 8px 0.5rem;
+                        .title {
+                          @apply w-24 text-center;
+                          user-select: none;
+                        }  
+                        button {
+                            height: 1.5rem;
+                        }
+                    }
+                    .group {
+                        @apply lg:px-2 text-center;
+                        max-width: 49%;
+                    }
+                }
+            }
+        }
+    } 
+
+    .btn-action {
+        @apply flex justify-end gap-x-3 pt-4 border-t xl:mt-auto;
+    }
+}

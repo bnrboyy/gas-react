@@ -1,0 +1,18 @@
+{
+  "ProductAdd": "Add Product",
+  "ModalInfoImage": "รูปภาพสินค้า",
+  "ModalDetail": "รายละเอียด",
+  "ModalSlcTypeTitle": "ModalSlcTypeTitle",
+  "ModalSlcTypeMain": "ModalSlcTypeMain",
+  "ModalSlcTypeAds": "ModalSlcTypeAds",
+  "ModalSlcPositionTitle": "ModalSlcPositionTitle",
+  "None": "",
+  "ModalSlcCtronrolPage": "PageControl",
+  "ModalPriority": "priority",
+  "ModalDisplayStatus": "ไม่แสดงผล",
+  "btnAddProduct": "Add Product",
+  "ModalSlcCategory": "Category",
+  "ModalCanWaveStatus": "เข้าไมโครเวฟได้",
+  "ModalCanSweetStatus": "เลือกความหวานได้",
+  "productEdit": "แก้ไขสินค้า"
+}

@@ -1,0 +1,18 @@
+{
+  "ProductAdd": "Add Product",
+  "ModalInfoImage": "Image",
+  "ModalDetail": "Detail",
+  "ModalSlcTypeTitle": "ModalSlcTypeTitle",
+  "ModalSlcTypeMain": "ModalSlcTypeMain",
+  "ModalSlcTypeAds": "ModalSlcTypeAds",
+  "ModalSlcPositionTitle": "ModalSlcPositionTitle",
+  "None": "",
+  "ModalSlcCtronrolPage": "PageControl",
+  "ModalPriority": "priority",
+  "ModalDisplayStatus": "Not show",
+  "btnAddProduct": "Add Product",
+  "ModalSlcCategory": "Category",
+  "ModalCanWaveStatus": "Microwave",
+  "ModalCanSweetStatus": "Sweetness",
+  "productEdit": "Edit"
+}

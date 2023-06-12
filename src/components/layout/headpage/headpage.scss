@@ -1,0 +1,27 @@
+.head-page {
+    @apply flex flex-col sm:flex-row;
+    row-gap: .75rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+
+    .title-page {
+        font-size: 1.75rem;
+        font-weight: 400;
+        .language {
+            @apply text-gray-400 text-base  ml-1;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+    }
+    .breadcrumbs {
+        a {
+            @apply hover:text-blue-400 hover:underline; 
+            font-weight: 400;
+        }
+        span {
+            font-weight: 400;
+        }
+    }
+}

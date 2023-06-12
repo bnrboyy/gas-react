@@ -1,0 +1,13 @@
+.page-control {
+    @apply text-blue-400 #{!important};
+}
+.input-page {
+    min-width: 100px;
+}
+.MuiBox-root { 
+    button {
+        font-weight: 300;
+        font-size: 1rem;
+    }
+    
+}

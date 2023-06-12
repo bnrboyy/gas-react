@@ -1,0 +1,29 @@
+#dashboard-page {
+    .actions {
+        @apply flex gap-2;
+    }
+    .card-body {
+
+    }
+    .btn-delete, .btn-confirm {
+        @apply flex gap-x-2;
+        padding-left: 1rem!important;
+        padding-right: 1rem!important;
+        span {
+            margin: auto;
+        }
+    }
+    .reserve-status {
+        @apply border-orange-300 bg-orange-50 text-orange-500 px-3 py-1 border;
+        cursor:  default;
+        font-weight: 400;
+
+        &.confirm {
+            @apply text-teal-400 border-0 opacity-70 bg-inherit;
+        }
+    }
+
+}
+
+
+

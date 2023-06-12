@@ -1,0 +1,14 @@
+.input-group {
+    @apply flex items-center w-full xs:w-1/2 border border-gray-300 mt-6;
+    width: 40%;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 8px 0.5rem;
+    .title {
+      @apply w-24 text-center;
+      user-select: none;
+    }
+    button {
+      height: 1.5rem;
+    }
+  }

@@ -1,0 +1,144 @@
+@import "../../../variables";
+
+.modal-add-post.MuiModal-root {
+    z-index: 30;
+    .modal-custom {
+        max-width: 1200px;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        @media screen and (min-width: $lg) {
+            width: 95%;
+            height: auto;
+        }
+        .modal-header {
+            @apply pb-2 border-b border-gray-300 md:pb-0 md:border-b-0;
+        }
+        .modal-body {
+            // @apply mr-0 md:mr-2 lg:mr-6;
+            @apply px-6 mx-0 mt-2;
+            max-height: calc(100vh - 150px);
+            @media screen and (min-width: $sm) {
+                max-height:form-details calc(100vh - 172px);
+            }
+            .modal-fieldset {
+                @apply flex gap-x-4 justify-start border-0 ;
+                padding: 0;
+
+                .modal-legend {
+                    display: none;
+                }
+                .cate-menu-list {
+                    margin-top: 10px;
+                    border-radius: 3px;
+                    height: fit-content;
+                }
+                .post-detail-title {
+                    @apply mt-4;
+                    font-weight: 400;
+                }
+                .form-details {
+                    @media screen and (min-width: $lg) {
+                        width: calc(100% - 300px);
+                    }
+                    .upload-image-preview {
+                        @apply mt-auto;
+                    }
+                    .image-setting {
+                        @apply flex gap-x-3 pt-1;
+                        border-radius: 3px;
+                        .text-field-custom {
+                            @apply mt-2 text-sm;
+                        }
+                    }
+                    .more-image-setting {
+                        @apply flex flex-wrap;
+                        .image-control {
+                            @apply p-1 flex gap-x-3 pt-1 w-full sm:w-1/2 lg:w-full xl:w-1/2 ;
+                            border-radius: 3px;
+                            .text-field-custom {
+                                @apply mt-2;
+                            }
+                        }
+                    }
+                    .input-date {
+                        @apply w-full flex mt-4 flex-wrap gap-y-3 md:gap-y-4;
+                        .input-half {
+                            @apply w-full md:w-1/2 ;
+                            .date-input  {
+                                @apply mx-0 w-full;
+                                label {
+                                    top: -8px;
+                                    &.MuiInputLabel-shrink {
+                                        top: 0;
+                                    }
+                                }
+                                input {
+                                    @apply py-2 ;
+                                }
+                            }
+                            &.pr {
+                                @apply md:pr-1;
+                            }
+                            &.pl {
+                                @apply md:pl-1;
+                            }
+                        }
+                    }
+             
+
+                    .text-field-custom {
+                        @apply mt-3;
+                    }
+                    .ck-content {
+                        @apply my-2;
+                        label {
+                            @apply text-gray-500;
+                            font-weight: 400;
+                        }
+                    }
+                   
+                    .setting-controls {
+                        @apply flex flex-wrap gap-y-2 mt-2 mb-4;
+                        .switch-form {
+                            @apply w-full px-1 sm:w-1/3 lg:sm:w-1/2 xl:w-1/3;
+                            label {
+                                @apply w-full border border-gray-300 mx-auto sm:gap-x-4 px-2;
+                                justify-content: center;
+                                margin-left: 0;
+                                margin-right: auto;
+                                span {
+                                    font-size: 12px;
+                                    @apply md:text-sm;
+                                }
+                            }
+                        }
+                        .input-group {
+                            @apply  w-full xs:w-1/2 sm:w-1/3 lg:w-1/2 xl:w-1/3 sm:gap-x-4 px-1;
+                            justify-content: space-between;
+                       
+                            .inp {
+                                @apply w-full flex items-center border border-gray-300 px-3;
+                                padding-top: 7px ;
+                                padding-bottom: 7px ;
+                                .title {
+                                    font-weight: 400;
+                                    user-select: none;
+                                    font-size: 12px;
+                                    @apply md:text-sm w-full text-center; 
+                                }  
+                                button {
+                                    height: 1.5rem;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        .modal-footer {
+            justify-content: flex-end;
+        }   
+    }
+}   

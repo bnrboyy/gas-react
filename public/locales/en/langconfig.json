@@ -1,0 +1,20 @@
+{
+    "ConfigTitle": "Language Table",
+    "All": "All",
+    "AddLanguage":"Add New",
+    "WriteFile":"Write File",
+    "LastUpdated": "Last Updated",
+    "No": "No",
+    "Parameter": "Parameter",
+    "PageControl": "Page Control",
+    "Action": "Action",
+    "modalAdd":"Add New",
+    "modalAddLangConfig":"Language Config",
+    "modalCreate":"Create",
+    "modalEdit":"Edit",
+    "modalEditLangConfig":"Language Conig",
+    "modalSave":"บันทึก",
+    "selectPageControl": "Page Control",
+    "selectPageControlNone": "None",
+    "inputSearch": "Find keyword"
+} 

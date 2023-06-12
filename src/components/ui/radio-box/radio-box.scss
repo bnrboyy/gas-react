@@ -1,0 +1,43 @@
+@import '../../../variables';
+
+.box-radio-container {
+  @apply border border-gray-300 w-full;
+  @media screen and (min-width: $lg) {
+      max-width: 280px;
+  }
+  
+  .brc-body {
+    @apply p-3;
+    min-height: 300px;
+    overflow-y: auto;
+    max-height: 100%;
+    
+    .brc-form-control {
+        @apply w-full;
+        #box-radio {
+            @apply w-full pb-2 mb-3 border-b border-gray-300 text-black;
+        }
+        .box-item {
+            @apply m-0 hover:bg-blue-50 pr-2;
+            --level: 0;
+            padding-left: calc(var(--level) * .65rem);
+          
+            .MuiRadio-root {
+                    @apply pl-1;
+            }
+            .MuiSvgIcon-root {
+                font-size: 1.125rem;
+            }
+            .MuiFormControlLabel-label {
+                @apply text-gray-700;
+                font-size: 0.875rem;
+                font-weight: 400;
+            } 
+
+            .Mui-checked ~ .MuiFormControlLabel-label {
+                @apply text-blue-500;
+            }
+        }
+    }
+  }
+}

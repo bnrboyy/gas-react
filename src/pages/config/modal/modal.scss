@@ -1,0 +1,138 @@
+@import '../../../variables';
+.modal-add-Config {
+
+  .modal-custom {
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      outline: 0px solid #42424a;
+      background-color: #42424a;
+    }
+
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -20%);
+    -moz-transform: translate(-50%, -20%);
+    -ms-transform: translate(-50%, -20%);
+    transform: translate(-50%, -20%);
+    width: 90%;
+    max-width: 460px!important;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 11px 15px -7px #00000033, 0px 24px 38px 3px #00000024, 0px 9px 46px 8px #0000001f;
+    overflow-y: auto;
+    // max-height: 95vh;
+    // height: 100%;
+    padding-left: 6px;
+    .modal-header {
+      @apply mx-4 mt-4 sm:mx-7 sm:mt-7;
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        span {
+          padding-left: 5px;
+        }
+      }
+    }
+    .modal-body {
+      @apply mx-4 my-5 sm:mx-7 sm:my-6;
+  
+      .modal-fieldset {
+        @apply border border-gray-300 px-4 pt-4 pb-6 sm:pt-4 sm:pb-8 flex flex-col sm:flex-row flex-wrap gap-y-6 sm:gap-y-4 ;
+        justify-content: space-between;
+        .modal-legend {
+          @apply px-1 text-gray-500;
+        } 
+
+        .modal-config-content {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          row-gap: .5rem;
+          .input-group {
+            @apply w-full flex flex-col gap-1;
+            label {
+              font-weight: 400;
+            }
+            .inp-text {
+              @apply border border-gray-400 px-2 py-1 focus:outline-blue-400 ;
+              border-radius: 5px;
+
+              &.inp-error {
+                @apply border-red-400 focus:outline-red-400 ;
+              }
+            }
+          }  
+          .input-group-action {
+            @apply flex items-center w-full xs:w-1/2 border border-gray-300;
+            border-radius: 5px;
+            justify-content: space-between;
+            padding: 6px 0.75rem;
+            margin-top: .5rem;
+            .title {
+              @apply w-24 text-center;
+              user-select: none;
+            }
+          }
+          .upload-image {
+            display: flex;
+            column-gap: 1rem;
+            margin-top: .5rem;
+            .figure-upload {
+              @apply px-1 border border-gray-200;
+              display:flex;
+              position: relative;
+              max-width: 110px;
+              height: 35px;
+              border-radius: 5px;
+              .image-preview { 
+                align-items: center;
+                max-width: 50px;
+                max-height: 23px;
+                width: 100%;
+                height: 100%;
+                margin: auto 0;
+                border-radius: 2px;
+              }
+            }
+            .inp-upload-file {
+              position: absolute;
+              opacity: 0;
+              width: 30px;
+            }
+            .uploadImageBtn  {
+              font-size: .875rem!important;
+            }
+          }
+        }
+      }
+    }
+    .modal-footer {
+      @apply mx-4 mb-4 sm:mx-7 sm:mb-6 flex;
+      column-gap: .75rem;
+      button {
+        font-size: .87rem;
+        max-height: 2.2rem;
+        &.btn-clear {
+        
+        }
+        &.btn-create, &.btn-edit {
+          @apply ml-auto;
+        }
+      }
+    
+    }
+  }
+
+}

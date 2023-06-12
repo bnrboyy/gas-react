@@ -1,0 +1,54 @@
+@import '../../variables'; 
+
+.bookings-settings-fieldset {
+    @apply mt-6 flex flex-col gap-4 pt-4 shadow;
+    .setting-left {
+        @apply mb-2 flex flex-col lg:flex-row flex-wrap gap-4 ;
+    }
+    .setting-form-control {
+        @media screen and (max-width: $lg) {
+            width: 100%;
+        }
+    }
+    .setting-person {
+
+    }
+    .setting-time-available {
+
+    }
+    .setting-day-disabled {
+
+    }
+    .setting-date-disabled {
+
+    }
+    .setting-holiday-disabled {
+        @apply flex flex-col sm:flex-row gap-4;
+        .holiday-label {
+            @apply mt-2 font-normal;
+        }
+        .date-selected {
+            @apply flex flex-wrap gap-1 mb-2;
+            .date {
+                @apply flex flex-wrap px-2 rounded-sm w-full xs:w-40 py-2 text-center bg-red-50 text-red-700 font-normal border border-red-200 hover:shadow;
+                transition: all .3s;
+                .btn-remove {
+                    margin-left: auto;
+                    font-size: 12px;
+                    &:hover {
+                        @apply text-red-400;
+                    }
+                }
+            }
+        }
+    }
+    .setting-input-date {
+        label[data-shrink="false"] {
+            top: -8px;
+        }
+        input {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        } 
+    }
+}

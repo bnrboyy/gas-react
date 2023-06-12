@@ -1,0 +1,6 @@
+{
+    "homeH1": "Welcome to website",
+    "interpolation": {
+        "example": "What do you need? ({{what}})."
+    }
+}

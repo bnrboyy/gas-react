@@ -1,0 +1,18 @@
+{
+  "btnAddProductCate": "เพิ่มหมวดหมู่",
+  "ModalInfoImage": "รูปภาพหมวดหมู่",
+  "ModalDetail": "รายละเอียด",
+  "ModalSlcTypeTitle": "ModalSlcTypeTitle",
+  "ModalSlcTypeMain": "ModalSlcTypeMain",
+  "ModalSlcTypeAds": "ModalSlcTypeAds",
+  "ModalSlcPositionTitle": "ModalSlcPositionTitle",
+  "None": "",
+  "ModalSlcCtronrolPage": "PageControl",
+  "ModalPriority": "priority",
+  "ModalDisplayStatus": "การแสดงผล",
+  "ModalFoodStatus": "หมวดหมู่สำหรับอาหาร",
+  "btnAddProduct": "AddProduct",
+  "productEdit": "แก้ไขหมวดหมู่สินค้า",
+  "ProductCateAdd": "เพิ่มหมวดหมู่สินค้า",
+  "productCateEdit": "แก้ไขหมวดหมู่"
+}

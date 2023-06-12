@@ -1,0 +1,22 @@
+.content-format-button { 
+    @apply hidden md:flex items-center gap-x-1;
+    .title {    
+        @apply text-gray-700;
+        line-height: 2rem;
+        font-weight: 400;
+        font-size: 1.125rem;
+        align-self: flex-end;
+    }
+    .btn-display-row , .btn-display-col {
+        font-size: 1.125rem;
+        padding: 0.1rem 0.4rem;
+        color: #868686;
+        border: 0;
+        border-radius: 5px;
+        &.active {
+            @apply shadow-md bg-blue-500;
+            color: #ffff;
+        }
+    }
+  
+}

@@ -1,0 +1,20 @@
+{
+    "ConfigTitle": "ตารางภาษา",
+    "All": "ทั้งหมด",
+    "AddLanguage":"เพิ่มรายการ",
+    "WriteFile":"เขียนไฟล์",
+    "LastUpdated": "แก้ไขล่าสุด",
+    "No": "ลำดับ",
+    "Parameter": "ตัวแปร",
+    "PageControl": "จำกัดหน้า",
+    "Action": "จัดการ",
+    "modalAdd":"เพิ่มรายการ",
+    "modalAddLangConfig":"ข้อมูลภาษา",
+    "modalCreate":"สร้าง",
+    "modalEdit":"แก้ไขรายการ",
+    "modalEditLangConfig":"ข้อมูลภาษา",
+    "modalSave":"บันทึก",
+    "selectPageControl": "หมวดหมู่",
+    "selectPageControlNone": "ไม่มี",
+    "inputSearch": "ค้นหาคีย์เวิร์ด"
+} 

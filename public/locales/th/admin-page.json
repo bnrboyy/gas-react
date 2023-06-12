@@ -1,0 +1,26 @@
+{
+    "ConfigTitle": "ผู้ดูแลระบบ",
+    "modalEditAdminh2":"แก้ไข",
+    "modalEditAdminTitle":"ข้อมูลผู้ดูแล",
+    "Edit": "แก้ไข",
+    "Save": "บันทึก",
+    "Delete": "ลบออก",
+    "th-lang": "ภาษาไทย",
+    "en-lang": "ภาษาอังกฤษ",
+    "km-lang": "ภาษาเขมร",
+    "fr-lang": "French",
+    "modal-name": "ชื่อ",
+    "modal-email": "อีเมล",
+    "modal-role": "หน้าที่",
+    "modal-status": "สถานะ",
+    "modal-language": "ภาษา",
+    "modal-active": "เปิดใช้งาน",
+    "modal-inactive": "ปิดใช้งาน",
+    "modal-pending": "รออนุมัติ",
+    "modal-banned": "ปิดกั้น",
+    "modal-superadmin" :"ผู้ดูแลสูงสุด (Superadmin)",
+    "modal-admin" :"ผู้ดูแล (Admin)",
+    "modal-officer" :"เจ้าหน้าที่ (Officer)",
+    "modal-user" :"คนขับ (Rider)"
+}
+

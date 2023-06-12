@@ -1,0 +1,27 @@
+{
+    "ConfigTitle": "Administrator",
+    "modalEditAdminh2":"Edit",
+    "modalEditAdminTitle":"Admin Data",
+    "Edit": "Edit",
+    "Save": "Save",
+    "Delete": "Delete",
+    "th-lang": "Thai",
+    "en-lang": "English",
+    "km-lang": "Khmer",
+    "fr-lang": "French",
+    "modal-name": "Display Name",
+    "modal-email": "Email",
+    "modal-role": "Role",
+    "modal-status": "Status",
+    "modal-language": "Language",
+    "modal-active": "Active",
+    "modal-inactive": "Inactive",
+    "modal-pending": "Pending",
+    "modal-banned": "Banned",
+    "modal-superadmin" :"Superadmin",
+    "modal-admin" :"Admin",
+    "modal-officer" :"Officer",
+    "modal-user" :"Rider"
+ 
+} 
+

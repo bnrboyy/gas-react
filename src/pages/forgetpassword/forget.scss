@@ -1,0 +1,200 @@
+@import "../../variables";
+
+#forgetpassword-page {
+  display: flex;
+  .fig-logo {
+    @apply mx-auto lg:hidden;
+    width: 100%;
+    max-width: 190px;
+    max-height: 100px;
+    .logo {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .login-title {
+    @apply mb-3 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl mt-8 mb-0 md:mb-2;
+    color: #0f172a;
+    text-align: center;
+    font-weight: 600;
+    @media screen and (min-width: $md) {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+  }
+  .login-desc {
+    @apply text-center text-gray-400 text-sm mb-5 md:mb-8;
+  }
+  .login-description {
+    font-weight: 400;
+  }
+  .input-group {
+    @apply mx-auto mt-4 md:mt-7 relative w-full;
+    max-width: 356px;
+    @media screen and (min-width: $xxl) {
+      max-width: 456px;
+    }
+
+    .login-icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 0.75rem;
+    }
+    input {
+      box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+      width: 100%;
+      height: 50px;
+      padding-left: 4rem;
+      border: 1px solid;
+      color: #747171;
+      background: #f5f5f5;
+      border-color: #cfcfcf;
+      border-radius: 10px;
+      font-size: 1rem;
+      &:focus {
+        color: #4e81c0;
+        outline-color: #60a5fa;
+        box-shadow: 0 1px 3px 0 #60a5fa1e, 0 1px 2px -1px #60a5fa2f;
+      }
+      &.inp-error {
+        @apply border-2 border-red-400;
+        &:focus {
+          outline-color: #f87171;
+        }
+      }
+    }
+    .password-required {
+      @apply text-xs text-gray-400 mt-2 font-thin;
+      svg {
+        &.fa-xmark {
+          @apply text-red-400  w-4;
+        }
+        &.fa-circle-check {
+          @apply text-teal-400 w-4;
+        }
+      }
+    }
+  }
+  .rows {
+    @apply flex w-full mx-auto mt-4 justify-between;
+    padding: 0 5px;
+    max-width: 356px;
+    @media screen and (min-width: $xxl) {
+      max-width: 456px;
+    }
+
+    .keep-login {
+      @apply text-gray-500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      &:hover {
+        @apply text-blue-400;
+        input {
+          @apply text-blue-400 border-blue-400;
+        }
+      }
+      label {
+        @apply text-gray-400;
+        cursor: pointer;
+      }
+    }
+    .forget-password {
+      @apply text-gray-400 hover:text-blue-400;
+    }
+  }
+  .btn-signin {
+    @apply text-white mt-10 2xl:mt-12 mx-auto;
+    font-size: 1.25rem;
+    font-family: "Courier New", Courier, monospace;
+    min-height: 2.75rem;
+    border: 0;
+    font-weight: 400;
+    letter-spacing: 1px;
+    transition-duration: 0.65s;
+    background: linear-gradient(172deg, #0079e9 0%, #000b6c 100%);
+    border-radius: 10px;
+    width: 164px;
+    height: 45px;
+    @media screen and (min-width: $xxl) {
+      width: 194px;
+      height: 50px;
+    }
+    &:hover {
+      letter-spacing: 2px;
+    }
+  }
+  .register-section {
+    @apply mt-4 md:mt-6 flex flex-col;
+    .register-title {
+      @apply text-gray-400 mt-2;
+      text-align: center;
+    }
+    a {
+      text-align: center;
+      .btn-register {
+        @apply my-3 px-4 w-full mx-auto relative text-blue-400 border-b-2 border-white;
+        max-width: 230px;
+        font-size: 1rem;
+        font-family: "Courier New", Courier, monospace;
+        min-height: 2.25rem;
+        border-radius: 2px;
+        font-weight: 500;
+        transition-duration: 0.25s;
+
+        &:hover {
+          @apply border-blue-500 text-blue-500 #{!important};
+        }
+      }
+    }
+    .socials {
+      @apply flex gap-2 justify-center;
+      .btn-socials {
+        @apply text-red-400 mt-3 relative border-2 border-white;
+
+        font-family: monospace;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        min-height: 2.25rem;
+        border-radius: 100%;
+        font-weight: 600;
+        transition-duration: 0.35s;
+        &.google {
+          @apply text-red-400;
+          padding: 7px;
+        }
+        &.facebook {
+          @apply text-blue-400;
+          padding: 6px 10px;
+        }
+        &:hover {
+          &.google {
+            @apply text-white bg-red-400;
+          }
+          &.facebook {
+            @apply text-white bg-blue-400;
+          }
+        }
+        &:active {
+          // background-color: #003f52;
+          img {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+  .powerby {
+    @apply pt-16 xl:pt-12 text-gray-600 hidden sm:block;
+    opacity: 0.8;
+    margin-top: auto;
+    font-size: 10px;
+    text-align: end;
+    font-family: monospace;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1rem;
+  }
+  
+}

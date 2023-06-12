@@ -1,0 +1,63 @@
+@import "../../variables";
+
+#lang-page {
+  .card-control {
+    overflow: hidden;
+    .card-body {
+      @media screen and (max-width: ($md - 1px)) {
+        overflow-x: scroll;
+      }
+
+      #lang-table {
+        @media screen and (max-width: ($md - 1px)) {
+          min-width: $md;
+        }
+        .text-title-show {
+
+        }
+        .text-title {
+          text-align: center;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .card-head {
+    display: flex;
+    h2 {
+      @apply hidden lg:block;
+      align-self: flex-end;
+      line-height: 35px;
+    }
+    .head-action {
+      width: 100%;
+      display: flex;
+      gap: 0.75rem;
+      flex-direction: column;
+
+      @media screen and (min-width: $md) {
+        flex-direction: row;
+      }
+
+      .searchpage {
+        @apply w-full md:w-auto;
+        min-width: 200px;
+        height: 100%;
+        margin-left: auto;
+      }
+      .input-search {
+        @apply border border-gray-400 rounded px-2 focus:outline-blue-400;
+      }
+      button {
+        margin-top: auto;
+      }
+    }
+  }
+
+  .card-footer {
+    .title {
+      font-weight: 500;
+    }
+  }
+}

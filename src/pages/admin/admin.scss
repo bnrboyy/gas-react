@@ -1,0 +1,270 @@
+@import "../../variables";
+#admin-page {
+  .card-head {
+    display: flex;
+    h2 {
+      @apply hidden lg:block;
+      align-self: flex-end;
+      line-height: 35px;
+    }
+    .head-action {
+      @apply w-full sm:w-auto;
+      display: flex;
+      gap: 0.75rem;
+      flex-direction: column;
+
+      @media screen and (min-width: $md) {
+        flex-direction: row;
+      }
+
+      .slc-admin-status {
+        @apply w-full;
+        min-width: 200px;
+      }
+      .searchpage {
+        @apply w-full md:w-auto;
+        min-width: 200px;
+        height: 100%;
+        margin-left: auto;
+      }
+      .input-search {
+        @apply border border-gray-400 rounded px-2 focus:outline-blue-400;
+      }
+      button {
+        margin-top: auto;
+      }
+    }
+  }
+  .card-body {
+    @apply px-4 sm:px-5;
+    .admin-tab-box {
+      @apply flex-col sm:flex-row;
+      .MuiTabs-root {
+        @apply border border-gray-200 sm:border-0 sm:border-r;
+        min-width: 150px;
+        @media screen and (min-width: $xl) {
+          min-width: 200px;
+        }
+      }
+      .not-found {
+        @apply text-gray-600 pt-2 text-lg; 
+      }
+      .card-admin-body {
+        @apply flex gap-3 xs:gap-3 2xl:gap-4 flex-wrap justify-center lg:justify-start;
+      
+        .card-tab {
+          @apply border border-gray-100 hover:border-gray-200  px-3 pt-3 pb-2 hover:shadow-lg;
+          position: relative;
+          cursor: pointer;
+          transition-duration: .3s;
+          display: flex;
+          flex-direction: column;
+          border-radius: 5px;
+          width: 100%;
+          @media screen and (min-width: 390px) {
+            width: 47%;
+          }
+          @media screen and (min-width: $xs) {
+            width: 150px;
+          }
+          
+          .new-user {
+            @apply bg-red-600 text-white;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            padding: 0 .5rem;
+            font-size: .65rem;
+            transform: rotate(314deg);
+
+          }
+          .circle-ping {
+            @apply flex justify-center items-center absolute w-4 h-4;
+            top: 2px;
+            right: 2px;
+            z-index: 15;
+            .circle-body {
+              @apply relative inline-flex rounded-full h-3 w-3 ;
+            }
+            .circle-animate {
+              @apply animate-ping absolute inline-flex h-full w-full rounded-full opacity-75;
+            }
+          }
+
+          &.statusId-1 .circle-ping .circle-body {
+            @apply bg-teal-500 border border-teal-300;
+          }
+          &.statusId-1 .circle-ping .circle-animate {
+            @apply bg-teal-400;
+          }
+        
+
+          &.statusId-2  .circle-ping .circle-body {
+            @apply bg-orange-500 border border-orange-300;
+          }
+          &.statusId-2  .circle-ping .circle-animate {
+            @apply bg-orange-400;
+          }
+
+          &.statusId-3 .circle-ping .circle-body {
+            @apply bg-red-500 border border-red-300;
+          }
+          
+          &.statusId-3  {
+            @apply border-red-400;
+            .circle-ping .circle-animate {
+              @apply bg-red-400;
+            }
+          }
+          
+          &.statusId-4 .circle-ping .circle-body {
+            @apply bg-gray-500 border border-gray-300;
+          }
+          &.statusId-4 .circle-ping .circle-animate {
+            @apply bg-gray-400;
+          }
+         
+          @media screen and (min-width: $lg) {
+            width: 170px;
+          }
+         
+          .card-image {
+            @apply border border-gray-200 shadow-sm;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            border-radius: 10rem;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1rem;
+            transition-duration: .3s;
+            z-index: 5;
+            img {
+
+            }
+          }
+          .card-detail {
+            @apply text-gray-400 text-sm;
+          }
+ 
+          .cart-tab-actions {
+            @apply w-full h-full p-2 absolute top-0 left-0 flex flex-col;
+            background: rgba(0, 0, 0, 0.466);
+            border-radius: 5px;
+            transition-duration: .2s;
+            opacity: 0;
+            z-index: 10;
+            &::before {
+              @apply border-t-2 border-l-2 border-white bottom-4 ;
+              content: "";
+              width: 1.5rem;
+              height: 2rem;
+              position: absolute;
+              left: 7px;
+              top: 7px;
+              opacity: .8;
+            }
+            &::after {
+              @apply border-b-2 border-r-2 border-white bottom-4 ;
+              position: absolute;
+              right: 7px;
+              bottom: 7px;
+              content: "";
+              width: 2rem;
+              height: 1.5rem;
+              opacity: .8;
+            }
+            .line-tl {
+              @apply border-t border-l border-white bottom-4 ;
+              width: 2rem;
+              height: 2rem;
+            }
+            .line-br{
+              @apply border-b border-r border-white bottom-4 ;
+              width: 2rem;
+              height: 2rem;
+            }
+            .action-buttons {
+              @apply mt-auto mb-5 flex flex-col gap-2 px-4;
+              button { 
+                padding: 0.215rem 0 !important;
+                font-size: 0.725rem;
+                max-width: 100px;
+                opacity: 0.95;
+                margin-left: auto;
+                width: 100%;
+                margin-right: auto;
+                &.btnedit {
+                  @apply bg-blue-500 hover:bg-blue-600;
+                }
+                &.btndelete {
+                  @apply bg-pink-500 hover:bg-pink-600;
+                }
+              }
+            }
+          }
+          &:hover {
+            @media screen and (min-width: $md) {
+              transform: scale(.975);
+            }
+            .card-image {
+              @apply shadow-xl; 
+              filter: blur(1px);
+              -webkit-filter: blur(1px);
+            }
+            .card-detail {
+              filter: blur(1px);
+              -webkit-filter: blur(1px);
+            }
+            .cart-tab-actions {
+              opacity: 1;
+            }
+          }
+        }
+      }
+      .admin-tab-head-title {
+        @apply w-full sm:w-auto;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        padding-right: 1.5rem;
+        font-size: 0.875rem;
+        min-width: 150px;
+        text-transform: inherit;
+        font-weight: 500;
+        &:hover {
+     
+        }
+        &.hidden-tab {
+          display: none;
+        }
+      }
+      .tab-body {
+        @apply py-4  sm:py-0 sm:px-4 lg:px-6 w-full;
+        .card-detail {
+          .role {
+            @apply text-gray-400;
+            font-weight: 300;
+            text-align: center;
+            font-size: .75rem;
+            line-height: 1rem;
+          }
+          .name {
+            @apply text-gray-500;
+            font-weight: 400;
+            text-align: center;
+            svg {
+              padding-right: 5px;
+            }
+          }
+          .email {
+            @apply text-gray-400;
+            font-weight: 300;
+            text-align: center;
+            font-size: .75rem;
+          }
+        }
+      }
+    }
+  }
+}

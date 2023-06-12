@@ -1,0 +1,121 @@
+@import './../../../variables';
+
+.upload-image-preview {
+    @apply flex flex-wrap gap-2 xl:gap-3;
+    .group {
+      position: relative;
+      width: 125px;
+      @media screen and (min-width: $xxl) {
+        width: 140px;
+      }
+      .image-upload {
+        @apply shadow-md bg-white;
+        width: 100%;
+        border:1px solid;
+        border-radius: 5px;
+        border-color: #6d71752b;
+        position: relative;  
+        height: 135px;
+        @media screen and (min-width: $xxl) {
+          height: 145px;
+        }
+        &:hover {
+          &::after {
+            content: "";
+            border:1px solid;
+            border-color: rgba(0, 0, 0, .1);
+            border-radius: 5px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+          }
+          img {
+            border-radius: 3px;
+            @media screen and (min-width: $lg) {
+              transform: scale(0.93)!important;
+            }
+          }
+        }
+        img {
+          pointer-events: none;
+          transition-duration: .75s;
+          transform: scale(1);
+          width: 100%;
+          height: 100%;
+          border-radius: 4px;
+          background: #e9e9e9;
+          object-fit: fill;
+          &.small-image {
+            width: auto;
+            height: auto;
+          }
+        }
+        .image-icon {
+          position: absolute;
+          color: $borderDark;
+          display: flex;
+          font-size: 2rem;
+          opacity: .75;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+        .inp-file {
+          cursor: pointer;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+        }
+       
+        .upload-icon {
+          display: flex;
+          height: 100%;
+          align-items: center;
+          justify-content: center;
+          svg {
+            @apply text-gray-400;
+            font-size: 2rem;
+          }
+        }
+
+      }
+      
+      .remove-image-btn {
+        @apply text-gray-300 ; 
+        position: absolute;
+        right: 8px;
+        top: 4px;
+        z-index: 20;
+        font-size: 1.25rem;
+        line-height: 0;
+        text-shadow: 1px 1px #000000;
+        &:hover {
+          @apply text-red-500;
+        }
+        &.hide {
+          display: none;
+        }
+      }
+    }
+    .image-label {
+      padding: 2px 3px;
+      display: flex;
+      justify-content: space-between; 
+      label {
+        @apply text-gray-500 text-sm;
+      }
+      .btn-remove-image {
+        @apply text-red-500 flex items-center;
+        svg {
+          font-size: .75rem;
+        }
+      }
+    }
+  }

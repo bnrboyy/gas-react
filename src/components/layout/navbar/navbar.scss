@@ -1,0 +1,199 @@
+@import './../../../variables';
+
+.navbar {
+    position: relative;
+    z-index: 20;
+    transition-duration:  .35s;
+    transform: translateX(0);
+    background: #fff;
+    margin-left: 240px;
+    box-shadow: 0 1px 2px -2px #3d3d44;
+    .nav-body {
+        @apply pl-0 p-2 sm:pl-3 sm:pr-4 md:pr-6 ;
+        display: flex;
+        justify-content: space-between;
+      
+        .btn-toggle-sidebar {
+            flex: none;
+            max-width: 35px;
+            background: inherit;
+            max-height: 35px;
+            box-shadow: none;
+            border: 0;
+            outline: none;
+            color: #3c3c42;
+            &:hover {
+                @apply text-blue-600;
+            }
+        }
+        .blog-right {
+            @apply hidden xs:flex;
+            align-items: center ;
+            gap: 1rem;
+            .fig-menu-icon {
+                cursor: pointer;
+                .fig-badge:active  {
+                    transform: scale(1.05);
+                }
+                .badge-danger {
+                    .MuiBadge-badge {
+                        background-color: #dc3545;
+                    }
+                }
+                .badge-warning {
+                    .MuiBadge-badge {
+                        background-color: #ffc107;
+                        color: #000;
+                    }
+                }
+            }
+            .user-profile {
+                position: relative;
+                padding-bottom: 0.35rem;
+                .btn-profile {
+                    box-shadow: 0 1px 2px rgb(0 0 0 / 16%), 0 1px 5px rgb(0 0 0 / 23%);
+                    border: 1px solid #fff;
+                    border-radius: 100%;
+                    object-fit: inherit;
+                    width: 30px;
+                    height: 30px; 
+                    transition: all .3s;
+                }
+                .card-profile {
+                    @apply border border-b-0 border-gray-100 bg-white shadow-md;
+                    border-radius: 2px;
+                    position: absolute;
+                    width: 225px;
+                    height: 105px; 
+                    top: 2.225rem;
+                    right: 0;
+                    opacity: 0;
+                    pointer-events: none;
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        top: -20px;
+                        right: 0;
+                        width: 40px;
+                        height: 25px;
+                    }
+                }
+                &:hover > .btn-profile {
+                    box-shadow: 0 3px 6px #00000029,0 3px 6px #0000003b;
+                }
+                &:hover > .card-profile {
+                        opacity: 1;
+                        pointer-events: auto;
+                        display: flex;
+                        flex-direction: column;
+                        user-select: none;
+                        .fig-profile { 
+                            margin: auto 0;
+                            padding-left: .35rem;
+                            flex:none;
+                            overflow: hidden;
+                            display: flex;
+                            column-gap: .1rem;
+                            img {
+                                @apply shadow-md bg-gray-100 border-2;
+                                margin-top: auto;
+                                margin-bottom: 4px;
+                                padding: 1px;
+                                flex: none;
+                                object-position: top;
+                                object-fit: inherit;
+                                height: 55px;
+                                width: 55px;
+                                border-radius: 55px;
+                                animation: rotateOnce .35s;
+                                -webkit-animation: rotateOnce .35s;
+                                -moz-animation: rotateOnce .35s;
+                                &:hover {
+                                    @apply border-blue-300;
+                                }
+                                // @keyframes rotateOnce {
+                                //     0% {
+                                //         transform: rotate(3.142rad);
+                                //     }
+                                //     100% {
+                                //         transform: rotate(6.284rad);
+                                //     }
+                                // }
+                            }
+                            .details {
+                                padding-bottom: .25rem;
+                                width: calc(100% - 50px);
+                                align-self: center;
+                                .display {
+                                    font-size: .8rem;
+                                    text-align: center;
+                                    font-weight: 400;
+                                    word-break: break-all;
+                                    span {
+                                        @apply text-teal-500;
+                                        font-weight: 400;
+                                        font-size: .75rem;
+                                        line-height: 1rem;
+                                    }
+
+                                }
+                                .email {
+                                    @apply text-gray-400 mx-1;
+                                    // text-decoration: underline;
+                                    font-size: .65rem;
+                                    line-height: .7rem;
+                                    text-align: center;
+                                    font-weight: 300;
+                                    letter-spacing: 1px;
+                                    word-break: break-all;
+                                }
+                            }
+                        }
+                        .action-body {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: .75rem;
+                            color: #ffff;
+                            .profile {
+                                @apply flex text-white bg-blue-400 w-1/2 justify-center ;
+                                padding: 6px 0;
+                                &:active {
+                                    @apply text-gray-200;
+                                }
+                                &:hover {
+                                    .menu-title {
+                                       text-decoration: underline;
+                                    }
+                                }
+                            }
+                            .signout {
+                                @apply flex text-white w-full justify-center ;
+                                padding: 6px 0;
+                                background-image: linear-gradient(195deg,#3482F6 0%,#3482F6 100%);
+                              
+                                &:active {
+                                    @apply text-gray-200;
+                                }
+                                &:hover {
+                                    .menu-title {
+                                       text-decoration: underline;
+                                    }
+                                }
+                            }
+    
+                        }
+                }
+            }
+        }
+    } 
+}
+.collapsed {
+    .nav-body { 
+        .blog-right {
+            @apply flex ;
+        }
+    }
+}
+
+
+ 

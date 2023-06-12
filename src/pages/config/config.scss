@@ -1,0 +1,114 @@
+;@import '../../variables';
+
+.collapsed {
+    .config-page {
+        .left-pos {
+       
+        }
+        .center-pos {
+       
+        }
+        .right-pos {
+           
+        }
+    
+    }
+}
+.config-page {
+    @apply flex flex-wrap overflow-auto;
+
+    .left-pos {
+        @apply order-4 2xl:order-1 flex flex-wrap flex-col md:flex-row 2xl:flex-col w-full;
+        @media screen and (min-width: $xxl){
+            max-width: 450px;
+        }
+        section {
+            @apply w-full md:w-1/2 2xl:w-full;
+
+            &.manual-control {
+                .card-control {
+                    width: 100%;
+                    .card-body {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+                }
+                .inp-file {
+                    display: none;
+                }
+            }
+        }
+    }
+    .center-pos {
+        @apply grow order-2;
+
+    }
+    .right-pos {
+        @apply grow overflow-auto order-3;
+    }
+
+    .card-control {
+        .card-head {
+            .head-action {
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                .head-title {
+                    display: block;
+                    margin-right: auto;
+                }
+            }
+        }
+        .card-body {
+            overflow: hidden;
+        }
+    }
+
+    section {
+        @apply w-full py-2 sm:px-1 lg:px-2 mx-auto sm:mx-0;
+
+        &.language-control {
+            .blog-language {
+                display: flex;
+                column-gap: 10px;
+                max-width: 160px;
+                width: 100%;
+                img {
+                    border-radius: 2px;
+                    width: 26px;
+                    height: 18px;
+                }
+            }
+            .blog-action {
+                @apply flex justify-end;
+                column-gap: 7px;
+                max-width: 160px;
+                width: 100%;
+            }
+        }
+        &.ads-control {
+            
+        }
+        &.input-type-control {
+            
+        }
+    }
+
+     
+    table {
+        tbody {
+            td {
+                // font-weight: 300!important;
+            }
+        }
+    }
+
+    .manual-upload {
+        @apply flex flex-wrap gap-2; 
+        .btn-manual-upload {
+            margin-top: .5rem;
+            padding-left: 1rem!important;
+        }
+    }
+}

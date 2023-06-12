@@ -1,0 +1,107 @@
+@import "../../../variables";
+
+.card-box {
+    @apply p-3 xl:p-3 flex-col md:flex-row;
+    display: flex;
+    background-color: #f8f9fa;
+    border: 1px solid rgba(0,0,0,.125);
+    gap: .75rem 1rem;
+
+    .box-left {
+        @apply w-full flex flex-col md:flex-row;
+        gap: .75rem;
+        
+        .fig-thumbnail {
+            position: relative;
+            flex: none;
+            .image {
+                object-fit: cover;
+                width: 140px;
+                height: 115px;
+                padding: .25rem;
+                background-color: #fff;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                box-shadow: 0 1px 2px #00000014;
+                transition-duration: 300ms;
+                &:not(.src-error) {
+                    cursor: zoom-in; 
+                }
+                &:hover {
+                    transform: scale(.98)
+                }
+            }
+        }
+        .box-details {
+            @apply w-full;
+        }
+    }
+    .box-right {
+        @apply ml-0 md:ml-auto; 
+        .box-action {
+            @apply flex flex-row md:flex-col gap-x-2 gap-y-2;
+        }
+        .btn-custom {
+            font-size: .9rem;
+            max-height: 31px;
+        }
+
+    }
+
+    &.asColumn {
+        flex-direction: column;
+        .box-left {
+            @apply flex-col;
+            .fig-thumbnail {
+                @apply mx-auto mb-2;
+          
+                .image {
+                    min-width: 115px;
+                    width: 100%;
+                    height: 120px;
+                    @media screen and (min-width: $xl) {
+                        height: 115px;
+                    }
+                }
+            }
+        }
+        .box-right {
+            @apply ml-0 mt-auto text-center xl:text-start;
+            .btn-custom {
+                font-size: .875rem;
+                max-height: 28px;
+            }
+            .box-action {
+                @apply justify-center xl:justify-start;
+                flex-direction: row;
+                column-gap: .75rem;
+            }
+        }
+    
+    }
+}
+.card-ui-preview-image-container {
+    @apply shadow-xl;
+    padding: 4px;
+    position: relative;
+    width: fit-content;
+    block-size: fit-content;
+    width: -moz-fit-content;
+    max-width: 1600px;
+    
+    .swal2-close {
+        @apply shadow-none bg-black opacity-50;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding-bottom: 0.4rem;
+        margin-top: .75rem;
+        margin-right: .75rem;
+        border-radius: 1rem;
+        &:hover {
+            @apply bg-rose-400 opacity-100 text-white;
+        }
+    }
+    .preview-image {
+        margin: 0;
+    }
+}

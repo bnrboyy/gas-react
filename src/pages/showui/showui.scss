@@ -1,0 +1,10 @@
+.showUi {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   
+    .ckeditor-component {
+        @apply bg-white p-4 rounded;
+        max-width: 768px;
+    }
+}

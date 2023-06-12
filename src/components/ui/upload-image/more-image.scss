@@ -1,0 +1,101 @@
+.more-image {
+    display: flex;
+    position: relative;
+    width: 100%;
+    .upload-more {
+        background-color: rgb(197, 197, 197);
+        position: relative;
+        height: 100%;
+        width: 11rem;
+        border-radius: 0.3rem;
+        &:hover {
+            .circle {
+                transition: opacity 0.7s ease-in-out;
+                opacity: 1;
+            }
+            svg.camera {
+                transition: opacity 0.4s ease-in-out;
+                opacity: 1;
+            }
+            svg.plus {
+                transition: opacity 0.2s ease-in-out;
+                opacity: 0;
+            }
+        }
+        .input-file {
+            position: absolute;
+            z-index: 5;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+        }
+        .circle {
+            position: absolute;
+            top: 3px;
+            height: 4rem;
+            width: 4rem;
+            z-index: 5;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 1px solid #ffffff;
+            border-radius: 99rem;
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+        }
+        svg.camera {
+            position: absolute;
+            z-index: 5;
+            height: 15%;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            color: #ffffff;
+            transition: opacity 0.4s ease-in-out;
+        }
+        svg.plus {
+            position: absolute;
+            z-index: 5;
+            height: 20%;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            opacity: 0.8;
+            color: #ffffff;
+            transition: opacity 0.8s ease-in-out;
+        }
+    }
+    .preview-img {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        z-index: 4;
+        .set-details {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            figure {
+                @apply col-span-1;
+                height: 100%;
+                width: 11rem;
+                margin-bottom: 0.5rem;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 0.3rem;
+                }
+            }
+            .form-input {
+                @apply col-span-3;
+            }
+        }
+    }
+}

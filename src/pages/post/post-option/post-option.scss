@@ -1,0 +1,20 @@
+@import "../../../variables";
+
+.tags {
+    @apply mt-3;
+    .MuiChip-root.add {
+        @apply bg-teal-500;
+    }
+    .MuiChip-root.add:hover {
+        @apply hover:bg-teal-600; 
+    }
+    .MuiChip-root {
+        @apply bg-gray-400;
+    }
+    .MuiChip-root:hover {
+        @apply hover:bg-gray-600; 
+    }
+    .MuiChip-label {
+        color: white;
+    }
+} 

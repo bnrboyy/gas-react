@@ -1,0 +1,10 @@
+.fieldsetUI {
+    @apply border border-gray-300 px-3 pt-1 pb-3 rounded;
+    .legendUI {
+        @apply px-1;
+        font-weight: 400;
+    }   
+    input {
+        @apply  border-gray-300 ; 
+    }
+}
