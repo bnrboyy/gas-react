@@ -20,6 +20,7 @@ import withReactContent from "sweetalert2-react-content";
 const modalSwal = withReactContent(Swal);
 
 const CardAdmin = (props) => {
+  console.log(props)
   const { t } = useTranslation(["admin-page"]);
   const { data } = props;
   const profileId = useSelector((state) => state.auth.adminId);
@@ -34,7 +35,7 @@ const CardAdmin = (props) => {
   }, [isOpenModal])
   
   if (data.length === 0) {
-    return <div className="not-found">No data ...</div>;
+    return <div className="not-found">ไม่มีข้อมูล ...</div>;
   }
 
   const editAdminHandler = (data) => {

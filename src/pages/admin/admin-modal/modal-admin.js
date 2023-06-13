@@ -160,14 +160,14 @@ const ModalEditAdmin = (props) => {
                   {uPermission.superAdmin && (
                     <option value="1">{t("modal-superadmin")}</option>
                   )}
-                  {uPermission.admin && (
+                  {/* {uPermission.admin && (
                     <option value="2">{t("modal-admin")}</option>
                   )}
                   {uPermission.officer && (
                     <option value="3">{t("modal-officer")}</option>
-                  )}
-                  {uPermission.user && (
-                    <option value="4">{t("modal-user")}</option>
+                  )} */}
+                  {uPermission.rider && (
+                    <option value="2">{t("modal-user")}</option>
                   )}
                 </select>
               </div>
@@ -189,7 +189,7 @@ const ModalEditAdmin = (props) => {
                   <option value={4}>{t("modal-inactive")}</option>
                 </select>
               </div>
-              <div className="input-group">
+              {/* <div className="input-group">
                 <label className="group-label">{t("modal-language")}</label>
                 <div className="language-body">
                   {data.languageActive.length > 0 &&
@@ -217,7 +217,7 @@ const ModalEditAdmin = (props) => {
                   ))}
                   <p className="language-error">* Atleast one language must be choosen.</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </fieldset>
         </div>

@@ -79,6 +79,7 @@ const AdminPage = () => {
     setAdminStatus(e.target.value) 
   }
   const switchAdminTabHandler = (tabValue) => {
+    console.log(tabValue)
     setAdminTab(tabValue) 
   }
 
@@ -101,7 +102,7 @@ const AdminPage = () => {
           </h2> 
           <div className="head-action">
             <FormControl variant="standard" size="small">
-              <InputLabel id="slc-status">User Status</InputLabel>
+              <InputLabel id="slc-status">สถานะแอดมิน</InputLabel>
               <Select
                 className="slc-admin-status"
                 labelId="slc-status"

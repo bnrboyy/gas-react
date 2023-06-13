@@ -19,9 +19,7 @@ const initialAuthState = {
     },
     userPermission: {
         superAdmin: false,
-        admin: false,
-        officer: false,
-        user: false,
+        rider: false,
     }
 }
 
@@ -69,9 +67,9 @@ const authSlice = createSlice({
             const userPermission = setPermission.map((row,index) => (state.userRoleId <= (index + 1)))
             state.userPermission = {
                 superAdmin: userPermission[0],
-                admin: userPermission[1],
-                officer: userPermission[2],
-                user: userPermission[3],
+                // admin: userPermission[1],
+                // officer: userPermission[2],
+                rider: userPermission[1],
             } 
             state.profile = {
                 username: obj.profile.username,

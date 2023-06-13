@@ -35,16 +35,18 @@ function a11yProps(index, isAllow) {
 
 
 const AdminTab = (props) => {
+  console.log(props.adminData)
   const userPermission = useSelector(state => state.auth.userPermission)
   const tabLists = [
     {index: 0, title: "All", allow: true },
     {index: 1, title: "Superadmin", allow: userPermission.superAdmin },
-    {index: 2, title: "Admin", allow: userPermission.admin },
-    {index: 3, title: "Officer", allow: userPermission.officer },
-    {index: 4, title: "Rider", allow: userPermission.user },
+    // {index: 2, title: "Admin", allow: userPermission.admin },
+    // {index: 3, title: "Officer", allow: userPermission.officer },
+    {index: 2, title: "Rider", allow: userPermission.rider },
   ]
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
     props.setAdminTab(newValue);
   }
 

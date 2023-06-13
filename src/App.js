@@ -36,7 +36,7 @@ function App() {
   const pagesAllow = useSelector((state) => state.app.pages);
   const isDevMode = useSelector((state) => state.app.isDevMode);
   const uPermission = useSelector((state) => state.auth.userPermission);
-  const defaultPath = uPermission.user && !uPermission.superAdmin && !uPermission.admin ? "orders" : "dashboard";
+  const defaultPath = uPermission.rider && !uPermission.superAdmin && !uPermission.admin ? "orders" : "dashboard";
 
   return (
     <Suspense>

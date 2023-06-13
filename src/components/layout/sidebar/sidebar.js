@@ -33,6 +33,8 @@ import {
   faHomeUser,
   faBox,
   faBoxesStacked,
+  faBuildingColumns,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { Badge, Button } from "@mui/material";
 import NavLink from "./navlink";
@@ -431,9 +433,23 @@ const SidebarComponent = (props) => {
                     liClass="menu-link"
                   >
                     <figure className="faIcon">
-                      <FontAwesomeIcon icon={faCircleInfo} />
+                    <FontAwesomeIcon icon={faScrewdriverWrench} />
                     </figure>
-                    <div className="menu-title">{t("WebInfoPage")}</div>
+                    <div className="menu-title">ตั้งค่าเว็บไซต์</div>
+                  </NavLink>
+                )}
+                {pagesAllow.configs && uPermission.superAdmin && (
+                  <NavLink
+                    onClick={closeSidebarhandler}
+                    to="/configs"
+                    className={`navlink `}
+                    title={t("ConfigPage")}
+                    liClass="menu-link"
+                  >
+                    <figure className="faIcon">
+                    <FontAwesomeIcon icon={faBuildingColumns} />
+                    </figure>
+                    <div className="menu-title">จัดการบัญชีธนาคาร</div>
                   </NavLink>
                 )}
                 {pagesAllow.admins &&
@@ -467,20 +483,7 @@ const SidebarComponent = (props) => {
                   </NavLink>
                 )} */}
 
-                {pagesAllow.configs && uPermission.superAdmin && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/configs"
-                    className={`navlink `}
-                    title={t("ConfigPage")}
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faTools} />
-                    </figure>
-                    <div className="menu-title">{t("ConfigPage")}</div>
-                  </NavLink>
-                )}
+                
                 {/* {isDevMode && (
                   <NavLink
                     onClick={closeSidebarhandler}

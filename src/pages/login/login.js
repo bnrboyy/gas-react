@@ -54,7 +54,7 @@ const LoginPage = () => {
             dispatch(
               authActions.login({
                 token: response.data.data.accessToken,
-                keepLogin: keepRef.current.checked,
+                keepLogin: true,
               })
             );
             ToastModal.fire({
@@ -98,32 +98,30 @@ const LoginPage = () => {
   return (
     <form id="login-page" className="guest-form">
       <figure className="fig-logo">
-        <img
-          src="https://manami-delivery.com/img/home/mainlogogroup.png"
-          className="logo"
-        />
+        <img src="images/icons/gas-delivery.png" className="logo" />
       </figure>
-      <h1 className="login-title">Login To Your Account</h1>
-      <p className="login-desc">Welcome Back To Manami-delivery Manager</p>
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/user.svg" />
-        </figure>
-        <input type="text" placeholder={t("Username")} ref={usernameRef} />
-      </div>
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/key.svg" />
-        </figure>
-        <input
-          type="password"
-          autoComplete="false"
-          placeholder={t("Password")}
-          ref={passwordRef}
-        />
-      </div>
-      <div className="rows">
-        <div className="keep-login">
+      <div className="input-form">
+        <h1 className="login-title">Gas-Delivery</h1>
+        <p className="login-desc">เข้าสู่ระบบ</p>
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/user.svg" />
+          </figure>
+          <input type="text" placeholder={t("Username")} ref={usernameRef} />
+        </div>
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/key.svg" />
+          </figure>
+          <input
+            type="password"
+            autoComplete="false"
+            placeholder={t("Password")}
+            ref={passwordRef}
+          />
+        </div>
+        {/* <div className="rows"> */}
+          {/* <div className="keep-login">
           <input
             type="checkbox"
             ref={keepRef}
@@ -131,31 +129,33 @@ const LoginPage = () => {
             id="check-keep"
           />
           <label htmlFor="check-keep">{t("KeepLogin")}</label>
-        </div>
-        <div className="forget-password">
-          <Link to="/forgetpassword">{t("ForgetPassword")}</Link>
-        </div>
-      </div>
-      <button type="button" className="btn-signin" onClick={signInHandler}>
-        {t("SignInBtn")}
-      </button>
-      <div className="register-section">
-        <h3 className="register-title">{t("OrSignInWith")}</h3>
-        <div className="socials">
-          {/* <button type="button" className="btn-socials facebook">
+        </div> */}
+          {/* <div className="forget-password">
+            <Link to="/forgetpassword">{t("ForgetPassword")}</Link>
+          </div>
+        </div> */}
+        <button type="button" className="btn-signin" onClick={signInHandler}>
+          {t("SignInBtn")}
+        </button>
+        <div className="register-section">
+          <h3 className="register-title">{t("OrSignInWith")}</h3>
+          <div className="socials">
+            {/* <button type="button" className="btn-socials facebook">
           <img src="/images/svg/facebook.svg" />
         </button> */}
-          <Link to="/register">
-            <button type="button" className="btn-register ">
-              {t("NewAccountBtn")}
-            </button>
-          </Link>
-          {/* <button type="button" className="btn-socials google">
+            <Link to="/register">
+              <button type="button" className="btn-register ">
+                {t("NewAccountBtn")}
+              </button>
+            </Link>
+            {/* <button type="button" className="btn-socials google">
           <img src="/images/svg/google.svg" />
         </button> */}
+          </div>
         </div>
       </div>
-      <div className="powerby"> COPY RIGHT @2023 MANAMI DELIVERY CO,LTD</div>
+
+      {/* <div className="powerby"> COPY RIGHT @2023 MANAMI DELIVERY CO,LTD</div> */}
     </form>
   );
 };

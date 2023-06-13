@@ -5,10 +5,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import validator from "validator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheckCircle,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "./register.scss";
@@ -221,99 +218,100 @@ const RegisterPage = () => {
   return (
     <form id="register-page" className="guest-form">
       <figure className="fig-logo">
-        <img
+        {/* <img
           src="https://manami-delivery.com/img/home/mainlogogroup.png"
           className="logo"
-        />
+        /> */}
       </figure>
-      <h1 className="login-title">Login To Your Account</h1>
-      <p className="login-desc">Welcome Back To Manami-delivery Manager</p>
+      <div className="input-form">
+        <h1 className="login-title">สมัครสมาชิก</h1>
+        {/* <p className="login-desc">Welcome Back To Manami-delivery Manager</p> */}
 
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/user.svg" />
-        </figure>
-        <input
-          type="text"
-          placeholder={t("Username")}
-          className={`${!username ? "inp-error" : ""}`}
-          onChange={filterUsername}
-          ref={usernameRef}
-        />
-      </div>
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/key.svg" />
-        </figure>
-        <input
-          type="password"
-          placeholder={t("Password")}
-          className={`${!password.valid ? "inp-error" : ""}`}
-          onChange={filterPassword}
-          ref={passwordRef}
-        />
-        {!password.valid && (
-          <>
-            <p className="password-required">
-              <FontAwesomeIcon
-                icon={password.minLength ? faCheckCircle : faTimes}
-              />{" "}
-              Password must be atleast 8 characters *
-            </p>
-            <p className="password-required">
-              <FontAwesomeIcon
-                icon={password.upperCase ? faCheckCircle : faTimes}
-              />{" "}
-              Password must be 1 Upper Character *
-            </p>
-            <p className="password-required">
-              <FontAwesomeIcon
-                icon={password.lowerCase ? faCheckCircle : faTimes}
-              />{" "}
-              Password must be 1 Lower Character *
-            </p>
-            <p className="password-required">
-              <FontAwesomeIcon
-                icon={password.numberCase ? faCheckCircle : faTimes}
-              />{" "}
-              Password must be 1 Number Character *
-            </p>
-          </>
-        )}
-      </div>
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/shieldkey.svg" />
-        </figure>
-        <input
-          type="password"
-          placeholder={t("ConfirmPassword")}
-          className={`${!confirm ? "inp-error" : ""}`}
-          onChange={filterConfirmPassword}
-          ref={confirmRef}
-        />
-        <p className="password-required">
-          * Password and confirm password must be match.
-        </p>
-      </div>
-      <div className="input-group">
-        <figure className="login-icon">
-          <img src="/images/svg/signature.svg" />
-        </figure>
-        <input type="text" placeholder={t("DisplayName")} ref={displayRef} />
-      </div>
-      <div className="rows">
-        <div />
-        <div className="forget-password">
-          <Link className="link" to="/login">
-            {t("AlreadyHaveAnAccount")}
-          </Link>
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/user.svg" />
+          </figure>
+          <input
+            type="text"
+            placeholder={t("Username")}
+            className={`${!username ? "inp-error" : ""}`}
+            onChange={filterUsername}
+            ref={usernameRef}
+          />
         </div>
-      </div>
-      <button type="button" className="btn-signin" onClick={signUpHandler}>
-        {t("SignUpButton")}
-      </button>
-      {/* <div className="register-section">
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/key.svg" />
+          </figure>
+          <input
+            type="password"
+            placeholder={t("Password")}
+            className={`${!password.valid ? "inp-error" : ""}`}
+            onChange={filterPassword}
+            ref={passwordRef}
+          />
+          {!password.valid && (
+            <>
+              <p className="password-required">
+                <FontAwesomeIcon
+                  icon={password.minLength ? faCheckCircle : faTimes}
+                />{" "}
+                Password must be atleast 8 characters *
+              </p>
+              <p className="password-required">
+                <FontAwesomeIcon
+                  icon={password.upperCase ? faCheckCircle : faTimes}
+                />{" "}
+                Password must be 1 Upper Character *
+              </p>
+              <p className="password-required">
+                <FontAwesomeIcon
+                  icon={password.lowerCase ? faCheckCircle : faTimes}
+                />{" "}
+                Password must be 1 Lower Character *
+              </p>
+              <p className="password-required">
+                <FontAwesomeIcon
+                  icon={password.numberCase ? faCheckCircle : faTimes}
+                />{" "}
+                Password must be 1 Number Character *
+              </p>
+            </>
+          )}
+        </div>
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/shieldkey.svg" />
+          </figure>
+          <input
+            type="password"
+            placeholder={t("ConfirmPassword")}
+            className={`${!confirm ? "inp-error" : ""}`}
+            onChange={filterConfirmPassword}
+            ref={confirmRef}
+          />
+          <p className="password-required">
+            *รหัสผ่านและยืนยันรหัสผ่านต้องตรงกัน
+          </p>
+        </div>
+        <div className="input-group">
+          <figure className="login-icon">
+            <img src="/images/svg/signature.svg" />
+          </figure>
+          <input type="text" placeholder={t("DisplayName")} ref={displayRef} />
+        </div>
+        <div className="rows">
+          <div />
+          <div className="forget-password">
+            <Link className="link" to="/login">
+              {t("AlreadyHaveAnAccount")}
+            </Link>
+          </div>
+        </div>
+        <button type="button" className="btn-signin" onClick={signUpHandler}>
+          {t("SignUpButton")}
+        </button>
+        {/* <div className="register-section">
         <h3 className="register-title">{t("OrSignInWithSocial")}</h3>
         <div className="socials">
           <button type="button" className="btn-socials facebook">
@@ -324,7 +322,8 @@ const RegisterPage = () => {
           </button>
         </div>
       </div> */}
-      <div className="powerby"> COPY RIGHT @2023 MANAMI DELIVERY CO,LTD</div>
+        {/* <div className="powerby"> COPY RIGHT @2023 MANAMI DELIVERY CO,LTD</div> */}
+      </div>
     </form>
   );
 };
