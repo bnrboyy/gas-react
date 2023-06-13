@@ -12,6 +12,7 @@ import {
   faPencil,
   faPenClip,
   faPenNib,
+  faMotorcycle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
@@ -20,7 +21,6 @@ import withReactContent from "sweetalert2-react-content";
 const modalSwal = withReactContent(Swal);
 
 const CardAdmin = (props) => {
-  console.log(props)
   const { t } = useTranslation(["admin-page"]);
   const { data } = props;
   const profileId = useSelector((state) => state.auth.adminId);
@@ -109,14 +109,14 @@ const CardAdmin = (props) => {
                   />
                 )}
                 {admin.roleId === 2 && (
-                  <FontAwesomeIcon className="admin-verify" icon={faPenNib} />
+                  <FontAwesomeIcon icon={faMotorcycle} />
                 )}
-                {admin.roleId === 3 && (
+                {/* {admin.roleId === 3 && (
                   <FontAwesomeIcon className="admin-verify" icon={faPenClip} />
                 )}
                 {admin.roleId === 4 && (
                   <FontAwesomeIcon className="admin-verify" icon={faPencil} />
-                )}
+                )} */}
                 {admin.displayName}
               </p>
               <p className="email">{admin.email}</p>
