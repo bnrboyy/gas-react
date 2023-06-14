@@ -416,7 +416,7 @@ const Chart = ({
     datasets: [
       {
         label: "Total ",
-        data: labels.map(() => Math.random(Math.round(0, 100) * 100)),
+        data: labels.map(() => Math.random(1, 1000) * 100),
         // data: labels.map((item, ind) => {
         //   let tt = 0;
         //   for (let i of orderBar) {
