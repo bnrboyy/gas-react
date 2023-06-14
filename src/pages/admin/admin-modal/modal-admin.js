@@ -42,7 +42,7 @@ const ModalEditAdmin = (props) => {
           return oldData;
         }
       }, "")
-      formData.append("language", language)
+      formData.append("language", 'th')
       if(language === ""){
         document.querySelector('.language-body').classList.add('error')
         return false

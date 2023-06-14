@@ -9,9 +9,10 @@ function DonutChart({ data, labelTitles }) {
     <React.Fragment>
       <Chart
         type="donut"
-        width={370}
-        height={370}
-        series={data}
+        width={520}
+        height={520}
+        series={[100,40,565]}
+        // series={data}
         options={{
           colors: colors,
           chart: {
@@ -39,7 +40,7 @@ function DonutChart({ data, labelTitles }) {
               breakpoint: 1670,
               options: {
                 chart: {
-                  width: 250,
+                  width: 450,
                 },
                 legend: {
                   position: "bottom",

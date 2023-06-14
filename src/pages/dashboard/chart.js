@@ -416,19 +416,20 @@ const Chart = ({
     datasets: [
       {
         label: "Total ",
-        data: labels.map((item, ind) => {
-          let tt = 0;
-          for (let i of orderBar) {
-            if (i.shipping_date === item) {
-              if (barTitle === "Delivery") {
-                tt += i.delivery_price;
-              } else {
-                tt += i.total_price;
-              }
-            }
-          }
-          return tt;
-        }),
+        data: labels.map(() => Math.random(Math.round(0, 100) * 100)),
+        // data: labels.map((item, ind) => {
+        //   let tt = 0;
+        //   for (let i of orderBar) {
+        //     if (i.shipping_date === item) {
+        //       if (barTitle === "Delivery") {
+        //         tt += i.delivery_price;
+        //       } else {
+        //         tt += i.total_price;
+        //       }
+        //     }
+        //   }
+        //   return tt;
+        // }),
         backgroundColor: `rgba(${colorRGB})`,
         borderWidth: 1,
         borderRadius: 5,

@@ -180,12 +180,9 @@ const DashboardPage = () => {
   ];
 
   const labelTitles = [
-    "Washing",
-    "Drying",
-    "Food",
-    "Ironing",
-    "Delivery",
-    "Total",
+    "เปลี่ยนถัง",
+    "สั่งสินค้า",
+    "ค่าจัดส่ง",
   ];
 
   const detailsStyle = [
@@ -290,7 +287,7 @@ const DashboardPage = () => {
               <div className="content-left">
                 <DonutChart data={donut} labelTitles={labelTitles} />
               </div>
-              <div className="content-right">
+              {/* <div className="content-right">
                 <Grid container columnSpacing={2} rowSpacing={6}>
                   {detailsStyle.map((item, ind) => (
                     <Grid key={ind} container item xs={6} direction="column">
@@ -313,7 +310,7 @@ const DashboardPage = () => {
                     </Grid>
                   ))}
                 </Grid>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -340,19 +337,19 @@ const DashboardPage = () => {
                       value="week"
                       onChange={handleChange}
                       control={<Radio />}
-                      label="Week"
+                      label="7 วันหลังสุด"
                     />
                     <FormControlLabel
                       value="month"
                       onChange={handleChange}
                       control={<Radio />}
-                      label="Month"
+                      label="รายเดือน"
                     />
                     <FormControlLabel
                       value="year"
                       onChange={handleChange}
                       control={<Radio />}
-                      label="Year"
+                      label="รายปี"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -389,9 +386,9 @@ const DashboardPage = () => {
 
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(0, 94, 160)"}}>Wash&Dry</Typography>
+                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(0, 94, 160)"}}>เปลี่ยนถัง</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>Total: {totalPriceWash} THB</Typography>
+                <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceWash} บาท</Typography>
               </div>
               <div className="card-body">
                 <Chart
@@ -411,9 +408,9 @@ const DashboardPage = () => {
             </div>
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(255, 125, 0)"}}>Vending&Cafe</Typography>
+                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(255, 125, 0)"}}>สั่งสินค้า</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>Total: {totalPriceFood} THB</Typography>
+                <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceFood} บาท</Typography>
               </div>
               <div className="card-body">
                 <Chart
@@ -433,9 +430,9 @@ const DashboardPage = () => {
             </div>
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(120, 41, 15)"}}>Delivery</Typography>
+                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(120, 41, 15)"}}>ค่าจัดส่ง</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>Total: {totalPrice} THB</Typography>
+                <Typography variant="subtitle1" gutterBottom>รวม: {totalPrice} บาท</Typography>
               </div>
               <div className="card-body">
                 <Chart
@@ -478,19 +475,19 @@ const DashboardPage = () => {
                     value="all"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="All"
+                    label="ทั้งหมด"
                   />
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     value="wash&dry"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="Wash&Dry"
+                    label="เปลี่ยนถัง"
                   />
                   <FormControlLabel
                     value="food"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="Food"
+                    label="สั่งสินค้า"
                   />
                   <FormControlLabel
                     value="ironing"
@@ -498,18 +495,18 @@ const DashboardPage = () => {
                     control={<Radio />}
                     label="Ironing"
                     disabled
+                  /> */}
+                  <FormControlLabel
+                    value="comlete"
+                    onChange={handleChange}
+                    control={<Radio />}
+                    label="Complete"
                   />
                   <FormControlLabel
                     value="fails"
                     onChange={handleChange}
                     control={<Radio />}
                     label="Fails"
-                  />
-                  <FormControlLabel
-                    value="comlete"
-                    onChange={handleChange}
-                    control={<Radio />}
-                    label="Complete"
                   />
                 </RadioGroup>
               </FormControl>
