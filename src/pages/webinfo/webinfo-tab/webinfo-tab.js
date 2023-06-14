@@ -54,7 +54,7 @@ const WebinfoTab = (props) => {
   const tabBody = (tab, index) => {
     return (
       <TabPanel className="tab-body" value={props.tabSelected} index={index} key={index}>
-        {props.tabSelected === 0 && (
+        {props.tabSelected !== 0 && (
           <WebInfoDetail 
             refresh={props.refresh}
             data={props.detail} 
@@ -62,7 +62,7 @@ const WebinfoTab = (props) => {
             setWebInfoData={props.setWebInfoData} />
         )}
 
-        {props.tabSelected > 0 && (
+        {props.tabSelected === 0 && (
           <WebInfoTable  
             refresh={props.refresh}
             setWebInfoData={props.setWebInfoData}
@@ -76,7 +76,8 @@ const WebinfoTab = (props) => {
   }
 
   const handleChange = (event, newValue) => {
-    props.switchTabHandler(newValue);
+    props.switchTabHandler(0);
+    // props.switchTabHandler(newValue);
   }
  
   return (

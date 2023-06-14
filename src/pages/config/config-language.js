@@ -11,17 +11,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-import { faAdd, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faLanguag, faMoneyBillTransfer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddConfigModal from "./modal/addConfig";
-
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-const modalSwal = withReactContent(Swal)
+import { Switch } from "@mui/material";
 
+const modalSwal = withReactContent(Swal)
 const LanguageSection = (props) => { 
-  const { data } = props;
+  const { data, bank } = props;
   const { t } = useTranslation("config-page"); 
   const language = useSelector(state=>state.app.language)
   const uploadPath = useSelector(state=>state.app.uploadPath)
@@ -122,7 +121,7 @@ const LanguageSection = (props) => {
           <div className="card-head">
             <div className="head-action">
               <h2 className="head-title">
-                <FontAwesomeIcon icon={faLanguage} /> {t("LanguageConfig")}
+              <FontAwesomeIcon icon={faMoneyBillTransfer} /> {"รายการบัญชีธนาคาร"}
               </h2>
               {multilingual && (
                 <ButtonUI
@@ -130,7 +129,7 @@ const LanguageSection = (props) => {
                   on="create"
                   isLoading={false}
                   icon={<FontAwesomeIcon icon={faAdd} />} >
-                  {t("New")}
+                  {"เพิ่มธนาคาร"}
                 </ButtonUI>
               )}
 
@@ -143,14 +142,17 @@ const LanguageSection = (props) => {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" sx={{ width: "10px" }}>  # </TableCell>
-                    <TableCell>{t("Type")}</TableCell>
-                    <TableCell>{t("Title")}</TableCell>
+                    <TableCell>{"รูปภาพ"}</TableCell>
+                    <TableCell>{"ชื่อธนาคาร"}</TableCell>
+                    <TableCell>{"ชื่อบัญชี"}</TableCell>
+                    <TableCell>{"เลขบัญชี"}</TableCell>
+                    <TableCell align="center">{"การแสดงผล"}</TableCell>
                     <TableCell align="center" sx={{ width: "100px" }}>{t("Action")} </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data &&
-                    data.map((row, index) => (
+                  {bank &&
+                    bank.map((row, index) => (
                       <TableRow
                         key={row.id}
                         sx={{
@@ -159,14 +161,19 @@ const LanguageSection = (props) => {
                         <TableCell scope="row" align="center">{index + 1}</TableCell>
                         <TableCell>
                           <div className="blog-language">
-                            <img src={`${uploadPath}${row.flag}`}/>
-                            <span>{row.language.toUpperCase()}</span>
+                            <img src={`${uploadPath}${row.bank_image}`}/>
                           </div>
                         </TableCell>
-                        <TableCell>{row.title}</TableCell>
+                        <TableCell>{row.bank_name}</TableCell>
+                        <TableCell>{row.bank_account}</TableCell>
+                        <TableCell>{row.bank_number}</TableCell>
+                        <TableCell align="center">
+                          <Switch aria-label="Size switch" size="small" checked={true}  /*onChange={(e)=> displayInfoHandler(e, row.token) } *//>
+                        </TableCell>
                         <TableCell align="right">
                           <div className="blog-action">
-                            <ButtonUI on="delete" width="xs" onClick={(e)=> languageDeleteHandler(row.token)}>{t("Delete")}</ButtonUI>
+                            <ButtonUI on="edit" width="xs" onClick={(e)=> languageDeleteHandler(row.token)}>{"แก้ไข"}</ButtonUI>
+                            <ButtonUI on="delete" width="xs" onClick={(e)=> languageDeleteHandler(row.token)}>{"ลบ"}</ButtonUI>
                           </div>
                         </TableCell>
                       </TableRow>

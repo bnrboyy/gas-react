@@ -16,6 +16,22 @@ export const getConfigData = (language) => {
   );
 };
 
+export const getBankData = () => {
+  return axios.get(`bank/data`).then(
+    (res) => {
+      return { status: true, data: res.data.data };
+    },
+    (error) => {
+      return {
+        status: false,
+        description: !error.response.data
+          ? "Something went wrong."
+          : error.response.data.description,
+      };
+    }
+  );
+};
+
 export const configBannerCreate = (formData) => {
   return axios.post(`config/ad_type/create`, formData).then(
     (res) => {

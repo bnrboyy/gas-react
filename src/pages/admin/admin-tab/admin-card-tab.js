@@ -47,8 +47,8 @@ const CardAdmin = (props) => {
     /* confirm */
     await modalSwal.fire({
       icon: 'warning',
-      title: 'Delete Account!',
-      text: "You want to delete an admin account?",
+      title: 'ลบบัญชี!',
+      text: "คุณต้องการลบบัญชีนี้หรือไม่?",
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

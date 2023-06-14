@@ -138,19 +138,19 @@ const ModalEditWebinfo = (props) => {
           <fieldset className="modal-fieldset">
             <legend className="modal-legend">{t("ModalEditWebinfoTitle")}</legend>
             <div className="modal-content">
-              <div className="input-group"> 
+              {/* <div className="input-group"> 
                 <label className="title">Title : ( ใช้สำหรับ developer )</label>
                 <input className="inp-text" ref={paramRef} placeholder="Title" defaultValue={modalData.param} disabled/>
-              </div> 
+              </div>  */}
               <div className="input-group"> 
-                <label className="title">Description :</label>
+                <label className="title">คำอะธิบาย :</label>
                 <input className="inp-text" ref={titleRef} placeholder="Description" defaultValue={modalData.description} />
               </div> 
               <div className="input-group"> 
-                <label className="title">Value :</label>
+                <label className="title">กำหนดค่า :</label>
                 <textarea className="inp-textarea" ref={valueRef} placeholder="Value" defaultValue={modalData.value}></textarea>
               </div> 
-              <div className="input-group">  
+              {/* <div className="input-group">  
                 <label className="title">Link :</label>
                 <textarea className="inp-textarea" ref={linkRef} placeholder="Link" defaultValue={modalData.link}></textarea>
               </div> 
@@ -161,8 +161,8 @@ const ModalEditWebinfo = (props) => {
               <div className="input-group"> 
                 <label className="title">Attribute :</label>
                 <input className="inp-text" ref={attributeRef} placeholder="Attribute" defaultValue={modalData.attribute} />
-              </div> 
-              <div className="input-group-action"> 
+              </div>  */}
+              {/* <div className="input-group-action"> 
                 <ButtonUI color="error" onClick={(e) => priorityHandler(false)} ><FontAwesomeIcon icon={faMinus} /></ButtonUI>
                 <span className="title">Priority {priorityNumber}</span>
                 <ButtonUI onClick={(e) => priorityHandler(true)} ><FontAwesomeIcon icon={faAdd} /></ButtonUI>
@@ -170,7 +170,7 @@ const ModalEditWebinfo = (props) => {
               <div className="input-group-action"> 
                 <label>Display</label>
                 <Switch defaultChecked={modalData.display} onChange={(e)=> setInfoDisplay(e.target.checked) } />
-              </div> 
+              </div>  */}
             </div>
           </fieldset>
         </div>

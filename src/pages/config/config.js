@@ -6,14 +6,14 @@ import SystemSection from "./config-system";
 import axios from 'axios'; 
 
 import "./config.scss";
-import { faTools } from "@fortawesome/free-solid-svg-icons";
+import { faTools, faBuildingColumns } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LanguageSection from "./config-language";
 import BannerSection from "./config-banner";
 import DataTypeSection from "./config-datatype"; 
 import ManualSection from "./config-manual";
 import { appActions } from "../../store/app-slice";
-import { getConfigData } from "../../services/config.service";
+import { getConfigData, getBankData } from "../../services/config.service";
  
 const ConfigPage = () => {
   const { t } = useTranslation("config-page")
@@ -25,6 +25,7 @@ const ConfigPage = () => {
   const [isFetching, setIsFetching] = useState(false)
 
   const [languageArr, setLanguageArr] = useState([])
+  const [bankData, setBankData] = useState([])
   const [bannerTypeArr, setBannerTypeArr] = useState([])
   const [infoTypeArr, setInfoTypeArr] = useState([])
 
@@ -46,6 +47,8 @@ const ConfigPage = () => {
         }
         dispatch(appActions.isSpawnActive(false));
       })
+
+      getBankData().then(res => setBankData(res.data))
     }
   }
 
@@ -61,21 +64,21 @@ const ConfigPage = () => {
   return (
     <Fragment>
       <HeadPageComponent
-        h1={t("ConfigPage")}
-        icon={<FontAwesomeIcon icon={faTools} />}
-        breadcrums={[{ title: "ConfigPage", link: false }]} />
+        h1={"จัดการบัญชีธนาคาร"}
+        icon={<FontAwesomeIcon icon={faBuildingColumns} />}
+        breadcrums={[{ title: "จัดการบัญชีธนาคาร", link: false }]} />
       <div className="config-page">
-        <div className="left-pos"  >
+        {/* <div className="left-pos"  >
           <SystemSection />
           <ManualSection />
-        </div>
+        </div> */}
         <div className="center-pos" >
-          <LanguageSection refresh={() => setRefreshData( refreshData + 1)} data={languageArr}  />
-          <DataTypeSection refresh={() => setRefreshData( refreshData + 1)} data={infoTypeArr} />
+          <LanguageSection refresh={() => setRefreshData( refreshData + 1)} data={languageArr} bank={bankData}  />
+          {/* <DataTypeSection refresh={() => setRefreshData( refreshData + 1)} data={infoTypeArr} /> */}
         </div>
-        <div className="right-pos" >
+        {/* <div className="right-pos" >
           <BannerSection refresh={() => setRefreshData( refreshData + 1)} data={bannerTypeArr} />
-        </div>
+        </div> */}
       </div>
     </Fragment>
   )

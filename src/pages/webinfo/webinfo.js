@@ -10,7 +10,7 @@ import ModalAddWebinfo from "./webinfo-modal/modal-add-webinfo";
 import ModalEditWebinfo from "./webinfo-modal/modal-edit-webinfo";
 
 import './webinfo.scss'; 
-import { faAdd,  faInfoCircle,  faRedo } from "@fortawesome/free-solid-svg-icons";
+import { faAdd,  faInfoCircle,  faRedo, faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const WebInfoPage = () => {
@@ -42,7 +42,10 @@ const WebInfoPage = () => {
   
   const tabListFilter = (data) => { 
     data.map(rows => setTabLists((prev) => [...prev, {id: rows.id, title: rows.title, type: rows.typeName}]) )
+    // data.filter((item) => item.id === 5);
   }
+
+  // console.log(tabLists)
 
   const OnInIt = async () => { 
     if(!isFetching) {
@@ -51,10 +54,10 @@ const WebInfoPage = () => {
       getWebinfo(language).then( res => {
         isFetching = false; 
         if(res.data) {
-          setTabLists([{id: 1, title: 'Web Detail', type: 'detail'}]) 
+          setTabLists([/*{id: 1, title: 'Web Detail', type: 'detail'}*/]) 
           setDetail(res.data.details)
-          setWebInfoData(res.data.info)
-          tabListFilter(res.data.infoType);
+          setWebInfoData(res.data.info.filter((item) => item.infoTypeName === "settings"))
+          tabListFilter(res.data.infoType.filter((item) => item.id === 5));
           switchTabHandler(tabSelected)
         }
         dispatch(appActions.isSpawnActive(false))
@@ -62,18 +65,19 @@ const WebInfoPage = () => {
     }
   }
 
+
   const filterWebInfoData = () => {
     if(webInfoData) {
       const filtered =  webInfoData.filter(webInfo => {
-        if((tabSelected || tabSelected === 0)  && tabSelected !== webInfo.infoTypeId){
-          return false;
-        }
+        // if((tabSelected || tabSelected === 0)  && tabSelected !== webInfo.infoTypeId){
+        //   return false;
+        // }
         return webInfo;
       })
       setFilteredData(filtered)
     }
   }
-  
+
   const switchTabHandler = (tabValue) => {
     setTabSelected(tabValue)
     setNeedFilter(needFilter + 1)
@@ -82,9 +86,9 @@ const WebInfoPage = () => {
   return (
     <section id="webinfo-page">
       <HeadPageComponent
-        h1={t("ConfigTitle")}
-        icon={<FontAwesomeIcon icon={faInfoCircle} />}
-        breadcrums={[{ title: t("ConfigTitle"), link: false }]} />
+        h1={"ตั้งค่าเว็บไซต์"}
+        icon={<FontAwesomeIcon icon={faScrewdriverWrench} />}
+        breadcrums={[{ title: "ตั้งค่าเว็บไซต์", link: false }]} />
         
       <div className="card-control">
         <div className="card-head">

@@ -76,8 +76,8 @@
                 width: 100%;
                 img {
                     border-radius: 2px;
-                    width: 26px;
-                    height: 18px;
+                    width: 100%;
+                    max-width: 50px;
                 }
             }
             .blog-action {

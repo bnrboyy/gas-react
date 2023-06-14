@@ -4,13 +4,14 @@ import { Suspense } from "react";
 import "./App.scss";
 
 /* Component pages */
+import { appActions } from "./store/app-slice";
 import ConfigPage from "./pages/config/config";
 import DashboardPage from "./pages/dashboard/dashboard";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
 import NotFoundPage from "./pages/page404";
 import ShowUIComponentPage from "./pages/showui/showui.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GuestRoutes from "./utils/guestRoutes";
 import LangConfigPage from "./pages/langconfig";
 import AdminPage from "./pages/admin/admin";
@@ -37,6 +38,8 @@ function App() {
   const isDevMode = useSelector((state) => state.app.isDevMode);
   const uPermission = useSelector((state) => state.auth.userPermission);
   const defaultPath = uPermission.rider && !uPermission.superAdmin && !uPermission.admin ? "orders" : "dashboard";
+  const dispatch = useDispatch();
+  dispatch(appActions.changeLanguage('th'));
 
   return (
     <Suspense>

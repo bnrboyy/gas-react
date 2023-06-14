@@ -24,6 +24,7 @@ import {
  */
 const ButtonUI = (props) => {
   const onEvent = props.on;
+  console.log(onEvent)
   const languageSelected = useSelector((state) => state.app.language)
   const [buttonLang, setButtonLang] = useState("");
   const [buttonText, setButtonText] = useState(props.children);

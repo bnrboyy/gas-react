@@ -54,8 +54,8 @@ const SidebarComponent = (props) => {
   const newOrders = useSelector((state) => state.app.newOrders);
 
   const languageSelectHandler = (lang) => {
-    i18n.changeLanguage(lang);
-    dispatch(appActions.changeLanguage(lang));
+    i18n.changeLanguage('th');
+    dispatch(appActions.changeLanguage('th'));
   };
 
   const toggleSubMenu = (event) => {
@@ -87,7 +87,7 @@ const SidebarComponent = (props) => {
           </div>
         </Link>
 
-        <hr className="line-section" />
+        {/* <hr className="line-section" />
         <div className="title-section">{t("Languages")}</div>
         <div className="language-selection">
           {activateLanguage.map((lang) => (
@@ -102,7 +102,7 @@ const SidebarComponent = (props) => {
               {lang}
             </Button>
           ))}
-        </div>
+        </div> */}
 
         <div className="sidenav-main">
           {pagesAllow.groups.notify && (uPermission.superAdmin || uPermission.admin) && (
