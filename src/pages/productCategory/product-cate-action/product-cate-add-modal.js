@@ -223,20 +223,6 @@ const ProductCateModalAdd = (props) => {
                           }
                         />
                       </div>
-                      <div className="group">
-                        <span>{t("ModalFoodStatus")}</span>
-                        <Switch
-                          checked={addData.is_food}
-                          onChange={(e) =>
-                            setAddData((prevState) => {
-                              return {
-                                ...prevState,
-                                is_food: e.target.checked
-                              };
-                            })
-                          }
-                        />
-                      </div>
                     </div>
                   </div>
                 </Box>

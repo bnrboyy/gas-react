@@ -303,7 +303,7 @@ const ProductModalAdd = (props) => {
                         size="small"
                       />
                     </div>
-                    <div className="input-xl-half">
+                    {/* <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
                           setAddData((prevState) => {
@@ -359,7 +359,7 @@ const ProductModalAdd = (props) => {
                         label="default minutes"
                         size="small"
                       />
-                    </div>
+                    </div> */}
                     <div className="input-half">
                       <FormControl
                         sx={{ m: 1, minWidth: 120 }}
@@ -391,8 +391,23 @@ const ProductModalAdd = (props) => {
                             ))}
                         </Select>
                       </FormControl>
+                      <div className="group">
+                        <span>{"การแสดงผล"}</span>
+                        <Switch
+                          {...displayLabel}
+                          checked={addData.display}
+                          onChange={(e) =>
+                            setAddData((prevState) => {
+                              return {
+                                ...prevState,
+                                display: e.target.checked
+                              };
+                            })
+                          }
+                        />
+                      </div>
                     </div>
-                    <div className="input-half">
+                    {/* <div className="input-half">
                       <FormControl
                         sx={{ m: 1, minWidth: 120 }}
                         size="small"
@@ -425,71 +440,9 @@ const ProductModalAdd = (props) => {
                             ))}
                         </Select>
                       </FormControl>
-                    </div>
+                    </div> */}
                     <div className="input-sm-half">
-                      <div className="input-group">
-                        <ButtonUI
-                          color="error"
-                          onClick={(e) => priorityHandler(false)}
-                        >
-                          <FontAwesomeIcon icon={faMinus} />
-                        </ButtonUI>
-                        <span className="title">
-                          {t("ModalPriority")} {addData.priority}
-                        </span>
-                        <ButtonUI onClick={(e) => priorityHandler(true)}>
-                          <FontAwesomeIcon icon={faAdd} />
-                        </ButtonUI>
-                      </div>
-                      <div className="group">
-                        <span>{t("ModalDisplayStatus")}</span>
-                        <Switch
-                          {...displayLabel}
-                          checked={addData.display}
-                          onChange={(e) =>
-                            setAddData((prevState) => {
-                              return {
-                                ...prevState,
-                                display: e.target.checked
-                              };
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="input-sm-half">
-                      {addData.page_id === 15 && (
-                        <>
-                          <div className="group">
-                            <span>{t("ModalCanWaveStatus")}</span>
-                            <Switch
-                              checked={addData.can_wave}
-                              onChange={(e) =>
-                                setAddData((prevState) => {
-                                  return {
-                                    ...prevState,
-                                    can_wave: e.target.checked
-                                  };
-                                })
-                              }
-                            />
-                          </div>
-                          <div className="group">
-                            <span>{t("ModalCanSweetStatus")}</span>
-                            <Switch
-                              checked={addData.can_sweet}
-                              onChange={(e) =>
-                                setAddData((prevState) => {
-                                  return {
-                                    ...prevState,
-                                    can_sweet: e.target.checked
-                                  };
-                                })
-                              }
-                            />
-                          </div>
-                        </>
-                      )}
+                     
                     </div>
                   </div>
                 </Box>

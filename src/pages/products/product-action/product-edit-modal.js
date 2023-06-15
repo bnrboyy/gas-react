@@ -299,63 +299,6 @@ const ProductModalEdit = (props) => {
                         size="small"
                       />
                     </div>
-                    <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setEditData((prevState) => {
-                            return {
-                              ...prevState,
-                              price_per_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={editData.price_per_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="price per minutes"
-                        size="small"
-                      />
-                    </div>
-                    <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setEditData((prevState) => {
-                            return {
-                              ...prevState,
-                              round_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={editData.round_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="round minutes"
-                        size="small"
-                      />
-                    </div>
-                    <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setEditData((prevState) => {
-                            return {
-                              ...prevState,
-                              default_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={editData.default_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="default minutes"
-                        size="small"
-                      />
-                    </div>
                     <div className="input-half">
                       <FormControl
                         sx={{ m: 1, minWidth: 120 }}
@@ -387,58 +330,8 @@ const ProductModalEdit = (props) => {
                             ))}
                         </Select>
                       </FormControl>
-                    </div>
-                    <div className="input-half">
-                      <FormControl
-                        sx={{ m: 1, minWidth: 120 }}
-                        size="small"
-                        className="form-control"
-                      >
-                        <InputLabel id="edit-page-control">
-                          {t("ModalSlcCtronrolPage")}
-                        </InputLabel>
-                        <Select
-                          labelId="product-page"
-                          id="edit-page-control"
-                          label={t("ModalSlcCtronrolPage")}
-                          className="input-page"
-                          size="small"
-                          onChange={(e) =>
-                            setEditData((prevState) => {
-                              return { ...prevState, page_id: e.target.value };
-                            })
-                          }
-                          value={editData.page_id}
-                        >
-                          <MenuItem value={0} disabled>
-                            {t("None")}
-                          </MenuItem>
-                          {cateForProduct &&
-                            cateForProduct.map((menu) => (
-                              <MenuItem key={menu.id} value={menu.id}>
-                                {menu.cate_title}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div className="input-sm-half">
-                      <div className="input-group">
-                        <ButtonUI
-                          color="error"
-                          onClick={(e) => priorityHandler(false)}
-                        >
-                          <FontAwesomeIcon icon={faMinus} />
-                        </ButtonUI>
-                        <span className="title">
-                          {t("ModalPriority")} {editData.priority}
-                        </span>
-                        <ButtonUI onClick={(e) => priorityHandler(true)}>
-                          <FontAwesomeIcon icon={faAdd} />
-                        </ButtonUI>
-                      </div>
                       <div className="group">
-                        <span>{t("ModalDisplayStatus")}</span>
+                        <span>{"การแสดงผล"}</span>
                         <Switch
                           {...displayLabel}
                           checked={editData.display}
@@ -452,6 +345,8 @@ const ProductModalEdit = (props) => {
                           }
                         />
                       </div>
+                    </div>
+                    <div className="input-sm-half">
                     </div>
                     <div className="input-sm-half">
                       {editData.page_id === 15 && (

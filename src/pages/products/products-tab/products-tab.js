@@ -91,8 +91,6 @@ const ProductsTab = ({
     setPage(0);
   };
 
-  // console.log(tabSelect)
-
   const addHandler = (item) => {
     dispatch(appActions.setEditData(item));
     setProductModalEdit({
@@ -235,7 +233,7 @@ const ProductsTab = ({
                 />
               ))}
             </TabList>
-            <div className="category">
+            {/* <div className="category">
               <Select
                 value={selectedCategoryId}
                 onChange={handleChangeSelect}
@@ -290,7 +288,7 @@ const ProductsTab = ({
                   return null;
                 })}
               </Select>
-            </div>
+            </div> */}
           </Box>
           {tabLists.map((tab) => (
             <TabPanel

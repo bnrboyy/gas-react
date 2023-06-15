@@ -79,8 +79,10 @@
             }
           }
           .input-half {
+            display: flex;
             height: 52px;
-            width: 49%;
+            width: 100%;
+            max-width: 100%;
             .date-input {
               @apply mx-0 w-full;
               label {
