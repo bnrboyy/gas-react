@@ -230,7 +230,7 @@ const ProductCateModalEdit = (props) => {
                           }
                         />
                       </div>
-                      <div className="group">
+                      {/* <div className="group">
                         <span>{t("ModalFoodStatus")}</span>
                         <Switch
                           checked={editData.is_food}
@@ -243,7 +243,7 @@ const ProductCateModalEdit = (props) => {
                             })
                           }
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </Box>

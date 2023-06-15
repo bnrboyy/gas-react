@@ -54,20 +54,20 @@ const ProductsCateTab = (props) => {
   const language = useSelector((state) => state.app.language);
 
   const tabLists = [
-    { value: "", title: "All", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
-    {
-      value: "wash",
-      title: "Wash&Dry",
-      icon: <FontAwesomeIcon icon={faHandsWash} />
-    },
-    {
-      value: "food",
-      title: "Foods",
-      icon: <FontAwesomeIcon icon={faUtensils} />
-    },
+    { value: "", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
+    // {
+    //   value: "wash",
+    //   title: "Wash&Dry",
+    //   icon: <FontAwesomeIcon icon={faHandsWash} />
+    // },
+    // {
+    //   value: "food",
+    //   title: "Foods",
+    //   icon: <FontAwesomeIcon icon={faUtensils} />
+    // },
     {
       value: "hidden",
-      title: "Hidden",
+      title: "รายการที่ไม่แสดง",
       icon: <FontAwesomeIcon icon={faEyeSlash} />
     }
   ];

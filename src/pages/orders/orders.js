@@ -107,7 +107,7 @@ const Orders = () => {
               {t("Fetch")}
             </ButtonUI>
             <FormControl variant="standard">
-              <InputLabel htmlFor={`text-search`}>{t("Order Number")}</InputLabel>
+              <InputLabel htmlFor={`text-search`}>{"เลขคำสั่งซื้อ"}</InputLabel>
               <Input
                 size="small"
                 id={`text-search`}

@@ -28,14 +28,13 @@ const OrdersCard = ({ items, editHandler, deleteHandler }) => {
         <TableHead>
           <TableRow>
             <TableCell>No.</TableCell>
-            <TableCell align="left">Order Number</TableCell>
-            <TableCell align="left">Customer Name</TableCell>
-            <TableCell align="left">Branch</TableCell>
-            <TableCell align="left">Order Type</TableCell>
-            <TableCell align="left">Order Status</TableCell>
-            <TableCell align="left">Payment Type</TableCell>
-            <TableCell align="left">Payment Status</TableCell>
-            <TableCell align="left">Transaction Date</TableCell>
+            <TableCell align="left">เลขคำสั่งซื้อ</TableCell>
+            <TableCell align="left">ชื่อลูกค้า</TableCell>
+            {/* <TableCell align="left">Order Type</TableCell> */}
+            <TableCell align="left">สถานะคำสั่งซื้อ</TableCell>
+            <TableCell align="left">การชำระเงิน</TableCell>
+            <TableCell align="left">สถานะการชำระเงิน</TableCell>
+            <TableCell align="left">วันที่ดำเนินการ</TableCell>
             <TableCell align="left">Action</TableCell>
           </TableRow>
         </TableHead>
@@ -47,12 +46,12 @@ const OrdersCard = ({ items, editHandler, deleteHandler }) => {
               </TableCell>
               <TableCell align="left">{row.orders_number}</TableCell>
               <TableCell align="left">{row.member_name}</TableCell>
-              <TableCell align="left">{row.branch_name}</TableCell>
-              {row.type_order === "washing" ? (
+              {/* <TableCell align="left">{row.branch_name}</TableCell> */}
+              {/* {row.type_order === "washing" ? (
                 <TableCell align="left">Washing and Drying</TableCell>
               ) : (
                 <TableCell align="left">Foods</TableCell>
-              )}
+              )} */}
               <TableCell align="left">
                 <Chip
                   label={row.status}

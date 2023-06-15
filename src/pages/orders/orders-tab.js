@@ -40,25 +40,25 @@ const OrdersTab = ({
   const [isWashing, setIsWashing] = useState(false)
 
   const tabLists = [
-    { value: "0", title: "All", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
+    { value: "0", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
     {
       value: "2",
-      title: "Pending",
+      title: "รอดำเนินการ",
       icon: <FontAwesomeIcon icon={faStopwatch} />
     },
     {
       value: "3",
-      title: "Inprogress",
+      title: "กำลังดำเนินการ",
       icon: <FontAwesomeIcon icon={faStopwatch} />
     },
     {
       value: "4",
-      title: "Complete",
+      title: "จัดส่งสำเร็จ",
       icon: <FontAwesomeIcon icon={faCircleCheck} />
     },
     {
       value: "5",
-      title: "Failed",
+      title: "จัดส่งไม่สำเร็จ",
       icon: <FontAwesomeIcon icon={faCircleXmark} />
     }
   ];

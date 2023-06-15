@@ -57,30 +57,30 @@ const ProductsTab = ({
   const [cateForProduct, setCateForProduct] = useState([]);
 
   const tabLists = [
-    { value: "", title: "All", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
+    { value: "", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
     {
       value: "9",
-      title: "Wash&Dry",
+      title: "เปลี่ยนถัง",
       icon: <FontAwesomeIcon icon={faHandsWash} />,
     },
     {
       value: "10",
-      title: "Washing",
+      title: "สินค้าใหม่",
       icon: <FontAwesomeIcon icon={faHandsWash} />,
     },
-    {
-      value: "11",
-      title: "Drying",
-      icon: <FontAwesomeIcon icon={faHandsWash} />,
-    },
-    {
-      value: "15",
-      title: "Foods",
-      icon: <FontAwesomeIcon icon={faUtensils} />,
-    },
+    // {
+    //   value: "11",
+    //   title: "Drying",
+    //   icon: <FontAwesomeIcon icon={faHandsWash} />,
+    // },
+    // {
+    //   value: "15",
+    //   title: "Foods",
+    //   icon: <FontAwesomeIcon icon={faUtensils} />,
+    // },
     {
       value: "hidden",
-      title: "Hidden",
+      title: "รายการที่ไม่แสดง",
       icon: <FontAwesomeIcon icon={faEyeSlash} />,
     },
   ];

@@ -103,6 +103,7 @@
           .input-sm-half {
             display: flex;
             align-items: center;
+            justify-content: end;
             height: 52px;
             width: 100%;
             @media screen and (min-width: $lg) {
@@ -112,7 +113,7 @@
           .center {
             display: flex;
             align-items: center;
-            justify-content: space-evenly;
+            justify-content: end;
           }
           .form-control {
             @apply mx-0 w-full;
