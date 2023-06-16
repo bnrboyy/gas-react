@@ -211,7 +211,6 @@ const ProductsTab = ({
    };
 
 
-
   return (
     <Fragment>
       <Box className="slide-tab-section" sx={{ width: "100%" }}>

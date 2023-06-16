@@ -25,25 +25,17 @@ const displayLabel = { inputProps: { "aria-label": "display switch" } };
 const ProductModalAdd = (props) => {
   const addDataDefault = {
     id: null,
-    can_sweet: false,
-    can_wave: false,
     cate_id: 0,
-    content: "",
     description: "",
     details: "",
     display: false,
-    language: "",
     more_details: "",
     page_id: 0,
     pin: false,
     price: 0,
-    priority: 0,
     thumbnail_alt: "",
     thumbnail_link: "",
     thumbnail_title: "",
-    price_per_minutes: 0,
-    round_minutes: 0,
-    default_minutes	: 0,
     title: ""
   };
 
@@ -63,7 +55,7 @@ const ProductModalAdd = (props) => {
     thumbnail: false,
     title: false
   });
-  const [productCateShow, setProductCateShow] = useState(productCate);
+  console.log(productCate)
 
   useEffect(() => {
     setAddData({ ...addData, priority: totalData + 1 });
@@ -87,6 +79,14 @@ const ProductModalAdd = (props) => {
       setIsError({ ...isError, title: true });
       isValid = false;
     }
+    // if (addData.price === 0 || addData.price === "") {
+    //   setIsError({...isError, title: true})
+    //   isValid = false;
+    // }
+    // if (addData.cate_id === 0) {
+    //   setIsError({...isError, title: true})
+    //   isValid = false;
+    // }
     if (isValid) {
       createSlideHandler();
     }
@@ -98,24 +98,16 @@ const ProductModalAdd = (props) => {
       formData.append("image", previews.file);
       formData.append("imageName", addData.imageName);
     }
-
     formData.append("imageTitle", addData.thumbnail_title);
     formData.append("imageAlt", addData.thumbnail_alt);
     formData.append("id", addData.id);
     formData.append("title", addData.title);
     formData.append("description", addData.description);
     formData.append("display", addData.display ? 1 : 0);
-    formData.append("page_id", parseInt(addData.page_id));
-    formData.append("priority", addData.priority);
     formData.append("cate_id", parseInt(addData.cate_id));
-    formData.append("can_sweet", addData.can_sweet ? 1 : 0);
-    formData.append("can_wave", addData.can_wave ? 1 : 0);
     formData.append("details", addData.details);
     formData.append("price", addData.price);
     formData.append("language", language);
-    formData.append("price_per_minutes", addData.price_per_minutes);
-    formData.append("round_minutes", addData.round_minutes);
-    formData.append("default_minutes", addData.default_minutes);
     svCreateProduct(formData).then((res) => {
       setClose(false);
       setAddData(addDataDefault);
@@ -140,17 +132,17 @@ const ProductModalAdd = (props) => {
   };
 
   useEffect(() => {
-    onSelectPage();
+    // onSelectPage();
   }, [addData.page_id]);
 
-  const onSelectPage = () => {
-    if (addData.page_id === 15) {
-      setProductCateShow(productCate.filter((e) => !!e.is_food));
-    } else {
-      setProductCateShow(productCate.filter((e) => !!!e.is_food));
-      setAddData({ ...addData, can_sweet: false, can_wave: false });
-    }
-  };
+  // const onSelectPage = () => {
+  //   if (addData.page_id === 15) {
+  //     setProductCateShow(productCate.filter((e) => !!e.is_food));
+  //   } else {
+  //     setProductCateShow(productCate.filter((e) => !!!e.is_food));
+  //     setAddData({ ...addData, can_sweet: false, can_wave: false });
+  //   }
+  // };
 
   if (!addData) return <></>;
 
@@ -383,8 +375,8 @@ const ProductModalAdd = (props) => {
                           <MenuItem value={0} disabled>
                             {t("None")}
                           </MenuItem>
-                          {productCateShow &&
-                            productCateShow.map((p) => (
+                          {productCate &&
+                            productCate.map((p) => (
                               <MenuItem key={p.id} value={p.id}>
                                 {p.title}
                               </MenuItem>
