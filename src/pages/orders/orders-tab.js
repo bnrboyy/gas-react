@@ -12,7 +12,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { svDeleteOrder, svGetOrderByOrderNumber } from "../../services/orders.service";
+import { svCancelOrder, svDeleteOrder, svGetOrderByOrderNumber } from "../../services/orders.service";
 import SwalUI from "../../components/ui/swal-ui/swal-ui";
 import OrdersModal from "./orders-action/orders-modal";
 import OrdersCard from "./orders-card";
@@ -118,20 +118,20 @@ const OrdersTab = ({
     );
   };
 
-  const deleteHandler = (_orders_number) => {
+  const cancelHandler = (_orders_number) => {
     Swal.fire({
         background: '#fff',
         icon: "warning",
-        title: "Are you sure?",
-        text: "I want to delete this data!",
-        confirmButtonText: "Yes, delete it",
+        title: "คุณต้องการยกเลิกคำสั่งซื้อนี้หรือไม่?",
+        // text: "I want to delete this data!",
+        confirmButtonText: "ยืนยัน",
         confirmButtonColor: "#e11d48",
         showCancelButton: true,
-        cancelButtonText: "Cancel"
+        cancelButtonText: "กลับ"
       })
       .then((result) => {
         if (result.isConfirmed) {
-          svDeleteOrder(_orders_number).then((res) => {
+          svCancelOrder(_orders_number).then((res) => {
             SwalUI({ status: res.status, description: res.description });
             if (res.status) {
               setRefreshData((prev) => prev + 1);
@@ -202,13 +202,13 @@ const OrdersTab = ({
                   items={filteredData}
                   setOrdersModal={setOrdersModal}
                   editHandler={editHandler}
-                  deleteHandler={deleteHandler}
+                  cancelHandler={cancelHandler}
                 />
                 <OrdersCardMobile
                   items={filteredData}
                   setOrdersModal={setOrdersModal}
                   editHandler={editHandler}
-                  deleteHandler={deleteHandler}
+                  cancelHandler={cancelHandler}
                 />
               </div>
               <TablePagination

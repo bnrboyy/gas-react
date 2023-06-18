@@ -28,6 +28,13 @@ export const svDeleteOrder = (orders_number) => {
     )
 }
 
+export const svCancelOrder = (orders_number) => {
+    return axios.get(`order/cancel/${orders_number}`).then(
+    (res) => { return { status: true, data: res.data.data }},
+    (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
+    )
+}
+
 export const svApproveOrder = (data) => {
     return axios.post(`order/approve`, data).then(
     (res) => { return { status: true, data: res.data.data }},

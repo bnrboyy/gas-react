@@ -9,7 +9,7 @@ import FooterComponent from "./layout/footer/footer";
 import NavbarComponent from "./layout/navbar/navbar";
 import SidebarComponent from "./layout/sidebar/sidebar";
 import { svGetOrders, svGetOrderPending } from "../services/orders.service";
-import NotificationSound from "./notification-sound.wav";
+import NotificationSound from "./mixkit-happy-bells-notification-937.wav";
 
 const MainLayout = (props) => {
   const dispatch = useDispatch();
@@ -24,8 +24,10 @@ const MainLayout = (props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      svGetOrderPending().then((res) =>
+      svGetOrderPending().then((res) => {
         dispatch(appActions.setNewOrders(res.data.data))
+
+      }
       );
     }, 10000);
     return () => clearInterval(interval);
@@ -35,7 +37,7 @@ const MainLayout = (props) => {
     if (newOrders > followNO && followNO !== 0) {
       audioPlayer.current.play();
       Swal.fire({
-        title: "You have a new order!",
+        title: "คุณได้รับคำสั่งซื้อใหม่!",
         icon: "warning",
         showCancelButton: false,
         confirmButtonColor: "#3085d6",
@@ -43,9 +45,6 @@ const MainLayout = (props) => {
         confirmButtonText: "Ok",
       }).then(() => {
         audioPlayer.current.pause();
-        if (window.location.pathname === "/orders") {
-          window.location.reload();
-        } 
       });
     }
     dispatch(appActions.setFollowNewOrders(newOrders));

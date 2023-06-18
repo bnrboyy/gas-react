@@ -49,7 +49,7 @@ const appSlice = createSlice({
             state.editData = action.payload
         },
         changeLanguage(state, action) {
-            state.language = action.payload
+            state.language = "th"
         },
         frontOffifcePageInit(state, action) {
             state.frontOffice.pageAvailable = action.payload

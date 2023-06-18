@@ -277,7 +277,7 @@ const DashboardPage = () => {
           <div className="donut-chart">
             <div className="head-title">
               <Typography variant="subtitle1" gutterBottom>
-                Order Type / Day
+                รายได้ / วัน
               </Typography>
               <Typography variant="h6" gutterBottom>
                 {dateTitle}
@@ -287,30 +287,6 @@ const DashboardPage = () => {
               <div className="content-left">
                 <DonutChart data={donut} labelTitles={labelTitles} />
               </div>
-              {/* <div className="content-right">
-                <Grid container columnSpacing={2} rowSpacing={6}>
-                  {detailsStyle.map((item, ind) => (
-                    <Grid key={ind} container item xs={6} direction="column">
-                      <div style={item} className="price-details">
-                        <div className="top-content" style={{ height: "60%" }}>
-                          <img src={thumbnailType[ind]} alt="" width={62} />
-                          <Typography variant="h6" gutterBottom>
-                            {labelTitles[ind]}
-                          </Typography>
-                        </div>
-                        <div
-                          className="bottom-content"
-                          style={{ height: "40%" }}
-                        >
-                          <p style={{ marginTop: "1rem" }}>
-                            {orderDonut[ind]} THB
-                          </p>
-                        </div>
-                      </div>
-                    </Grid>
-                  ))}
-                </Grid>
-              </div> */}
             </div>
           </div>
 
@@ -322,7 +298,7 @@ const DashboardPage = () => {
               >
                 <img src="images/dashboard/barchart.png" alt="" width={30} />
                 <Typography variant="subtitle1" gutterBottom sx={{ mb: "0" }}>
-                  Order Type / Month / Year
+                รายได้ / สัปดาห์ / เดือน / ปี
                 </Typography>
               </div>
               <div className="date-picker">
@@ -460,7 +436,7 @@ const DashboardPage = () => {
             >
               <img src="images/dashboard/orderlist.png" alt="" width={30} />
               <Typography variant="subtitle1" gutterBottom sx={{ mb: "0" }}>
-                Order List
+                รายงาน / รายวัน
               </Typography>
             </div>
             <div className="head-checkbox">
@@ -477,25 +453,6 @@ const DashboardPage = () => {
                     control={<Radio />}
                     label="ทั้งหมด"
                   />
-                  {/* <FormControlLabel
-                    value="wash&dry"
-                    onChange={handleChange}
-                    control={<Radio />}
-                    label="เปลี่ยนถัง"
-                  />
-                  <FormControlLabel
-                    value="food"
-                    onChange={handleChange}
-                    control={<Radio />}
-                    label="สั่งสินค้า"
-                  />
-                  <FormControlLabel
-                    value="ironing"
-                    onChange={handleChange}
-                    control={<Radio />}
-                    label="Ironing"
-                    disabled
-                  /> */}
                   <FormControlLabel
                     value="comlete"
                     onChange={handleChange}
@@ -510,41 +467,9 @@ const DashboardPage = () => {
                   />
                 </RadioGroup>
               </FormControl>
-              {/* <FormGroup sx={{ flexDirection: "row" }}>
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox defaultChecked />}
-                  label="All"
-                />
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox />}
-                  label="Wash&Dry"
-                />
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox disabled />}
-                  label="Iron"
-                />
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox />}
-                  label="Food"
-                />
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox />}
-                  label="Fails"
-                />
-                <FormControlLabel
-                  labelPlacement="end"
-                  control={<Checkbox />}
-                  label="Complete"
-                />
-              </FormGroup> */}
             </div>
           </div>
-          <div className="price-details">
+          {/* <div className="price-details">
             {orderListStyle.map((item, ind) => (
               <div key={ind} className="details-list" style={item.style}>
                 <div className="content-left">
@@ -558,7 +483,7 @@ const DashboardPage = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
           <div className="table-tab">
             <TableTab orderList={orderListTable} />
           </div>

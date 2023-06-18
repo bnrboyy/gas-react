@@ -2,14 +2,26 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-import { faEdit, faEye, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faEye,
+  faPlus,
+  faTrash,
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ButtonUI from "../button/button";
 import Swal from "sweetalert2";
 
 import "./content-card-order.scss";
 
-const ContentCardOrderUI = ({onEditClick, onDeleteClick, className, children}) => {
+const ContentCardOrderUI = ({
+  onEditClick,
+  onCancelClick,
+  className,
+  children,
+  statusId,
+}) => {
   const { t } = useTranslation("slide-page");
 
   return (
@@ -26,16 +38,18 @@ const ContentCardOrderUI = ({onEditClick, onDeleteClick, className, children}) =
             width="md"
             icon={<FontAwesomeIcon icon={faEye} />}
           >
-            {t("Show")}
+            {"แสดง"}
           </ButtonUI>
-          <ButtonUI
-            onClick={onDeleteClick}
-            on="delete"
-            className="btn-custom onDelete"
-            icon={<FontAwesomeIcon icon={faTrash} />}
-          >
-            {t("Delete")}
-          </ButtonUI>
+          { statusId !== 4 && statusId !== 5 &&
+            <ButtonUI
+              onClick={onCancelClick}
+              on="edit"
+              className="btn-custom onDelete"
+              icon={<FontAwesomeIcon icon={faBan} />}
+            >
+              {"ยกเลิก"}
+            </ButtonUI>
+          }
         </div>
       </div>
     </div>
