@@ -25,7 +25,8 @@ import { svDeleteProductItem } from "../../../services/orders.service";
 
 import { useState } from "react";
 
-const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
+const ListTable = ({ orderList, orderShow, setOrderShow }) => {
+  console.log(orderShow);
   const uploadPath = useSelector((state) => state.app.uploadPath);
   const [open, setOpen] = React.useState(false);
   const [productList, setProductList] = useState({});
@@ -57,45 +58,9 @@ const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
             if (res.status) {
               svGetOrderByOrderNumber({
                 orders_number: row.orders_number,
-                type: "foods",
               }).then(({ data: d }) => {
-                const result = {
-                  orders_number: d.orders_number,
-                  delivery_drop_address: d.delivery_drop_address,
-                  delivery_drop_address_more: d.delivery_drop_address_more,
-                  delivery_pickup_address: d.delivery_pickup_address,
-                  delivery_pickup_address_more: d.delivery_pickup_address_more,
-                  details: d.details,
-                  phone_number: d.phone_number,
-                  status: d.status_name.toLowerCase(),
-                  transaction_date: d.transaction_date,
-                  shipping_date: d.shipping_date,
-                  type_order: d.type_order,
-                  date_pickup: d.date_pickup,
-                  date_drop: d.date_drop,
-                  pickup_image: d.pickup_image,
-                  drop_image: d.drop_image,
-                  member_name: d.member_name,
-                  branch_name: d.branch_name,
-                  branch_id: d.branch_id,
-                  delivery_pickup: d.delivery_pickup,
-                  delivery_drop: d.delivery_drop,
-                  orderList: d.orderList,
-                  totalPrice: d.totalPrice,
-                  delivery_price: d.delivery_price,
-                  status_id: d.status_id,
-                  slip_image: d.slip_image,
-                  type_payment: d.type_payment,
-                  payment_verified: !!d.payment_verified,
-                  line_id: d.line_id,
-                  wechat: d.wechat,
-                  telegram: d.telegram,
-                  upload_images: d.upload_images,
-                  distance: d.distance,
-                  currency_symbol: d.currency,
-                };
-                setOrderShow(result);
-                setOrderProductList(result.orderList);
+                setOrderShow(d);
+                setOrderProductList(d.orderItemList);
               });
             }
           });
@@ -114,14 +79,12 @@ const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
       <TableHead>
         <TableRow>
           <TableCell>No.</TableCell>
-          <TableCell align="left">Product Image</TableCell>
-          <TableCell align="left">Product Name</TableCell>
-          <TableCell align="left">Category</TableCell>
-          <TableCell align="left">Price</TableCell>
-          <TableCell align="left">Quantity</TableCell>
-          <TableCell align="left">Microwave</TableCell>
-          <TableCell align="left">Sweetness</TableCell>
-          <TableCell align="left">Requirements</TableCell>
+          <TableCell align="left">รูปภาพสินค้า</TableCell>
+          <TableCell align="left">ชื่อสินค้า</TableCell>
+          <TableCell align="left">ประเภทสินค้า</TableCell>
+          <TableCell align="left">ราคา</TableCell>
+          <TableCell align="left">จำนวน</TableCell>
+          <TableCell align="left">โน้ตลูกค้า</TableCell>
           {(status_id === 2 || status_id === 3) &&
             (uPermission.superAdmin || uPermission.admin) && (
               <TableCell align="center">Action</TableCell>
@@ -147,13 +110,13 @@ const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
                   />
                 </figure>
               </TableCell>
-              <TableCell align="left">{row.product_name}</TableCell>
-              <TableCell align="center">{row.cate_title}</TableCell>
-              <TableCell align="center">{row.price + " " + orderShow.currency_symbol}</TableCell>
-              <TableCell align="center">X{row.quantity}</TableCell>
-              <TableCell align="center">{row.microwave_name}</TableCell>
-              <TableCell align="center">{row.sweetness_name}</TableCell>
-              <TableCell align="center" sx={{fontWeight: "600"}} >{row.requirements}</TableCell>
+              <TableCell align="left">{row.title}</TableCell>
+              <TableCell align="left">{"เปลี่ยนถัง"}</TableCell>
+              <TableCell align="left">{row.price + " " + "บาท"}</TableCell>
+              <TableCell align="left">X{row.quantity}</TableCell>
+              <TableCell align="center" sx={{ fontWeight: "600" }}>
+                {row.requirements}
+              </TableCell>
               {(status_id === 2 || status_id === 3) &&
                 (uPermission.superAdmin || uPermission.admin) && (
                   <TableCell
@@ -168,7 +131,7 @@ const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
                       variant="contained"
                       onClick={(e) => editHandle(row)}
                     >
-                      Edit
+                      แก้ไข
                     </Button>
                     {orderProductList.length > 1 && (
                       <Button
@@ -176,7 +139,7 @@ const FoodsTable = ({ orderList, orderShow, setOrderShow, }) => {
                         color="error"
                         onClick={(e) => deleteHandle(row)}
                       >
-                        Del
+                        ลบ
                       </Button>
                     )}
                   </TableCell>
@@ -209,6 +172,8 @@ const ModalEdit = ({
 }) => {
   const handleClose = () => setOpen(false);
 
+  console.log(productList);
+
   const quantityHandle = (isAdding) => {
     if (isAdding) {
       if (productList.quantity >= 10) return false;
@@ -227,8 +192,7 @@ const ModalEdit = ({
     svUpdateProductList(quantity, _id, productList.orders_number).then(
       (res) => {
         if (res.status) {
-          console.log(res);
-          SwalUI({ status: res.status, description: res.data.description });
+          SwalUI({ status: res.status, description: "แก้ไขสินค้าสำเร็จ" });
           svGetOrderByOrderNumber({
             orders_number: productList.orders_number,
             type: "foods",
@@ -241,35 +205,29 @@ const ModalEdit = ({
               delivery_pickup_address_more: d.delivery_pickup_address_more,
               details: d.details,
               phone_number: d.phone_number,
-              status: d.status_name.toLowerCase(),
+              second_phone_number: d.second_phone_number,
+              status_name: d.status_name.toLowerCase(),
               transaction_date: d.transaction_date,
               shipping_date: d.shipping_date,
-              type_order: d.type_order,
               date_pickup: d.date_pickup,
               date_drop: d.date_drop,
-              pickup_image: d.pickup_image,
               drop_image: d.drop_image,
-              member_name: d.member_name,
-              branch_name: d.branch_name,
-              branch_id: d.branch_id,
+              customer_name: d.customer_name,
               delivery_pickup: d.delivery_pickup,
               delivery_drop: d.delivery_drop,
-              orderList: d.orderList,
+              orderItemList: d.orderItemList,
               totalPrice: d.totalPrice,
               delivery_price: d.delivery_price,
               status_id: d.status_id,
               slip_image: d.slip_image,
               type_payment: d.type_payment,
               payment_verified: !!d.payment_verified,
-              line_id: d.line_id,
-              wechat: d.wechat,
-              telegram: d.telegram,
               upload_images: d.upload_images,
               distance: d.distance,
-              currency_symbol: d.currency,
             };
+
             setOrderShow(result);
-            setOrderProductList(result.orderList);
+            setOrderProductList(result.orderItemList);
           });
         } else {
           SwalUI({ status: false, description: "Error!" });
@@ -300,16 +258,16 @@ const ModalEdit = ({
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Edit Product Item
+          แก้ไขสินค้า
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {productList.product_name}
+          {productList.title}
           <div className="input-group">
             <ButtonUI color="error" onClick={(e) => quantityHandle(false)}>
               <FontAwesomeIcon icon={faMinus} />
             </ButtonUI>
             <Typography component={"span"}>
-              Quantity {productList.quantity}
+              จำนวน {productList.quantity}
             </Typography>
             {/* <span className="title"></span> */}
             <ButtonUI onClick={(e) => quantityHandle(true)}>
@@ -332,7 +290,7 @@ const ModalEdit = ({
             onClick={(e) => saveHandle(productList.id, productList.quantity)}
             sx={{ height: "30px" }}
           >
-            save
+            บันทึก
           </Button>
         </div>
       </Box>
@@ -340,4 +298,4 @@ const ModalEdit = ({
   );
 };
 
-export default FoodsTable;
+export default ListTable;

@@ -7,8 +7,8 @@ export const svGetOrders = (search) => {
     )
 }
 
-export const svGetOrderByOrderNumber = ({orders_number, type}) => {
-    return axios.get(`order/data/ordernum?orders_number=${orders_number}&type=${type}`).then(
+export const svGetOrderByOrderNumber = ({ orders_number }) => {
+    return axios.get(`order/data/ordernum?orders_number=${orders_number}`).then(
     (res) => { return { status: true, data: res.data.data }},
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
     )

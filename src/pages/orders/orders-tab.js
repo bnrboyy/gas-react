@@ -12,7 +12,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { svCancelOrder, svDeleteOrder, svGetOrderByOrderNumber } from "../../services/orders.service";
+import {
+  svCancelOrder,
+  svDeleteOrder,
+  svGetOrderByOrderNumber,
+} from "../../services/orders.service";
 import SwalUI from "../../components/ui/swal-ui/swal-ui";
 import OrdersModal from "./orders-action/orders-modal";
 import OrdersCard from "./orders-card";
@@ -26,9 +30,8 @@ const OrdersTab = ({
   ordersData,
   setRefreshData,
   refreshData,
-  setTabSelect
+  setTabSelect,
 }) => {
-
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [limited, setLimited] = useState({ begin: 0, end: rowsPerPage });
   const [page, setPage] = useState(0);
@@ -36,31 +39,35 @@ const OrdersTab = ({
 
   const [filteredData, setFilteredData] = useState(ordersData);
   const [totalData, setTotalData] = useState(0);
-  const [orderShow, setOrderShow] = useState({})
-  const [isWashing, setIsWashing] = useState(false)
+  const [orderShow, setOrderShow] = useState({});
+  const [isWashing, setIsWashing] = useState(false);
 
   const tabLists = [
-    { value: "0", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
+    {
+      value: "0",
+      title: "ทั้งหมด",
+      icon: <FontAwesomeIcon icon={faFolderOpen} />,
+    },
     {
       value: "2",
       title: "รอดำเนินการ",
-      icon: <FontAwesomeIcon icon={faStopwatch} />
+      icon: <FontAwesomeIcon icon={faStopwatch} />,
     },
     {
       value: "3",
       title: "กำลังดำเนินการ",
-      icon: <FontAwesomeIcon icon={faStopwatch} />
+      icon: <FontAwesomeIcon icon={faStopwatch} />,
     },
     {
       value: "4",
       title: "จัดส่งสำเร็จ",
-      icon: <FontAwesomeIcon icon={faCircleCheck} />
+      icon: <FontAwesomeIcon icon={faCircleCheck} />,
     },
     {
       value: "5",
       title: "จัดส่งไม่สำเร็จ",
-      icon: <FontAwesomeIcon icon={faCircleXmark} />
-    }
+      icon: <FontAwesomeIcon icon={faCircleXmark} />,
+    },
   ];
 
   const handleChange = (event, newValue) => {
@@ -70,13 +77,13 @@ const OrdersTab = ({
   };
 
   const editHandler = (_ord_number, type) => {
-    if(type === 'washing'){
-      setIsWashing(true)
+    if (type === "washing") {
+      setIsWashing(true);
     } else {
-      setIsWashing(false)
+      setIsWashing(false);
     }
-    svGetOrderByOrderNumber({ orders_number: _ord_number, type: type }).then(
-      ({data: d}) => {
+    svGetOrderByOrderNumber({ orders_number: _ord_number }).then(
+      ({ data: d }) => {
         const result = {
           orders_number: d.orders_number,
           delivery_drop_address: d.delivery_drop_address,
@@ -85,33 +92,27 @@ const OrdersTab = ({
           delivery_pickup_address_more: d.delivery_pickup_address_more,
           details: d.details,
           phone_number: d.phone_number,
-          status: d.status_name.toLowerCase(),
+          second_phone_number: d.second_phone_number,
+          status_name: d.status_name.toLowerCase(),
           transaction_date: d.transaction_date,
           shipping_date: d.shipping_date,
-          type_order: d.type_order,
           date_pickup: d.date_pickup,
           date_drop: d.date_drop,
-          pickup_image: d.pickup_image,
           drop_image: d.drop_image,
-          member_name: d.member_name,
-          branch_name: d.branch_name,
-          branch_id: d.branch_id,
+          customer_name: d.customer_name,
           delivery_pickup: d.delivery_pickup,
           delivery_drop: d.delivery_drop,
-          orderList: d.orderList,
+          orderItemList: d.orderItemList,
           totalPrice: d.totalPrice,
           delivery_price: d.delivery_price,
           status_id: d.status_id,
           slip_image: d.slip_image,
           type_payment: d.type_payment,
-          payment_verified: !!(d.payment_verified),
-          line_id: d.line_id,
-          wechat: d.wechat,
-          telegram: d.telegram,
+          payment_verified: !!d.payment_verified,
           upload_images: d.upload_images,
           distance: d.distance,
-          currency_symbol: d.currency,
         };
+
         setOrderShow(result);
         setOrdersModal(true);
       }
@@ -120,32 +121,31 @@ const OrdersTab = ({
 
   const cancelHandler = (_orders_number) => {
     Swal.fire({
-        background: '#fff',
-        icon: "warning",
-        title: "คุณต้องการยกเลิกคำสั่งซื้อนี้หรือไม่?",
-        // text: "I want to delete this data!",
-        confirmButtonText: "ยืนยัน",
-        confirmButtonColor: "#e11d48",
-        showCancelButton: true,
-        cancelButtonText: "กลับ"
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          svCancelOrder(_orders_number).then((res) => {
-            SwalUI({ status: res.status, description: res.description });
-            if (res.status) {
-              setRefreshData((prev) => prev + 1);
-            }
-          });
-        }
-      });
+      background: "#fff",
+      icon: "warning",
+      title: "คุณต้องการยกเลิกคำสั่งซื้อนี้หรือไม่?",
+      // text: "I want to delete this data!",
+      confirmButtonText: "ยืนยัน",
+      confirmButtonColor: "#e11d48",
+      showCancelButton: true,
+      cancelButtonText: "กลับ",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        svCancelOrder(_orders_number).then((res) => {
+          SwalUI({ status: res.status, description: res.description });
+          if (res.status) {
+            setRefreshData((prev) => prev + 1);
+          }
+        });
+      }
+    });
   };
 
   /* Pagination */
   const handleChangePage = (event, newPage) => {
     setLimited({
       begin: newPage * rowsPerPage,
-      end: (newPage + 1) * rowsPerPage
+      end: (newPage + 1) * rowsPerPage,
     });
     setPage(newPage);
   };
@@ -159,8 +159,8 @@ const OrdersTab = ({
 
   useEffect(() => {
     const result = ordersData?.filter((d) => {
-      if(tabSelect != 0){
-        if(tabSelect == d.status_id){
+      if (tabSelect != 0) {
+        if (tabSelect == d.status_id) {
           return d;
         }
       } else {
@@ -196,7 +196,11 @@ const OrdersTab = ({
             </TabList>
           </Box>
           {tabLists.map((tab) => (
-            <TabPanel className={`orders-tab-body asRow`} value={tab.value} key={tab.value}>
+            <TabPanel
+              className={`orders-tab-body asRow`}
+              value={tab.value}
+              key={tab.value}
+            >
               <div className="item-list">
                 <OrdersCard
                   items={filteredData}

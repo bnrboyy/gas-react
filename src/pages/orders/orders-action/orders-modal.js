@@ -32,7 +32,7 @@ import DateMoment from "../../../components/ui/date-moment/date-moment";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import WashingTable from "./washing-table";
-import FoodsTable from "./foods-table";
+import ListTable from "./lists-table";
 import { LoadingButton } from "@mui/lab";
 import {
   svApproveOrder,
@@ -68,26 +68,26 @@ const OrdersModal = ({
   const statusLists = [
     {
       value: 3,
-      title: "Inprogress",
+      title: "กำลังดำเนินการ",
     },
     {
       value: 4,
-      title: "Complete",
+      title: "จัดส่งสำเร็จ",
     },
     {
       value: 5,
-      title: "Failed",
+      title: "จัดส่งไม่สำเร็จ",
     },
   ];
   const images = orderShow.upload_images?.split(",");
   const dispatch = useDispatch();
   const uploadPath = useSelector((state) => state.app.uploadPath);
   const modalSwal = withReactContent(Swal);
-  const { t } = useTranslation("orders-page");
-  const language = useSelector((state) => state.app.language);
   const srcError = "/images/no-image.png";
   const [imgError, setImgError] = useState({ pickup: false, drop: false });
-  const isSuperAdmin = useSelector((state) => state.auth.userPermission.superAdmin);
+  const isSuperAdmin = useSelector(
+    (state) => state.auth.userPermission.superAdmin
+  );
   const [showDialog, setShowDialog] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -131,12 +131,13 @@ const OrdersModal = ({
   const handlerShowPayment = (imgPath) => {
     if (orderShow.type_payment === "cash") {
       Swal.fire({
-        title: "Confirm to verify payment!",
+        title: "ชำระเงินปลายทาง",
+        text: "ยืนยันการตรวจสอบ",
         background: "#fff",
         showCancelButton: true,
         confirmButtonColor: "rgb(71 192 195)",
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
         showLoaderOnConfirm: true,
         preConfirm: (isConfirmed) => {
           svVerifiedPayment(orderShow.orders_number);
@@ -146,7 +147,7 @@ const OrdersModal = ({
       });
     } else {
       Swal.fire({
-        title: "Confirm to verify payment!",
+        title: "โอนจ่าย",
         html: `
         <figure class="preview-img-verify" >
           <img src='${imgPath}' id="img_preview" />
@@ -154,8 +155,8 @@ const OrdersModal = ({
         background: "#fff",
         showCancelButton: true,
         confirmButtonColor: "rgb(71 192 195)",
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
         showLoaderOnConfirm: true,
         preConfirm: (isConfirmed) => {
           svVerifiedPayment(orderShow.orders_number);
@@ -171,7 +172,10 @@ const OrdersModal = ({
   }, [isOpen]);
 
   const handlerShowLocation = (locationPath) => {
-    window.open(`https://www.google.co.th/maps/place/${locationPath}`, "_blank");
+    window.open(
+      `https://www.google.co.th/maps/place/${locationPath}`,
+      "_blank"
+    );
   };
 
   const handleUpdate = async (_status) => {
@@ -186,82 +190,13 @@ const OrdersModal = ({
     });
   };
 
-  const handleApprove = async (_orders_number, type_order) => {
-    if (type_order === "washing") {
-      // for washing
-      Swal.fire({
-        title: "Please upload pickup image!",
-        html: `
-        <figure class="preview-img-confirm" >
-          <img src='${srcError}' id="img_preview" />
-          <input type="file" id="pickup_image" />
-          <svg
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 512 512"
-          >
-            <path d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/>
-          </svg>
-          <div class="circle"></div>
-        </figure>
-        <span id="error-message" style="color:red;display:none;">please upload pickup image!!!</span>`,
-        background: "#fff",
-        showCancelButton: true,
-        confirmButtonColor: "rgb(71 192 195)",
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-        didOpen: () => {
-          const file_el = document.querySelector("#pickup_image");
-          const img_preview = document.querySelector("#img_preview");
-          if (file_el) {
-            file_el.addEventListener("change", () => {
-              img_preview.setAttribute("src", URL.createObjectURL(file_el.files[0]));
-              const figure_el = document.querySelector(".preview-img-confirm");
-              figure_el.classList.remove("error");
-              const error_el = document.querySelector("#error-message");
-              error_el.style.display = "none";
-            });
-          }
-        },
-        showLoaderOnConfirm: true,
-        preConfirm: (isConfirmed) => {
-          const file_el = document.querySelector("#pickup_image");
-          if (file_el.files.length === 0) {
-            const figure_el = document.querySelector(".preview-img-confirm");
-            figure_el.classList.add("error");
-            const error_el = document.querySelector("#error-message");
-            error_el.style.display = "block";
-            return false;
-          }
-          const _data = {
-            orders_number: _orders_number,
-            pickup_image: file_el.files[0],
-            drop_image: null,
-          };
-          onApprove(_data);
-        },
-        allowOutsideClick: () => !Swal.isLoading(),
-      });
-    } else {
-      Swal.fire({
-        background: "#fff",
-        icon: "warning",
-        title: "Are you sure?",
-        text: "You want to approve this order!",
-        confirmButtonText: "Yes, approve it",
-        confirmButtonColor: "rgb(71 192 195)",
-        showCancelButton: true,
-        cancelButtonText: "Cancel",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const _data = {
-            orders_number: _orders_number,
-            pickup_image: null,
-            drop_image: null,
-          };
-          onApprove(_data);
-        }
-      });
-    }
+  const handleApprove = async (_orders_number) => {
+    const _data = {
+      orders_number: _orders_number,
+      pickup_image: null,
+      drop_image: null,
+    };
+    onApprove(_data);
   };
 
   const handleValidateWashing = () => {
@@ -278,7 +213,7 @@ const OrdersModal = ({
 
   const handleSendOrder = async (_orders_number) => {
     Swal.fire({
-      title: "Please upload drop image!",
+      title: "โปรดอัพโหลดรูปภาพจัดส่ง!",
       html: `
         <figure class="preview-img-confirm" >
           <img src='${srcError}' id="img_preview" />
@@ -291,18 +226,21 @@ const OrdersModal = ({
           </svg>
           <div class="circle"></div>
         </figure>
-        <span id="error-message" style="color:red;display:none;">please upload drop image!!!</span>`,
+        <span id="error-message" style="color:red;display:none;">โปรดอัพโหลดรูปภาพจัดส่ง!!!</span>`,
       background: "#fff",
       showCancelButton: true,
       confirmButtonColor: "rgb(71 192 195)",
-      confirmButtonText: "Confirm",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ปิด",
       didOpen: () => {
         const file_el = document.querySelector("#drop_image");
         const img_preview = document.querySelector("#img_preview");
         if (file_el) {
           file_el.addEventListener("change", () => {
-            img_preview.setAttribute("src", URL.createObjectURL(file_el.files[0]));
+            img_preview.setAttribute(
+              "src",
+              URL.createObjectURL(file_el.files[0])
+            );
             const figure_el = document.querySelector(".preview-img-confirm");
             figure_el.classList.remove("error");
             const error_el = document.querySelector("#error-message");
@@ -312,7 +250,6 @@ const OrdersModal = ({
       },
       showLoaderOnConfirm: true,
       preConfirm: (isConfirmed) => {
-        console.log("ok");
         const file_el = document.querySelector("#drop_image");
         if (file_el.files.length === 0) {
           const figure_el = document.querySelector(".preview-img-confirm");
@@ -430,6 +367,8 @@ const OrdersModal = ({
     window.open(pdfURL, "_blank");
   };
 
+  console.log(orderShow.status_id);
+
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Modal
@@ -444,12 +383,12 @@ const OrdersModal = ({
               <div className="card-head">
                 <div className="head-action">
                   <h2 className="head-title">
-                    <FontAwesomeIcon icon={faAdd} /> {t("OrdersDetails")}
+                    <FontAwesomeIcon icon={faAdd} /> รายละเอียดคำสั่งซื้อ
                   </h2>
                   <h3>
                     #{orderShow.orders_number}{" "}
                     <Chip
-                      label={orderShow.status}
+                      label={orderShow.status_name}
                       size="small"
                       color={
                         orderShow.status_id === 1
@@ -470,23 +409,32 @@ const OrdersModal = ({
                       color="warning"
                       size="small"
                       variant="outlined"
-                      onClick={(e) => handlerShowPayment(`${uploadPath + orderShow.slip_image}`)}
+                      onClick={(e) =>
+                        handlerShowPayment(
+                          `${uploadPath + orderShow.slip_image}`
+                        )
+                      }
                     >
-                      {"Verify Payment"}
+                      {"ตรวจสอบการชำระเงิน"}
                     </LoadingButton>
                   ) : (
                     <div>
-                      <h4 style={{ color: "green" }}>Payment has been verified.</h4>
+                      <h4 style={{ color: "green" }}>
+                        การชำระเงินได้รับการยืนยันแล้ว
+                      </h4>
                     </div>
                   )}
                 </div>
                 {isSuperAdmin && (
                   <div
                     className="status"
-                    style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                    }}
                   >
-
-                    {orderShow.status_id !== 5 && (
+                    {/* {orderShow.status_id !== 5 && (
                       <Button
                         onClick={() => openPDF()}
                         size="small"
@@ -497,7 +445,7 @@ const OrdersModal = ({
                         <FontAwesomeIcon icon={faBook} />
                         Open PDF
                       </Button>
-                    )}
+                    )} */}
 
                     <LoadingButton
                       className="btn"
@@ -510,7 +458,7 @@ const OrdersModal = ({
                       onClick={(e) => setAnchorEl(e.currentTarget)}
                       startIcon={<FontAwesomeIcon icon={faRandom} />}
                     >
-                      {"Update Status"}
+                      {"อัปเดตสถานะ"}
                     </LoadingButton>
                     <Menu
                       id="basic-menu"
@@ -522,7 +470,10 @@ const OrdersModal = ({
                       }}
                     >
                       {statusLists.map((el, index) => (
-                        <MenuItem key={index} onClick={() => handleUpdate(el.value)}>
+                        <MenuItem
+                          key={index}
+                          onClick={() => handleUpdate(el.value)}
+                        >
                           {el.title}
                         </MenuItem>
                       ))}
@@ -541,100 +492,89 @@ const OrdersModal = ({
                     <div className="box-rows">
                       <div className="column-top">
                         <p>
-                          <strong>Customer Name</strong>
+                          <strong>ชื่อลูกค้า</strong>
                         </p>
-                        <label htmlFor="">{orderShow.member_name}</label>
+                        <label htmlFor="">{orderShow.customer_name}</label>
                       </div>
-                      <div className="column-top">
-                        <p>
-                          <strong>Branch</strong>
-                        </p>
-                        <label htmlFor="">{orderShow.branch_name}</label>
-                      </div>
-                      <div className="column-top">
-                        {isWashing && (
-                          <React.Fragment>
-                            <p>
-                              <strong>Pickup Date</strong>
-                            </p>
-                            <label htmlFor="">
-                              <DateMoment format={"LLL"} date={orderShow.date_pickup} />
-                            </label>
-                          </React.Fragment>
-                        )}
+                      {/* <div className="column-top">
                         <p>
                           <strong>Shipping Date</strong>
                         </p>
                         <label htmlFor="">
                           <DateMoment format={"LLL"} date={orderShow.shipping_date} />
                         </label>
-                      </div>
+                      </div> */}
                       <div className="column-top">
                         <p>
-                          <strong>Phone Number</strong>
+                          <strong>เบอร์โทรศัพท์</strong>
                         </p>
                         <label htmlFor="">{orderShow.phone_number}</label>
                       </div>
-                    </div>
-                    <div className="box-rows">
                       <div className="column-top">
                         <p>
-                          <strong>Line ID</strong>
+                          <strong>เบอร์โทรศัพท์ สำรอง</strong>
                         </p>
-                        <label htmlFor="">{orderShow.line_id}</label>
+                        <label htmlFor="">{orderShow.phone_number}</label>
                       </div>
                       <div className="column-top">
                         <p>
-                          <strong>WeChat</strong>
+                          <strong>ระยะทาง</strong>
                         </p>
-                        <label htmlFor="">{orderShow.wechat}</label>
-                      </div>
-                      <div className="column-top">
-                        <p>
-                          <strong>Telegram</strong>
-                        </p>
-                        <label htmlFor="">{orderShow.telegram}</label>
-                      </div>
-                      <div className="column-top">
-                        <p>
-                          <strong>Distance</strong>
-                        </p>
-                        <label htmlFor="">{parseFloat(orderShow.distance).toFixed(2)} KM.</label>
+                        <label htmlFor="">
+                          {parseFloat(orderShow.distance).toFixed(2)} KM.
+                        </label>
                       </div>
                     </div>
                     <div className="box-rows">
                       <div className="column-top">
                         <p>
-                          <strong>Type Order</strong>
-                        </p>
-                        <label htmlFor="">{orderShow.type_order}</label>
-                      </div>
-                      <div className="column-top">
-                        <p>
-                          <strong>Order Details</strong>
+                          <strong>รายละเอียดคำสั่งซื้อ</strong>
                         </p>
                         <label htmlFor="">{orderShow.details}</label>
                       </div>
                       <div className="column-top">
                         <p>
-                          <strong>Total Price (including shipping fee)</strong>
+                          <strong>ราคารวม (รวมค่าจัดส่ง)</strong>
                         </p>
                         <label htmlFor="">
-                          {orderShow.totalPrice + orderShow.delivery_price}{" "}
-                          {orderShow.currency_symbol}
+                          {orderShow.totalPrice + orderShow.delivery_price} บาท
                         </label>
                       </div>
                       <div className="column-top">
                         <p>
-                          <strong>Delivery Price</strong>
+                          <strong>ค่าจัดส่ง</strong>
                         </p>
                         <label htmlFor="">
-                          {orderShow.delivery_price || 0} {orderShow.currency_symbol}
+                          {orderShow.delivery_price || 0} บาท
+                        </label>
+                      </div>
+                      <div className="column-top">
+                        <p>
+                          <strong>ที่อยู่จัดส่ง</strong>
+                        </p>
+                        <p className="location">
+                          {orderShow.delivery_drop_address}
+                        </p>
+                        <p>
+                          <strong>รายละเอียดที่อยู่</strong>
+                        </p>
+                        <p className="location">
+                          {orderShow.delivery_drop_address_more}
+                        </p>
+                        <label
+                          className="location"
+                          htmlFor=""
+                          onClick={(e) =>
+                            handlerShowLocation(orderShow.delivery_drop)
+                          }
+                        >
+                          <FontAwesomeIcon icon={faMapLocationDot} />
+                          {" แสดงที่อยู่จัดส่ง (click)"}
                         </label>
                       </div>
                     </div>
                     <div className={isWashing ? "box-rows" : "box-rows foods"}>
-                      {isWashing && (
+                      {/* {isWashing && (
                         <div className="column-top">
                           <p>
                             <strong>Pickup Image</strong>
@@ -655,24 +595,31 @@ const OrdersModal = ({
                             />
                           </figure>
                         </div>
-                      )}
+                      )} */}
                       <div className="column-top">
                         <p>
-                          <strong>Drop Image</strong>
+                          <strong>รูปภาพการจัดส่ง</strong>
                         </p>
                         <figure
                           onClick={(e) =>
-                            handlerShowImage(`${uploadPath + orderShow.drop_image}`, "drop")
+                            handlerShowImage(
+                              `${uploadPath + orderShow.drop_image}`,
+                              "drop"
+                            )
                           }
                         >
                           <img
-                            src={orderShow.drop_image ? `${uploadPath + orderShow.drop_image}` : ""}
+                            src={
+                              orderShow.drop_image
+                                ? `${uploadPath + orderShow.drop_image}`
+                                : ""
+                            }
                             alt=""
                             onError={(e) => imageError(e, "drop")}
                           />
                         </figure>
                       </div>
-                      {isWashing && (
+                      {/* {isWashing && (
                         <div className="column-top">
                           <p>
                             <strong>Delivery Pickup</strong>
@@ -692,27 +639,9 @@ const OrdersModal = ({
                             {" show location (click)"}
                           </label>
                         </div>
-                      )}
-                      <div className="column-top">
-                        <p>
-                          <strong>Delivery Drop</strong>
-                        </p>
-                        <p className="location">{orderShow.delivery_drop_address}</p>
-                        <p>
-                          <strong>Drop Details</strong>
-                        </p>
-                        <p className="location">{orderShow.delivery_drop_address_more}</p>
-                        <label
-                          className="location"
-                          htmlFor=""
-                          onClick={(e) => handlerShowLocation(orderShow.delivery_drop)}
-                        >
-                          <FontAwesomeIcon icon={faMapLocationDot} />
-                          {" show location (click)"}
-                        </label>
-                      </div>
+                      )} */}
                     </div>
-                    <div className={isWashing ? "box-rows" : "box-rows foods"}>
+                    {/* <div className={isWashing ? "box-rows" : "box-rows foods"}>
                       {true && (
                         <div
                           className="column-image"
@@ -749,7 +678,7 @@ const OrdersModal = ({
                           </div>
                         </div>
                       )}
-                    </div>
+                    </div> */}
                   </Box>
                   <div
                     style={{
@@ -757,22 +686,11 @@ const OrdersModal = ({
                       marginTop: "1rem",
                     }}
                   >
-                    {isWashing ? (
-                      <WashingTable
-                        orderShow={orderShow}
-                        orderList={orderShow.orderList}
-                        showDialog={showDialog}
-                        setShowDialog={setShowDialog}
-                        setApproveForm={setApproveForm}
-                        setOrderShow={setOrderShow}
-                      />
-                    ) : (
-                      <FoodsTable
-                        orderShow={orderShow}
-                        orderList={orderShow.orderList}
-                        setOrderShow={setOrderShow}
-                      />
-                    )}
+                    <ListTable
+                      orderShow={orderShow}
+                      orderList={orderShow.orderItemList}
+                      setOrderShow={setOrderShow}
+                    />
                   </div>
                 </Box>
               </div>
@@ -780,13 +698,13 @@ const OrdersModal = ({
                 <div className="btn-action">
                   {orderShow.payment_verified && orderShow.status_id === 2 && (
                     <ButtonUI
-                      onClick={() => handleApprove(orderShow.orders_number, orderShow.type_order)}
+                      onClick={() => handleApprove(orderShow.orders_number)}
                       icon={<FontAwesomeIcon icon={faCheck} />}
                       className="btn-save"
                       on="save"
                       width="md"
                     >
-                      Approve
+                      ยืนยันรับออเดอร์
                     </ButtonUI>
                   )}
                   {orderShow.payment_verified && orderShow.status_id === 3 && (
@@ -797,7 +715,7 @@ const OrdersModal = ({
                       on="save"
                       width="md"
                     >
-                      Send Order
+                      ส่งออเดอร์
                     </ButtonUI>
                   )}
                   <ButtonUI
@@ -807,7 +725,7 @@ const OrdersModal = ({
                     on="cancel"
                     width="md"
                   >
-                    Close
+                    ปิด
                   </ButtonUI>
                 </div>
               </div>
@@ -815,143 +733,7 @@ const OrdersModal = ({
           </section>
         </Box>
       </Modal>
-      {
-        <ApproveModel
-          handleValidateWashing={handleValidateWashing}
-          showDialog={showDialog}
-          setShowDialog={setShowDialog}
-          approveForm={approveForm}
-          setApproveForm={setApproveForm}
-        />
-      }
     </LocalizationProvider>
-  );
-};
-
-const ApproveModel = ({
-  handleValidateWashing,
-  showDialog,
-  setShowDialog,
-  approveForm,
-  setApproveForm,
-}) => {
-  const [capacity, setCapacity] = useState([]);
-  const [currentCapa, setCurrentCapa] = useState({});
-  const [capaId, setCapaId] = useState(0);
-  const [diff, setDiff] = useState(0);
-  const [currency, setCurrency] = useState("");
-
-  useEffect(() => {
-    if (showDialog) {
-      setApproveForm((prev) => {
-        return {
-          ...prev,
-          weight: "",
-        };
-      });
-      setDiff(0);
-      svProductCapacity(approveForm)
-        .then((res) => {
-          setCapacity(res.data.capacity);
-          setCurrentCapa(res.data.current);
-          setCurrency(res.data.currency);
-          setCapaId(res.data.current.product_id);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [showDialog]);
-
-  const handleConfirm = () => {
-    handleValidateWashing();
-  };
-
-  const handleChange = (e) => {
-    setApproveForm((prev) => {
-      return {
-        ...prev,
-        product_id: e.target.value,
-        weight: "",
-        add_price: diff,
-      };
-    });
-    setCapaId(e.target.value);
-    const capa = capacity.find((el) => el.id == e.target.value);
-    setDiff(capa.price - currentCapa.totalPrice);
-  };
-
-  return (
-    <Dialog
-      open={showDialog}
-      onClose={() => setShowDialog(false)}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      className="dialog"
-    >
-      {/* <div className="details">
-        <FormControl error={!!!approveForm.weight} variant="standard">
-          <InputLabel htmlFor={`weight`}>Weight (kg)</InputLabel>
-          <Input
-            size="small"
-            id={`weight`}
-            type="number"
-            value={approveForm.weight}
-            onChange={(e) =>
-              setApproveForm((prev) => {
-                return { ...prev, weight: e.target.value };
-              })
-            }
-          />
-        </FormControl>
-      </div> */}
-
-      <div className="details">
-        <FormControl variant="standard">
-          <InputLabel id="select-capacity">Capacity</InputLabel>
-          <Select
-            labelId="select-filter-page"
-            id="filter-page-control"
-            label="Page Control"
-            className="input-page"
-            size="small"
-            onChange={(e) => handleChange(e)}
-            value={capaId}
-          >
-            <MenuItem value="" disabled>
-              Select Capacity
-            </MenuItem>
-            {capacity?.map((menu) => (
-              <MenuItem key={menu.id} value={menu.id}>
-                {menu.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-
-      <div className="details">
-        {diff !== 0 && (
-          <Chip
-            label={diff > 0 ? `+ ${diff} ${currency}` : `${diff} ${currency}`}
-            color={diff > 0 ? "success" : "error"}
-            variant="outlined"
-          />
-        )}
-      </div>
-
-      <div className="btn">
-        <ButtonUI
-          onClick={() => handleConfirm()}
-          icon={<FontAwesomeIcon icon={faCheck} />}
-          className="btn-save"
-          on="save"
-          width="md"
-        >
-          Confirm
-        </ButtonUI>
-      </div>
-    </Dialog>
   );
 };
 
