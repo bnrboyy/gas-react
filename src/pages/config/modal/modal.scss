@@ -61,12 +61,12 @@
           width: 100%;
           row-gap: .5rem;
           .input-group {
-            @apply w-full flex flex-col gap-1;
+            @apply w-full flex flex-col gap-0;
             label {
               font-weight: 400;
             }
             .inp-text {
-              @apply border border-gray-400 px-2 py-1 focus:outline-blue-400 ;
+              @apply w-full border border-gray-400 px-2 py-1 focus:outline-blue-400 ;
               border-radius: 5px;
 
               &.inp-error {

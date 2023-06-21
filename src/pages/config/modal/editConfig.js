@@ -6,7 +6,14 @@ import { appActions } from "../../../store/app-slice";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faEdit, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faEdit,
+  faMinus,
+  faPlus,
+  faXmark,
+  faCloudUploadAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 import ButtonUI from "../../../components/ui/button/button";
 import IconButton from "@mui/material/IconButton";
@@ -14,52 +21,78 @@ import { useTranslation } from "react-i18next";
 
 const EditConfigModal = (props) => {
   const { t } = useTranslation("config-page");
-  const { isOpenModal, modalData, dimension } = props;
+  const { isOpenModal, modalData, bankData } = props;
+  const uploadPath = useSelector((state) => state.app.uploadPath);
 
-  const typeRef = useRef()
-  const titleRef = useRef()
-  const dimensionRef = useRef()
+  const [uploadImage, setUploadImage] = useState("");
 
-  useEffect(() => {
-  
-  }, [modalData]);
+  const bankNameRef = useRef();
+  const bankIdRef = useRef();
+  const accountName = useRef();
+  const uploadRef = useRef();
+  const currentImg = bankData.bank_image;
+
+  useEffect(() => {}, [modalData]);
 
   if (!isOpenModal) {
     return <Fragment></Fragment>;
   }
   const closeModalHandler = () => {
     props.setModal(false);
-  }
+    setUploadImage("")
+  };
 
-  const saveModalHandler = (token) => {
+  const saveModalHandler = (_id) => {
     let data = {
-      type: typeRef.current.value,
-      title: titleRef.current.value,
-      dimension: dimensionRef.current.value
+      id: bankData.id,
+      bankName: bankNameRef.current.value,
+      accountName: accountName.current.value,
+      bankId: bankIdRef.current.value,
+      upload: props.upload && uploadRef.current ? uploadRef.current.files : "",
+    };
+
+    if (data.bankName.length < 1) {
+      bankNameRef.current.classList.add("inp-error");
+      bankNameRef.current.focus();
+      return false;
+    } else {
+      bankNameRef.current.classList.remove("inp-error");
     }
 
-    if(data.title.length < 1) {
-      titleRef.current.classList.add('inp-error')
-      titleRef.current.focus()
+    if (data.accountName.length < 1) {
+      accountName.current.classList.add("inp-error");
+      accountName.current.focus();
+      return false;
     } else {
-      titleRef.current.classList.remove('inp-error')
-    }
-    
-    if(data.type.length < 1) {
-      typeRef.current.classList.add('inp-error')
-      typeRef.current.focus()
-    } else {
-      typeRef.current.classList.remove('inp-error')
+      accountName.current.classList.remove("inp-error");
     }
 
-    if(data.type.length < 1 || data.title.length < 2 ) {
+    if (data.bankId.length < 1) {
+      bankIdRef.current.classList.add("inp-error");
+      bankIdRef.current.focus();
+      return false;
+    } else {
+      bankIdRef.current.classList.remove("inp-error");
+    }
+
+    if (data.bankName.length < 1 || data.accountName.length < 2) {
       return false;
     }
 
-    /* fetch data ตรงนี้ */
+    setUploadImage("");
     props.setModal(false);
-    props.onFetch(data);
-  }
+    props.onUpdate(data);
+  };
+
+  const convertImagePreview = async (file) => {
+    const image = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+    setUploadImage(image);
+  };
 
   return (
     <Modal
@@ -67,7 +100,8 @@ const EditConfigModal = (props) => {
       onClose={closeModalHandler}
       className={"modal-add-Config"}
       aria-labelledby="modal-add-Config"
-      aria-describedby="" >
+      aria-describedby=""
+    >
       <Box className="modal-custom">
         <div className="modal-header">
           <h2>
@@ -85,22 +119,61 @@ const EditConfigModal = (props) => {
         </div>
         <div className="modal-body">
           <fieldset className="modal-fieldset">
-            <legend className="modal-legend"> {t("modalEditConfig")}</legend>
-
+            <legend className="modal-legend"> {"รายละเอียดธนาคาร"}</legend>
             <div className="modal-config-content">
               <div className="input-group">
-                <label className="group-label">Type</label>
-                <input className="inp-text" ref={typeRef} defaultValue={modalData.type}  />
+                <label className="group-label">ชื่อธนาคาร</label>
+                <input
+                  defaultValue={bankData.bank_name}
+                  className="inp-text"
+                  placeholder={"กรอกชื่อธนาคาร"}
+                  ref={bankNameRef}
+                />
               </div>
               <div className="input-group">
-                <label className="group-label">Title</label>
-                <input className="inp-text" ref={titleRef} defaultValue={modalData.title}   />
+                <label className="group-label">ชื่อบัญชี</label>
+                <input
+                  defaultValue={bankData.bank_account}
+                  className="inp-text"
+                  placeholder={"กรอกชื่อบัญชี"}
+                  ref={accountName}
+                />
               </div>
               <div className="input-group">
-                <label className="group-label">Dimension</label>
-                <input className="inp-text" ref={dimensionRef} defaultValue={modalData.dimension}  />
+                <label className="group-label">เลขที่บัญชี</label>
+                <input
+                  defaultValue={bankData.bank_number}
+                  className="inp-text"
+                  placeholder={"กรอกเลขบัญชี"}
+                  ref={bankIdRef}
+                />
               </div>
-          
+              <div className="upload-image">
+                <ButtonUI
+                  onClick={(e) => uploadRef.current.click()}
+                  className={"uploadImageBtn"}
+                  icon={<FontAwesomeIcon icon={faCloudUploadAlt} />}
+                  on="add"
+                >
+                  {"เปลี่ยนรูปภาพ"}
+                </ButtonUI>
+                <figure className="figure-upload">
+                  <img
+                    title="image"
+                    src={
+                      uploadImage !== "" ? uploadImage : uploadPath + currentImg
+                    }
+                    className="image-preview"
+                  />
+                </figure>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="inp-upload-file"
+                  ref={uploadRef}
+                  onChange={(e) => convertImagePreview(e.target.files[0])}
+                />
+              </div>
             </div>
           </fieldset>
         </div>
@@ -109,7 +182,8 @@ const EditConfigModal = (props) => {
             className="btn-create"
             on="save"
             width="lg"
-            onClick={saveModalHandler} >
+            onClick={() => saveModalHandler(bankData.id)}
+          >
             {t("modalSave")}
           </ButtonUI>
         </div>

@@ -14,9 +14,9 @@ const AddConfigModal = (props) => {
   const { t } = useTranslation("config-page");
   const { isOpenModal, dimension, upload, placeholder } = props;
  
-  const typeRef = useRef()
-  const titleRef = useRef()
-  const dimensionRef = useRef()
+  const bankNameRef = useRef()
+  const bankIdRef = useRef()
+  const accountName = useRef()
   const uploadRef = useRef()
   const [uploadImage, setUploadImage] = useState("")
 
@@ -30,31 +30,42 @@ const AddConfigModal = (props) => {
 
   const saveModalHandler = () => {
     let data = {
-      type:typeRef.current.value,
-      title:titleRef.current.value,
-      dimension: (dimension)?dimensionRef.current.value:"",
+      bankName:bankNameRef.current.value,
+      accountName:accountName.current.value,
+      bankId: bankIdRef.current.value,
       upload: (upload && uploadRef.current )?uploadRef.current.files:"",
     }
 
-   
-    if(data.title.length < 1) {
-      titleRef.current.classList.add('inp-error')
-      titleRef.current.focus()
+    if(data.bankName.length < 1) {
+      bankNameRef.current.classList.add('inp-error')
+      bankNameRef.current.focus()
+      return false;
     } else {
-      titleRef.current.classList.remove('inp-error')
+      bankNameRef.current.classList.remove('inp-error')
+    }
+   
+    if(data.accountName.length < 1) {
+      accountName.current.classList.add('inp-error')
+      accountName.current.focus()
+      return false;
+    } else {
+      accountName.current.classList.remove('inp-error')
     }
     
-    if(data.type.length < 1) {
-      typeRef.current.classList.add('inp-error')
-      typeRef.current.focus()
+
+    if(data.bankId.length < 1) {
+      bankIdRef.current.classList.add('inp-error')
+      bankIdRef.current.focus()
+      return false;
     } else {
-      typeRef.current.classList.remove('inp-error')
+      bankIdRef.current.classList.remove('inp-error')
     }
 
-    if(data.type.length < 1 || data.title.length < 2 ) {
+    if(data.bankName.length < 1 || data.accountName.length < 2 ) {
       return false;
     }
 
+    setUploadImage("");
     props.setOpenAddModal(false);
     props.onFetch(data);
   }
@@ -93,30 +104,28 @@ const AddConfigModal = (props) => {
         </div>
         <div className="modal-body">
           <fieldset className="modal-fieldset">
-            <legend className="modal-legend"> {t("modalAddConfig")}</legend>
+            <legend className="modal-legend"> {"รายละเอียดธนาคาร"}</legend>
 
             <div className="modal-config-content">
               <div className="input-group">
-                <label className="group-label">type</label>
-                <input className="inp-text" placeholder={placeholder.type} ref={typeRef} />
+                <label className="group-label">ชื่อธนาคาร</label>
+                <input className="inp-text" placeholder={"กรอกชื่อธนาคาร"} ref={bankNameRef} />
               </div>
               <div className="input-group">
-                <label className="group-label">title</label>
-                <input className="inp-text" placeholder={placeholder.title} ref={titleRef} />
+                <label className="group-label">ชื่อบัญชี</label>
+                <input className="inp-text" placeholder={"กรอกชื่อบัญชี"} ref={accountName} />
               </div>
-              {dimension && (
-                <div className="input-group">
-                  <label className="group-label">Dimension</label>
-                  <input className="inp-text" placeholder={placeholder.dimension} ref={dimensionRef} />
-                </div>
-              )}
+              <div className="input-group">
+                <label className="group-label">เลขที่บัญชี</label>
+                <input className="inp-text" placeholder={"กรอกเลขบัญชี"} ref={bankIdRef} />
+              </div>
               {upload && (
                 <div className="upload-image">
                   <ButtonUI 
                     onClick={(e) => uploadRef.current.click()} 
                     className={'uploadImageBtn'} 
                     icon={<FontAwesomeIcon icon={faCloudUploadAlt} /> } 
-                    on="add" >{t("BtnUploadImage")}</ButtonUI>
+                    on="add" >{"เพิ่มรูปภาพ"}</ButtonUI>
                     {uploadImage !== "" &&  (
                       <figure className="figure-upload">
                         <img title='image' src={uploadImage} className="image-preview" />

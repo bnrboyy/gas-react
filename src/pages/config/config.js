@@ -68,17 +68,9 @@ const ConfigPage = () => {
         icon={<FontAwesomeIcon icon={faBuildingColumns} />}
         breadcrums={[{ title: "จัดการบัญชีธนาคาร", link: false }]} />
       <div className="config-page">
-        {/* <div className="left-pos"  >
-          <SystemSection />
-          <ManualSection />
-        </div> */}
         <div className="center-pos" >
           <LanguageSection refresh={() => setRefreshData( refreshData + 1)} data={languageArr} bank={bankData}  />
-          {/* <DataTypeSection refresh={() => setRefreshData( refreshData + 1)} data={infoTypeArr} /> */}
         </div>
-        {/* <div className="right-pos" >
-          <BannerSection refresh={() => setRefreshData( refreshData + 1)} data={bannerTypeArr} />
-        </div> */}
       </div>
     </Fragment>
   )
