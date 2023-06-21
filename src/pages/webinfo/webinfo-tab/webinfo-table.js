@@ -102,8 +102,6 @@ const WebInfoTable = (props) => {
             <TableCell className="table-th" align="center" sx={{ width: "50px" }}>#</TableCell>
             <TableCell className="table-th head-title">{t("Title")}</TableCell> 
             <TableCell className="table-th head-value">{t("Value")}</TableCell>
-            {/* <TableCell className="table-th" align="center"sx={{ width: "100px" }}>{t("Source")}</TableCell> */}
-            {/* <TableCell className="table-th" align="center" sx={{ width: "100px" }}>{t("Display")}</TableCell> */}
             <TableCell className="table-th" align="center" sx={{ width: "100px" }}>{t("Action")}</TableCell>
           </TableRow>
         </TableHead>
@@ -113,20 +111,11 @@ const WebInfoTable = (props) => {
               <TableCell scope="row" align="center">{index + 1}</TableCell>
               <TableCell>{row.description}</TableCell>
               <TableCell>{row.value}</TableCell>
-              {/* <TableCell align="center">
-                {row.link !== "" && <a className="btn-link" target="_blank" href={row.link}>{t("LinkBtn")}</a>}
-                {row.iframe !== "" && (
-                  <Button className="btn-link" variant="text" onClick={(e) => previewHandler(row.iframe)}>{t("PreviewBtn")}</Button>
-                )}
-                </TableCell> */}
-              {/* <TableCell align="center">
-                <Switch aria-label="Size switch" size="small" checked={row.display}  onChange={(e)=> displayInfoHandler(e, row.token) } />
-              </TableCell> */}
               <TableCell align="right">
                 <div className="blog-action">
                   {row.language.toLowerCase() !== language && <ButtonUI on="add" width="xs" onClick={(e)=>modalClickHandler(row, false)}> {t("Add")} </ButtonUI>}
                   {row.language.toLowerCase() === language && <ButtonUI on="edit" width="xs" onClick={(e)=>modalClickHandler(row, true)}> {t("Edit")}</ButtonUI>}
-                  {(row.language.toLowerCase() === language && row.infoTypeId !== 1 ) && <ButtonUI on="delete" width="xs" onClick={(e)=>deleteWebInfoHandler(row.token)}> {t("Delete")} </ButtonUI>}
+                  {/* {(row.language.toLowerCase() === language && row.infoTypeId !== 1 ) && <ButtonUI on="delete" width="xs" onClick={(e)=>deleteWebInfoHandler(row.token)}> {t("Delete")} </ButtonUI>} */}
                 </div>
               </TableCell>
             </TableRow>

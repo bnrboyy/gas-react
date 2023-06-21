@@ -45,12 +45,7 @@ const SidebarComponent = (props) => {
 
   const dispatch = useDispatch();
   const uPermission = useSelector((state) => state.auth.userPermission);
-  const selectedLanguage = useSelector((state) => state.app.language);
-  const webPath = useSelector((state) => state.app.webPath);
-  const activateLanguage = useSelector((state) => state.auth.activateLanguage);
   const pagesAllow = useSelector((state) => state.app.pages);
-  const uploadPath = useSelector((state) => state.app.uploadPath);
-  const isDevMode = useSelector((state) => state.app.isDevMode);
   const newOrders = useSelector((state) => state.app.newOrders);
 
   const languageSelectHandler = (lang) => {
@@ -105,12 +100,12 @@ const SidebarComponent = (props) => {
         </div> */}
 
         <div className="sidenav-main">
-          {pagesAllow.groups.notify && (uPermission.superAdmin || uPermission.admin) && (
+          {pagesAllow.groups.notify && (uPermission.superAdmin || uPermission.rider) && (
             <Fragment>
               <hr className="line-section gap " />
               <div className="title-section">{t("NotificationTitle")}</div>
               <ul className="nav-menu">
-                {pagesAllow.dashboard && (
+                {pagesAllow.dashboard && uPermission.superAdmin && (
                   <li>
                     <NavLink
                       onClick={closeSidebarhandler}
@@ -198,14 +193,14 @@ const SidebarComponent = (props) => {
             </Fragment>
           )}
 
-          {pagesAllow.groups.product && (
+          {pagesAllow.groups.product && (uPermission.superAdmin || uPermission.admin) && (
             <Fragment>
               <hr className="line-section gap" />
               <ul className="nav-menu">
                 <div className="title-section">{t("ProductsTitleMenu")}</div>
                
                 {pagesAllow.employee &&
-                  (uPermission.superAdmin || uPermission.admin) && (
+                  (
                     <NavLink
                       onClick={closeSidebarhandler}
                       to="/productcate"
@@ -419,12 +414,12 @@ const SidebarComponent = (props) => {
             </Fragment>
           )}
 
-          {pagesAllow.groups.system && (
+          {pagesAllow.groups.system && (uPermission.superAdmin || uPermission.admin) && (
             <Fragment>
               <hr className="line-section gap" />
               <div className="title-section">{t("SettingsTitle")}</div>
               <ul className="nav-menu">
-                {pagesAllow.webinfo && (uPermission.superAdmin || uPermission.admin) && (
+                {pagesAllow.webinfo && (
                   <NavLink
                     onClick={closeSidebarhandler}
                     to="/webinfo"

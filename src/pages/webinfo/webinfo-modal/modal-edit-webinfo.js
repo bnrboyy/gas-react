@@ -11,7 +11,6 @@ import Modal from "@mui/material/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faEdit, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "@mui/material/IconButton";
-import { Switch } from "@mui/material";  
 
 const ModalEditWebinfo = (props) => {
   const { t } = useTranslation("webinfo-page");
@@ -41,48 +40,11 @@ const ModalEditWebinfo = (props) => {
     props.setIsOpenEditModal(false);
   }
 
-  const saveAddModalHandler = async () => {
-    /* fetch data ตรงนี้ */
-    const data = {
-      token: modalData.token,
-      language: language,
-      infoType: props.tabId,
-      param_name: paramRef.current.value,
-      title: titleRef.current.value,
-      value: valueRef.current.value,
-      link: linkRef.current.value,
-      iframe: iframeRef.current.value,
-      attribute: attributeRef.current.value,
-      priority: priorityNumber,
-      display: (infoDisplay)?1:0,
-    }
-
-    if(!isFetching) {
-      isFetching = true
-      webinfoAdd(modalData.token, data).then( res => {
-        if(res.status) {
-          props.refresh()
-        }
-        isFetching = false;
-        props.setIsOpenEditModal(false);
-        SwalUI({status: res.status, description: res.description})
-      })
-    }
-  }
   const saveEditModalHandler = async () => {
     /* fetch data ตรงนี้ */
     const data = {
-      token: modalData.token,
-      language: language,
-      infoType: props.tabId,
-      param_name: paramRef.current.value,
       title: titleRef.current.value,
       value: valueRef.current.value,
-      link: linkRef.current.value,
-      iframe: iframeRef.current.value,
-      attribute: attributeRef.current.value,
-      priority: priorityNumber,
-      display: (infoDisplay)?1:0,
     }
 
     if(titleRef.current.value.length < 1) {
@@ -94,7 +56,7 @@ const ModalEditWebinfo = (props) => {
 
     if(!isFetching) {
       isFetching = true
-      webinfoUpdate(modalData.token, data).then( res => {
+      webinfoUpdate(modalData.id, data).then( res => {
         if(res.status) {
           props.refresh()
         }
@@ -105,16 +67,6 @@ const ModalEditWebinfo = (props) => {
     }
   }
   
-  const priorityHandler = (isAdding) => {
-    if(isAdding) {
-      setPriorityNumber(priorityNumber + 1)
-    } else {
-      if(priorityNumber > 1) {
-        setPriorityNumber(priorityNumber - 1)
-      }
-    }
-  }
-
   return (
     <Modal
       open={isOpenModal}
@@ -138,10 +90,6 @@ const ModalEditWebinfo = (props) => {
           <fieldset className="modal-fieldset">
             <legend className="modal-legend">{t("ModalEditWebinfoTitle")}</legend>
             <div className="modal-content">
-              {/* <div className="input-group"> 
-                <label className="title">Title : ( ใช้สำหรับ developer )</label>
-                <input className="inp-text" ref={paramRef} placeholder="Title" defaultValue={modalData.param} disabled/>
-              </div>  */}
               <div className="input-group"> 
                 <label className="title">คำอะธิบาย :</label>
                 <input className="inp-text" ref={titleRef} placeholder="Description" defaultValue={modalData.description} />
@@ -150,38 +98,10 @@ const ModalEditWebinfo = (props) => {
                 <label className="title">กำหนดค่า :</label>
                 <textarea className="inp-textarea" ref={valueRef} placeholder="Value" defaultValue={modalData.value}></textarea>
               </div> 
-              {/* <div className="input-group">  
-                <label className="title">Link :</label>
-                <textarea className="inp-textarea" ref={linkRef} placeholder="Link" defaultValue={modalData.link}></textarea>
-              </div> 
-              <div className="input-group">  
-                <label className="title">iframe/embed :</label>
-                <textarea className="inp-textarea" ref={iframeRef} placeholder="iframe/embed" defaultValue={modalData.iframe}></textarea>
-              </div> 
-              <div className="input-group"> 
-                <label className="title">Attribute :</label>
-                <input className="inp-text" ref={attributeRef} placeholder="Attribute" defaultValue={modalData.attribute} />
-              </div>  */}
-              {/* <div className="input-group-action"> 
-                <ButtonUI color="error" onClick={(e) => priorityHandler(false)} ><FontAwesomeIcon icon={faMinus} /></ButtonUI>
-                <span className="title">Priority {priorityNumber}</span>
-                <ButtonUI onClick={(e) => priorityHandler(true)} ><FontAwesomeIcon icon={faAdd} /></ButtonUI>
-              </div> 
-              <div className="input-group-action"> 
-                <label>Display</label>
-                <Switch defaultChecked={modalData.display} onChange={(e)=> setInfoDisplay(e.target.checked) } />
-              </div>  */}
             </div>
           </fieldset>
         </div>
         <div className="modal-footer">
-          {!isEditMode && (
-            <ButtonUI
-              className="btn-save"
-              on="add"
-              width="md"
-              onClick={saveAddModalHandler}>{t("btnAdd")}</ButtonUI>
-          )}
           {isEditMode && (
             <ButtonUI
               className="btn-save"

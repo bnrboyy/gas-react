@@ -26,8 +26,8 @@ export const webinfoAdd = (token, data) => {
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong.": error.response.data.description } }
   )
 }
-export const webinfoUpdate = (token, data) => {
-  return axios.patch(`webinfo/token/${token}`, data).then( 
+export const webinfoUpdate = (_id, data) => {
+  return axios.patch(`webinfo/update/${_id}`, data).then( 
     (res) =>  { return { status: true, description: res.data.description }},
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong.": error.response.data.description } }
   )
