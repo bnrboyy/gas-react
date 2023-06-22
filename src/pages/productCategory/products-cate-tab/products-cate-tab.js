@@ -55,16 +55,6 @@ const ProductsCateTab = (props) => {
 
   const tabLists = [
     { value: "", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
-    // {
-    //   value: "wash",
-    //   title: "Wash&Dry",
-    //   icon: <FontAwesomeIcon icon={faHandsWash} />
-    // },
-    // {
-    //   value: "food",
-    //   title: "Foods",
-    //   icon: <FontAwesomeIcon icon={faUtensils} />
-    // },
     {
       value: "hidden",
       title: "รายการที่ไม่แสดง",
@@ -112,11 +102,11 @@ const ProductsCateTab = (props) => {
       .fire({
         icon: "warning",
         title: "Are you sure?",
-        text: "I want to delete this data!",
-        confirmButtonText: "Yes, delete it",
+        text: "คุณต้องการลบข้อมูลหรือไม่?",
+        confirmButtonText: "ลบ",
         confirmButtonColor: "#e11d48",
         showCancelButton: true,
-        cancelButtonText: "Cancel"
+        cancelButtonText: "ยกเลิก"
       })
       .then((result) => {
         if (result.isConfirmed) {

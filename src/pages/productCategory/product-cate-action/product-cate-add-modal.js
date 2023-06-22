@@ -24,11 +24,9 @@ const ProductCateModalAdd = (props) => {
     title: "",
     details: "",
     display: false,
-    language: "",
     thumbnail_alt: "",
     thumbnail_link: "",
     thumbnail_title: "",
-    is_food: false
   };
 
   const { t } = useTranslation("product-cate-page");
@@ -41,10 +39,6 @@ const ProductCateModalAdd = (props) => {
     title: false
   });
 
-  useEffect(() => {
-    setAddData({ ...addData, priority: totalData + 1 });
-  }, []);
-
   const setPreviewHandler = (data) => {
     if (data.file) {
       setAddData({ ...addData, imageName: data.file.name });
@@ -55,10 +49,6 @@ const ProductCateModalAdd = (props) => {
 
   const createValidators = () => {
     let isValid = true;
-    if (previews.file === undefined || previews.file === null) {
-      setIsError({ ...isError, thumbnail: true });
-      isValid = false;
-    }
     if (addData.title.length < 1 || addData.title.file === null) {
       setIsError({ ...isError, title: true });
       isValid = false;
@@ -80,14 +70,12 @@ const ProductCateModalAdd = (props) => {
     formData.append("title", addData.title);
     formData.append("details", addData.details);
     formData.append("display", addData.display ? 1 : 0);
-    formData.append("is_food", addData.is_food ? 1 : 0);
-    formData.append("language", language);
     svCreateProductCate(formData).then((res) => {
       props.setClose(false);
       setAddData(addDataDefault);
+      setIsError({ thumbnail: false, title: false })
       setPreviews({ src: "", file: null, name: null });
       SwalUI({ status: res.status, description: res.description });
-      console.log(res);
       if (res.status) {
         props.setRefreshData((prev) => prev + 1);
       }

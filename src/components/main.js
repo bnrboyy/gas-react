@@ -34,7 +34,7 @@ const MainLayout = (props) => {
   }, []);
 
   useEffect(() => {
-    if (newOrders > followNO) {
+    if (newOrders > followNO && followNO !== 0) {
       audioPlayer.current.play();
       Swal.fire({
         title: "คุณได้รับคำสั่งซื้อใหม่!",

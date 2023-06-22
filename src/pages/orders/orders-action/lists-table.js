@@ -45,11 +45,11 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
       .fire({
         icon: "warning",
         title: "Are you sure?",
-        text: "I want to delete this item!",
-        confirmButtonText: "Yes, delete it",
+        text: "คุณต้องการลบสินค้าชิ้นนี้ออกจากรายการ?",
+        confirmButtonText: "ลบ",
         confirmButtonColor: "#e11d48",
         showCancelButton: true,
-        cancelButtonText: "Cancel",
+        cancelButtonText: "ยกเลิก",
       })
       .then((result) => {
         if (result.isConfirmed) {
@@ -59,8 +59,36 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
               svGetOrderByOrderNumber({
                 orders_number: row.orders_number,
               }).then(({ data: d }) => {
-                setOrderShow(d);
-                setOrderProductList(d.orderItemList);
+                const result = {
+                  orders_number: d.orders_number,
+                  delivery_drop_address: d.delivery_drop_address,
+                  delivery_drop_address_more: d.delivery_drop_address_more,
+                  delivery_pickup_address: d.delivery_pickup_address,
+                  delivery_pickup_address_more: d.delivery_pickup_address_more,
+                  details: d.details,
+                  phone_number: d.phone_number,
+                  second_phone_number: d.second_phone_number,
+                  status_name: d.status_name.toLowerCase(),
+                  transaction_date: d.transaction_date,
+                  shipping_date: d.shipping_date,
+                  date_pickup: d.date_pickup,
+                  date_drop: d.date_drop,
+                  drop_image: d.drop_image,
+                  customer_name: d.customer_name,
+                  delivery_pickup: d.delivery_pickup,
+                  delivery_drop: d.delivery_drop,
+                  orderItemList: d.orderItemList,
+                  totalPrice: d.totalPrice,
+                  delivery_price: d.delivery_price,
+                  status_id: d.status_id,
+                  slip_image: d.slip_image,
+                  type_payment: d.type_payment,
+                  payment_verified: !!d.payment_verified,
+                  upload_images: d.upload_images,
+                  distance: d.distance,
+                };
+                setOrderShow(result);
+                setOrderProductList(result.orderItemList);
               });
             }
           });

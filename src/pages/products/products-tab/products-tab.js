@@ -68,16 +68,6 @@ const ProductsTab = ({
       title: "สินค้าใหม่",
       icon: <FontAwesomeIcon icon={faHandsWash} />,
     },
-    // {
-    //   value: "11",
-    //   title: "Drying",
-    //   icon: <FontAwesomeIcon icon={faHandsWash} />,
-    // },
-    // {
-    //   value: "15",
-    //   title: "Foods",
-    //   icon: <FontAwesomeIcon icon={faUtensils} />,
-    // },
     {
       value: "hidden",
       title: "รายการที่ไม่แสดง",
@@ -103,8 +93,6 @@ const ProductsTab = ({
     svGetProductById({ id: _id, language: language }).then((res) => {
       const result = {
         id: res.data.id,
-        can_sweet: !!res.data.can_sweet,
-        can_wave: !!res.data.can_wave,
         cate_id: parseInt(res.data.cate_id),
         content: res.data.content || "",
         description: res.data.description || "",
@@ -112,18 +100,12 @@ const ProductsTab = ({
         display: !!res.data.display,
         language: res.data.language,
         more_details: res.data.more_details || "",
-        page_id: parseInt(res.data.page_id),
-        pin: res.data.pin,
         price: res.data.price,
-        priority: res.data.priority,
         thumbnail_alt: res.data.thumbnail_alt || "",
         thumbnail_link: res.data.thumbnail_link || "",
         thumbnail_title: res.data.thumbnail_title || "",
         title: res.data.title || "",
         created_at: res.data.created_at,
-        price_per_minutes: res.data.price_per_minutes,
-        round_minutes: res.data.round_minutes,
-        default_minutes: res.data.default_minutes,
       };
       setEditProduct(result);
       setProductModalEdit({
@@ -138,7 +120,7 @@ const ProductsTab = ({
       .fire({
         icon: "warning",
         title: "Are you sure?",
-        text: "I want to delete this data!",
+        text: "คุณต้องการลบข้อมูลหรือไม่?",
         confirmButtonText: "Yes, delete it",
         confirmButtonColor: "#e11d48",
         showCancelButton: true,

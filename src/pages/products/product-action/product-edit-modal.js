@@ -87,16 +87,10 @@ const ProductModalEdit = (props) => {
     formData.append("description", editData.description);
     formData.append("display", editData.display ? 1 : 0);
     formData.append("page_id", parseInt(editData.page_id));
-    formData.append("priority", editData.priority);
     formData.append("cate_id", parseInt(editData.cate_id));
-    formData.append("can_sweet", editData.can_sweet ? 1 : 0);
-    formData.append("can_wave", editData.can_wave ? 1 : 0);
     formData.append("details", editData.details);
     formData.append("price", editData.price);
     formData.append("language", language);
-    formData.append("price_per_minutes", editData.price_per_minutes);
-    formData.append("round_minutes", editData.round_minutes);
-    formData.append("default_minutes", editData.default_minutes);
     svUpdateProduct(editData.id, formData).then((res) => {
       setClose({ isEdit, isOpen: false });
       if (res.status) {
@@ -124,18 +118,6 @@ const ProductModalEdit = (props) => {
     });
   };
 
-  const priorityHandler = (isAdding) => {
-    if (isAdding) {
-      setEditData((prevState) => {
-        return { ...prevState, priority: parseInt(editData.priority) + 1 };
-      });
-    } else if (editData.priority > 1) {
-      setEditData((prevState) => {
-        return { ...prevState, priority: parseInt(editData.priority) - 1 };
-      });
-    }
-  };
-
   useEffect(() => {
     onSelectPage();
   }, [editData.page_id]);
@@ -148,8 +130,6 @@ const ProductModalEdit = (props) => {
       setEditData({ ...editData, can_sweet: false, can_wave: false });
     }
   };
-
-  console.log(language);
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>

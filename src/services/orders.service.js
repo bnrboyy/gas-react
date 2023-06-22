@@ -71,7 +71,7 @@ export const svUpdateProductList = (quantity, id, orders_number) => {
 }
 
 export const svDeleteProductItem = (id, orders_number) => {
-    return axios.delete(`order/product/delete/item/${id}/${orders_number}`).then(
+    return axios.delete(`order/delete/item/${id}/${orders_number}`).then(
     (res) => { return { status: true, data: res.data }},
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
     )

@@ -48,14 +48,12 @@ const ProductModalAdd = (props) => {
     setClose,
     setRefreshData
   } = props;
-  const language = useSelector((state) => state.app.language);
   const [previews, setPreviews] = useState({ src: "", file: null, name: null });
   const [addData, setAddData] = useState(addDataDefault);
   const [isError, setIsError] = useState({
     thumbnail: false,
     title: false
   });
-  console.log(productCate)
 
   useEffect(() => {
     setAddData({ ...addData, priority: totalData + 1 });
@@ -79,14 +77,14 @@ const ProductModalAdd = (props) => {
       setIsError({ ...isError, title: true });
       isValid = false;
     }
-    // if (addData.price === 0 || addData.price === "") {
-    //   setIsError({...isError, title: true})
-    //   isValid = false;
-    // }
-    // if (addData.cate_id === 0) {
-    //   setIsError({...isError, title: true})
-    //   isValid = false;
-    // }
+    if (addData.price === 0 || addData.price === "") {
+      setIsError({...isError, title: true})
+      isValid = false;
+    }
+    if (addData.cate_id === 0) {
+      setIsError({...isError, title: true})
+      isValid = false;
+    }
     if (isValid) {
       createSlideHandler();
     }
@@ -107,7 +105,6 @@ const ProductModalAdd = (props) => {
     formData.append("cate_id", parseInt(addData.cate_id));
     formData.append("details", addData.details);
     formData.append("price", addData.price);
-    formData.append("language", language);
     svCreateProduct(formData).then((res) => {
       setClose(false);
       setAddData(addDataDefault);
@@ -118,31 +115,6 @@ const ProductModalAdd = (props) => {
       }
     });
   };
-
-  const priorityHandler = (isAdding) => {
-    if (isAdding) {
-      setAddData((prevState) => {
-        return { ...prevState, priority: addData.priority + 1 };
-      });
-    } else if (addData.priority > 1) {
-      setAddData((prevState) => {
-        return { ...prevState, priority: addData.priority - 1 };
-      });
-    }
-  };
-
-  useEffect(() => {
-    // onSelectPage();
-  }, [addData.page_id]);
-
-  // const onSelectPage = () => {
-  //   if (addData.page_id === 15) {
-  //     setProductCateShow(productCate.filter((e) => !!e.is_food));
-  //   } else {
-  //     setProductCateShow(productCate.filter((e) => !!!e.is_food));
-  //     setAddData({ ...addData, can_sweet: false, can_wave: false });
-  //   }
-  // };
 
   if (!addData) return <></>;
 
