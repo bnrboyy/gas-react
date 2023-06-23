@@ -24,7 +24,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(appActions.isSpawnActive(true));
     const type_select = tabSelect !== "hidden" ? tabSelect : "";
-    getProduct({ pageId: type_select, language: language }).then((res) => {
+    getProduct({ cateId: type_select, language: 'th' }).then((res) => {
       if (res.status) {
         const newData = res.data?.map((d) => {
           return {

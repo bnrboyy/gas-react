@@ -96,7 +96,7 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
       });
   };
 
-  // console.log(orderList)
+  console.log(orderProductList)
 
   return (
     <Table
@@ -139,7 +139,7 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
                 </figure>
               </TableCell>
               <TableCell align="left">{row.title}</TableCell>
-              <TableCell align="left">{"เปลี่ยนถัง"}</TableCell>
+              <TableCell align="left">{row.product_cate_id === 1 ? "เปลี่ยนถัง" : row.product_cate_id === 2 ? "สั่งถังใหม่" : "อุปกรณ์"}</TableCell>
               <TableCell align="left">{row.price + " " + "บาท"}</TableCell>
               <TableCell align="left">X{row.quantity}</TableCell>
               <TableCell align="center" sx={{ fontWeight: "600" }}>

@@ -1,8 +1,8 @@
 {
-    "Edit": "Edit",
-    "Delete": "Delete",
-    "MemberEdit": "Member Edit",
-    "Save": "Save",
-    "Cancel": "Cancel"
+    "Edit": "แก้ไข",
+    "Delete": "ลบ",
+    "MemberEdit": "แก้ไขข้อมูลสมาชิก",
+    "Save": "บันทึก",
+    "Cancel": "ยกเลิก"
 
 }

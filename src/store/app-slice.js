@@ -12,7 +12,7 @@ const initialAppState = {
     isSpawnActive: false,
     isNavsideCollapse: false,
     defaultLanguage: appConfig.language,
-    language: 'th',
+    language: appConfig.language,
     // language: (localStorage.i18nextLng)?localStorage.i18nextLng:appConfig.language,
     languageAvailable: appConfig.languageAvailable,
     timeZone: appConfig.timeZone,

@@ -1,6 +1,12 @@
 import { Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { appActions } from "../store/app-slice";
+
+
 
 const GuestRoutes = () => {
+  const dispatch = useDispatch();
+  dispatch(appActions.changeLanguage('th'));
   return (
     <div className="guest-main-page" >
        <div className="guest-image" style={{"--bgimage" : "url('/images/background_img.jpg')"}} >

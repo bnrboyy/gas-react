@@ -38,8 +38,6 @@ function App() {
   const isDevMode = useSelector((state) => state.app.isDevMode);
   const uPermission = useSelector((state) => state.auth.userPermission);
   const defaultPath = uPermission.rider && !uPermission.superAdmin && !uPermission.admin ? "orders" : "dashboard";
-  const dispatch = useDispatch();
-  dispatch(appActions.changeLanguage('th'));
 
   return (
     <Suspense>

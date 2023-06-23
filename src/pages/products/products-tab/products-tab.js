@@ -59,13 +59,18 @@ const ProductsTab = ({
   const tabLists = [
     { value: "", title: "ทั้งหมด", icon: <FontAwesomeIcon icon={faFolderOpen} /> },
     {
-      value: "9",
+      value: "1",
       title: "เปลี่ยนถัง",
       icon: <FontAwesomeIcon icon={faHandsWash} />,
     },
     {
-      value: "10",
-      title: "สินค้าใหม่",
+      value: "2",
+      title: "ถังแก๊สใหม่",
+      icon: <FontAwesomeIcon icon={faHandsWash} />,
+    },
+    {
+      value: "3",
+      title: "อุปกรณ์",
       icon: <FontAwesomeIcon icon={faHandsWash} />,
     },
     {
@@ -76,6 +81,7 @@ const ProductsTab = ({
   ];
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
     setTabSelect(newValue);
     setLimited({ begin: 0, end: rowsPerPage });
     setPage(0);

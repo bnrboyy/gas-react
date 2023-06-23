@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getProduct = ({pageId, language}) => {
-    return axios.get(`productAll?pageId=${pageId}&language=${language}`).then(
+export const getProduct = ({cateId, language}) => {
+    return axios.get(`productAll?cateId=${cateId}&language=${language}`).then(
     (res) => { return { status: true, data: res.data.data }},
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
     )

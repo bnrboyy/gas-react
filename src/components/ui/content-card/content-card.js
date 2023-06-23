@@ -22,8 +22,6 @@ const ContentCardUI = (props) => {
   const { uploadPath, language } = useSelector((state) => state.app);
   const userPermission = useSelector((state) => state.auth.userPermission);
 
-  console.log(uploadPath + data.image)
-
   const previewImageHandler = (e, image) => {
     if (image !== "" && !e.target.classList.contains("src-error")) {
       Swal.fire({
