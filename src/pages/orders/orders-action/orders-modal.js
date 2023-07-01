@@ -417,13 +417,15 @@ const OrdersModal = ({
                     >
                       {"ตรวจสอบการชำระเงิน"}
                     </LoadingButton>
-                  ) : (
+                  ) : 
+                  (
                     <div>
-                      <h4 style={{ color: "green" }}>
+                      {/* <h4 style={{ color: "green" }}>
                         การชำระเงินได้รับการยืนยันแล้ว
-                      </h4>
+                      </h4> */}
                     </div>
-                  )}
+                  )
+                  }
                 </div>
                 {isSuperAdmin && (
                   <div
@@ -573,7 +575,10 @@ const OrdersModal = ({
                         </label>
                       </div>
                     </div>
-                    <div className={isWashing ? "box-rows" : "box-rows foods"}>
+                    <div
+                      className={isWashing ? "box-rows" : "box-rows foods"}
+                      style={{ justifyContent: "space-between" }}
+                    >
                       {/* {isWashing && (
                         <div className="column-top">
                           <p>
@@ -619,6 +624,7 @@ const OrdersModal = ({
                           />
                         </figure>
                       </div>
+                     
                       {/* {isWashing && (
                         <div className="column-top">
                           <p>
@@ -641,6 +647,17 @@ const OrdersModal = ({
                         </div>
                       )} */}
                     </div>
+                    <div className="column-top" style={{marginTop: "1rem"}}>
+                        <Button
+                          style={{
+                            backgroundColor: "#52a742",
+                            height: "30px"
+                          }}
+                          variant="contained"
+                        >
+                          ส่วนลด
+                        </Button>
+                      </div>
                     {/* <div className={isWashing ? "box-rows" : "box-rows foods"}>
                       {true && (
                         <div

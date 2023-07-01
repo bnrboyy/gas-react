@@ -22,8 +22,9 @@ const appConfigDEV = {
         webinfo: true,
         languages: true,
         admins: true,
-        configs: true,
+        configs: false,
         profile: false,
+        banksettings: false,
         orders: true,
         employee: true,
         groups: {

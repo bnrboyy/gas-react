@@ -96,8 +96,6 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
       });
   };
 
-  console.log(orderProductList)
-
   return (
     <Table
       sx={{ minWidth: 650 }}
