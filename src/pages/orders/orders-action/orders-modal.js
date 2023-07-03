@@ -54,6 +54,7 @@ import {
   pdf,
 } from "@react-pdf/renderer";
 import PDFFile from "./pdffile";
+import DiscountModal from "./DiscountModal";
 
 const OrdersModal = ({
   isOpen,
@@ -89,6 +90,7 @@ const OrdersModal = ({
     (state) => state.auth.userPermission.superAdmin
   );
   const [showDialog, setShowDialog] = useState(false);
+  const [discountShow, setDiscountShow] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [approveForm, setApproveForm] = useState({
@@ -367,8 +369,6 @@ const OrdersModal = ({
     window.open(pdfURL, "_blank");
   };
 
-  console.log(orderShow.status_id);
-
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Modal
@@ -498,14 +498,6 @@ const OrdersModal = ({
                         </p>
                         <label htmlFor="">{orderShow.customer_name}</label>
                       </div>
-                      {/* <div className="column-top">
-                        <p>
-                          <strong>Shipping Date</strong>
-                        </p>
-                        <label htmlFor="">
-                          <DateMoment format={"LLL"} date={orderShow.shipping_date} />
-                        </label>
-                      </div> */}
                       <div className="column-top">
                         <p>
                           <strong>เบอร์โทรศัพท์</strong>
@@ -624,78 +616,23 @@ const OrdersModal = ({
                           />
                         </figure>
                       </div>
-                     
-                      {/* {isWashing && (
-                        <div className="column-top">
-                          <p>
-                            <strong>Delivery Pickup</strong>
-                          </p>
-                          <p className="location">{orderShow.delivery_pickup_address}</p>
-                          <p>
-                            <strong>Pickup Details</strong>
-                          </p>
-                          <p className="location">{orderShow.delivery_pickup_address_more}</p>
-
-                          <label
-                            className="location"
-                            htmlFor=""
-                            onClick={(e) => handlerShowLocation(orderShow.delivery_pickup)}
-                          >
-                            <FontAwesomeIcon icon={faMapLocationDot} />
-                            {" show location (click)"}
-                          </label>
-                        </div>
-                      )} */}
                     </div>
-                    <div className="column-top" style={{marginTop: "1rem"}}>
-                        <Button
-                          style={{
-                            backgroundColor: "#52a742",
-                            height: "30px"
-                          }}
-                          variant="contained"
-                        >
-                          ส่วนลด
-                        </Button>
-                      </div>
-                    {/* <div className={isWashing ? "box-rows" : "box-rows foods"}>
-                      {true && (
-                        <div
-                          className="column-image"
-                          style={{
-                            width: "100%",
-                            marginTop: "1rem",
-                            color: "rag(131,131,131)",
-                          }}
-                        >
-                          <p
+                    { isSuperAdmin ? 
+                      <div className="column-top" style={{marginTop: "1rem"}}>
+                          <Button
+                            onClick={() => setDiscountShow(true)}
                             style={{
-                              marginBottom: "1rem",
-                              color: "rgb(68,68,68)",
+                              backgroundColor: "#52a742",
+                              height: "30px"
                             }}
+
+                            variant="contained"
                           >
-                            <strong>Image Details</strong>
-                          </p>
-                          <div className="image-details" style={{ display: "flex", gap: "1rem" }}>
-                            {images?.map((item, index) => (
-                              <figure
-                                onClick={(e) => {
-                                  handlerShowImage(`${uploadPath + item}`, "");
-                                }}
-                                key={index}
-                                style={{ width: "112px", height: "112px" }}
-                              >
-                                <img
-                                  src={`${uploadPath + item}`}
-                                  alt=""
-                                  style={{ width: "112px", height: "112px" }}
-                                />
-                              </figure>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div> */}
+                            ส่วนลด
+                          </Button>
+                      </div>
+                      : null
+                    }
                   </Box>
                   <div
                     style={{
@@ -750,6 +687,7 @@ const OrdersModal = ({
           </section>
         </Box>
       </Modal>
+      <DiscountModal open={discountShow} setOpen={setDiscountShow} orderShow={orderShow} />
     </LocalizationProvider>
   );
 };

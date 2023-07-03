@@ -15,7 +15,6 @@ import ContentCardOrderUI from "../../components/ui/content-card-order/content-c
 import DateMoment from "../../components/ui/date-moment/date-moment";
 
 const OrdersCardMobile = ({ items, editHandler, cancelHandler }) => {
-  console.log(items);
   return (
     <div
       className="card-mobile"

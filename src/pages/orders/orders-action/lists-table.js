@@ -26,7 +26,6 @@ import { svDeleteProductItem } from "../../../services/orders.service";
 import { useState } from "react";
 
 const ListTable = ({ orderList, orderShow, setOrderShow }) => {
-  console.log(orderShow);
   const uploadPath = useSelector((state) => state.app.uploadPath);
   const [open, setOpen] = React.useState(false);
   const [productList, setProductList] = useState({});
@@ -86,6 +85,7 @@ const ListTable = ({ orderList, orderShow, setOrderShow }) => {
                   payment_verified: !!d.payment_verified,
                   upload_images: d.upload_images,
                   distance: d.distance,
+                  discount: d.discount,
                 };
                 setOrderShow(result);
                 setOrderProductList(result.orderItemList);
@@ -198,8 +198,6 @@ const ModalEdit = ({
 }) => {
   const handleClose = () => setOpen(false);
 
-  console.log(productList);
-
   const quantityHandle = (isAdding) => {
     if (isAdding) {
       if (productList.quantity >= 10) return false;
@@ -250,6 +248,7 @@ const ModalEdit = ({
               payment_verified: !!d.payment_verified,
               upload_images: d.upload_images,
               distance: d.distance,
+              discount: d.discount,
             };
 
             setOrderShow(result);

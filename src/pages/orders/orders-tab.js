@@ -84,6 +84,7 @@ const OrdersTab = ({
     }
     svGetOrderByOrderNumber({ orders_number: _ord_number }).then(
       ({ data: d }) => {
+
         const result = {
           orders_number: d.orders_number,
           delivery_drop_address: d.delivery_drop_address,
@@ -111,6 +112,7 @@ const OrdersTab = ({
           payment_verified: !!d.payment_verified,
           upload_images: d.upload_images,
           distance: d.distance,
+          discount: d.discount,
         };
 
         setOrderShow(result);

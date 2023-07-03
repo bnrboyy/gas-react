@@ -77,6 +77,13 @@ export const svDeleteProductItem = (id, orders_number) => {
     )
 }
 
+export const svUpdateDiscount = (orders_number, discount) => {
+    return axios.put(`order/update/discount/${orders_number}?discount=${discount}`).then(
+    (res) => { return { status: true, data: res.data }},
+    (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
+    )
+}
+
 
 export const svGetOrderPending = () => {
     return axios.get(`order/data/pending`)
