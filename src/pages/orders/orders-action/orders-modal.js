@@ -12,6 +12,7 @@ import {
   faMapLocationDot,
   faRandom,
   faXmark,
+  faTag
 } from "@fortawesome/free-solid-svg-icons";
 import Box from "@mui/material/Box";
 import {
@@ -25,6 +26,7 @@ import {
   Input,
   Select,
   Button,
+  
 } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -41,6 +43,7 @@ import {
   svVerifiedItem,
   svVerifiedPayment,
   svGetOrderPending,
+  svGetOrderByOrderNumber,
 } from "../../../services/orders.service";
 import { svProductCapacity } from "../../../services/product.service";
 import { appActions } from "../../../store/app-slice";
@@ -91,6 +94,7 @@ const OrdersModal = ({
   );
   const [showDialog, setShowDialog] = useState(false);
   const [discountShow, setDiscountShow] = useState(false);
+  const [discount, setDiscount] = useState(orderShow.discount);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [approveForm, setApproveForm] = useState({
@@ -369,6 +373,45 @@ const OrdersModal = ({
     window.open(pdfURL, "_blank");
   };
 
+  const editDiscount = () => {
+    svGetOrderByOrderNumber({ orders_number: orderShow.orders_number })
+      .then(({ data: d }) => {
+        const result = {
+          orders_number: d.orders_number,
+          delivery_drop_address: d.delivery_drop_address,
+          delivery_drop_address_more: d.delivery_drop_address_more,
+          delivery_pickup_address: d.delivery_pickup_address,
+          delivery_pickup_address_more: d.delivery_pickup_address_more,
+          details: d.details,
+          phone_number: d.phone_number,
+          second_phone_number: d.second_phone_number,
+          status_name: d.status_name.toLowerCase(),
+          transaction_date: d.transaction_date,
+          shipping_date: d.shipping_date,
+          date_pickup: d.date_pickup,
+          date_drop: d.date_drop,
+          drop_image: d.drop_image,
+          customer_name: d.customer_name,
+          delivery_pickup: d.delivery_pickup,
+          delivery_drop: d.delivery_drop,
+          orderItemList: d.orderItemList,
+          totalPrice: d.totalPrice,
+          delivery_price: d.delivery_price,
+          status_id: d.status_id,
+          slip_image: d.slip_image,
+          type_payment: d.type_payment,
+          payment_verified: !!d.payment_verified,
+          upload_images: d.upload_images,
+          distance: d.distance,
+          discount: d.discount,
+        };
+
+        setOrderShow(result);
+        setDiscount(result.discount);
+      })
+      .then(() => setDiscountShow(true));
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Modal
@@ -417,15 +460,13 @@ const OrdersModal = ({
                     >
                       {"ตรวจสอบการชำระเงิน"}
                     </LoadingButton>
-                  ) : 
-                  (
+                  ) : (
                     <div>
                       {/* <h4 style={{ color: "green" }}>
                         การชำระเงินได้รับการยืนยันแล้ว
                       </h4> */}
                     </div>
-                  )
-                  }
+                  )}
                 </div>
                 {isSuperAdmin && (
                   <div
@@ -433,9 +474,27 @@ const OrdersModal = ({
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "1rem",
+                      gap: ".5rem",
                     }}
                   >
+                    {isSuperAdmin &&
+                      (orderShow.status_id === 2 ||
+                        orderShow.status_id === 3) && (
+                        <div className="column-top">
+                          <Button
+                            onClick={() => editDiscount()}
+                            variant="contained"
+                            startIcon={<FontAwesomeIcon icon={faTag} />}
+                            style={{
+                              backgroundColor: "#52a742",
+                              height: "36px",
+                              width: "133.7px",
+                            }}
+                          >
+                            ส่วนลด
+                          </Button>
+                        </div>
+                      )}
                     {/* {orderShow.status_id !== 5 && (
                       <Button
                         onClick={() => openPDF()}
@@ -528,10 +587,15 @@ const OrdersModal = ({
                       </div>
                       <div className="column-top">
                         <p>
-                          <strong>ราคารวม (รวมค่าจัดส่ง)</strong>
+                          <strong>
+                            ราคารวม (ส่วนลด {orderShow.discount} บาท)
+                          </strong>
                         </p>
                         <label htmlFor="">
-                          {orderShow.totalPrice + orderShow.delivery_price} บาท
+                          {orderShow.totalPrice +
+                            orderShow.delivery_price -
+                            orderShow.discount}{" "}
+                          บาท
                         </label>
                       </div>
                       <div className="column-top">
@@ -617,22 +681,6 @@ const OrdersModal = ({
                         </figure>
                       </div>
                     </div>
-                    { isSuperAdmin ? 
-                      <div className="column-top" style={{marginTop: "1rem"}}>
-                          <Button
-                            onClick={() => setDiscountShow(true)}
-                            style={{
-                              backgroundColor: "#52a742",
-                              height: "30px"
-                            }}
-
-                            variant="contained"
-                          >
-                            ส่วนลด
-                          </Button>
-                      </div>
-                      : null
-                    }
                   </Box>
                   <div
                     style={{
@@ -687,7 +735,16 @@ const OrdersModal = ({
           </section>
         </Box>
       </Modal>
-      <DiscountModal open={discountShow} setOpen={setDiscountShow} orderShow={orderShow} />
+      <DiscountModal
+        discount={discount}
+        setDiscount={setDiscount}
+        open={discountShow}
+        setOpen={setDiscountShow}
+        orderShow={orderShow}
+        setOrderShow={setOrderShow}
+        refreshData={refreshData}
+        setRefreshData={setRefreshData}
+      />
     </LocalizationProvider>
   );
 };
