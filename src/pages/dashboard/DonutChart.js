@@ -2,16 +2,16 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 function DonutChart({ data, labelTitles }) {
-  const colors = ["#005EA0", "#145C67", "#FF7D00", "#33AAFF", "#78290F"];
+  const colors = ["#005EA0", "#FF7D00"];
   const labels = labelTitles?.filter((item) => item !== "Total");
 
   return (
     <React.Fragment>
       <Chart
         type="donut"
-        width={520}
-        height={520}
-        series={[100,40,565]}
+        width={600}
+        height={600}
+        series={[100,40]}
         // series={data}
         options={{
           colors: colors,

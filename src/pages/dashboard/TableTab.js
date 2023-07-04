@@ -26,6 +26,12 @@ const headCells = [
     label: "วันที่ทำรายการ",
   },
   {
+    id: "carbs",
+    numeric: false,
+    disablePadding: false,
+    label: "เปลี่ยนถัง/สั่งสินค้า",
+  },
+  {
     id: "fat",
     numeric: false,
     disablePadding: false,
@@ -35,19 +41,13 @@ const headCells = [
     id: "carbs",
     numeric: false,
     disablePadding: false,
-    label: "เปลี่ยนถัง/สั่งสินค้า",
+    label: "ส่วนลด",
   },
   {
     id: "protein",
     numeric: false,
     disablePadding: false,
-    label: "รวม",
-  },
-  {
-    id: "payment",
-    numeric: false,
-    disablePadding: false,
-    label: "การชำระเงิน",
+    label: "รายได้หลังหักส่วนลด",
   },
   {
     id: "status",

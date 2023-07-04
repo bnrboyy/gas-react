@@ -62,7 +62,7 @@ const DashboardPage = () => {
     if (views === "week") {
       setStartDate(dayjs().subtract(6, "day").toISOString().substring(0, 10));
       setEndDate(dayjs().toISOString().substring(0, 10));
-      setTitle("7 Days ago");
+      setTitle("7 วันหลังสุด");
     } else if (views === "month") {
       const today = new Date();
       const currentYear = today.getFullYear();
@@ -180,8 +180,7 @@ const DashboardPage = () => {
   ];
 
   const labelTitles = [
-    "เปลี่ยนถัง",
-    "สั่งสินค้า",
+    "เปลี่ยนถัง/สั่งสินค้า",
     "ค่าจัดส่ง",
   ];
 
@@ -362,7 +361,7 @@ const DashboardPage = () => {
 
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(0, 94, 160)"}}>เปลี่ยนถัง</Typography>
+                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(0, 94, 160)"}}>เปลี่ยนถัง/สั่งสินค้า</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
                 <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceWash} บาท</Typography>
               </div>
@@ -384,7 +383,7 @@ const DashboardPage = () => {
             </div>
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(255, 125, 0)"}}>สั่งสินค้า</Typography>
+                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(255, 125, 0)"}}>ค่าจัดส่ง</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
                 <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceFood} บาท</Typography>
               </div>
@@ -404,7 +403,7 @@ const DashboardPage = () => {
                 />
               </div>
             </div>
-            <div className="card-chart-control">
+            {/* <div className="card-chart-control">
               <div className="head-title">
                 <Typography variant="subtitle1" gutterBottom style={{color: "rgb(120, 41, 15)"}}>ค่าจัดส่ง</Typography>
                 <Typography variant="subtitle1" gutterBottom>{title}</Typography>
@@ -425,7 +424,7 @@ const DashboardPage = () => {
                   setTotalPrice={setTotalPrice}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="table-section">
