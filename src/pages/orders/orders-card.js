@@ -21,10 +21,15 @@ import {
 } from "@mui/material";
 import { t } from "i18next";
 import React from "react";
+import { useSelector } from "react-redux";
+
 import ButtonUI from "../../components/ui/button/button";
 import DateMoment from "../../components/ui/date-moment/date-moment";
 
+
 const OrdersCard = ({ items, editHandler, cancelHandler }) => {
+  const uPermission = useSelector((state) => state.auth.userPermission);
+
   return (
     <TableContainer component={Paper} className="card-desktop">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -106,7 +111,7 @@ const OrdersCard = ({ items, editHandler, cancelHandler }) => {
                   >
                     {"แสดง"}
                   </ButtonUI>
-                  { row.status_id !== 5 && row.status_id !== 4 &&
+                  { row.status_id !== 5 && row.status_id !== 4 && uPermission.superAdmin &&
                     <ButtonUI
                       onClick={(e) => cancelHandler(row.orders_number)}
                       on="edit"

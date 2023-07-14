@@ -22,7 +22,7 @@ const ContentCardOrderUI = ({
   children,
   statusId,
 }) => {
-  const { t } = useTranslation("slide-page");
+  const uPermission = useSelector(state => state.auth.userPermission)
 
   return (
     <div className={`card-box asRow ${className}`}>
@@ -40,7 +40,7 @@ const ContentCardOrderUI = ({
           >
             {"แสดง"}
           </ButtonUI>
-          { statusId !== 4 && statusId !== 5 &&
+          { statusId !== 4 && statusId !== 5 && uPermission.superAdmin &&
             <ButtonUI
               onClick={onCancelClick}
               on="edit"
