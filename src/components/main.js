@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appActions } from "../store/app-slice";
 import { useRef } from "react";
@@ -33,9 +33,9 @@ const MainLayout = (props) => {
     return () => clearInterval(interval);
   }, []);
 
+
   useEffect(() => {
     if (newOrders > followNO && followNO !== 0) {
-      audioPlayer.current.play();
       Swal.fire({
         title: "คุณได้รับคำสั่งซื้อใหม่!",
         icon: "warning",
@@ -45,9 +45,11 @@ const MainLayout = (props) => {
         confirmButtonText: "Ok",
       }).then(() => {
         audioPlayer.current.pause();
+        dispatch(appActions.setFollowNewOrders(newOrders));
+        return;
       });
+      audioPlayer.current.play();
     }
-    dispatch(appActions.setFollowNewOrders(newOrders));
   }, [newOrders]);
 
   return (
