@@ -100,7 +100,7 @@ const ProductModalAdd = (props) => {
     formData.append("imageAlt", addData.thumbnail_alt);
     formData.append("id", addData.id);
     formData.append("title", addData.title);
-    formData.append("description", addData.description);
+    formData.append("description", "");
     formData.append("display", addData.display ? 1 : 0);
     formData.append("cate_id", parseInt(addData.cate_id));
     formData.append("details", addData.details);
@@ -210,7 +210,7 @@ const ProductModalAdd = (props) => {
                         size="small"
                       />
                     </div>
-                    <div className="input-xl-half">
+                    {/* <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
                           setAddData((prevState) => {
@@ -228,7 +228,7 @@ const ProductModalAdd = (props) => {
                         label="description"
                         size="small"
                       />
-                    </div>
+                    </div> */}
                     <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>

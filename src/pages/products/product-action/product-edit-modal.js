@@ -84,7 +84,7 @@ const ProductModalEdit = (props) => {
     formData.append("imageAlt", editData.thumbnail_alt);
     formData.append("id", editData.id);
     formData.append("title", editData.title);
-    formData.append("description", editData.description);
+    formData.append("description", "");
     formData.append("display", editData.display ? 1 : 0);
     formData.append("page_id", parseInt(editData.page_id));
     formData.append("cate_id", parseInt(editData.cate_id));
@@ -222,7 +222,7 @@ const ProductModalEdit = (props) => {
                         size="small"
                       />
                     </div>
-                    <div className="input-xl-half">
+                    {/* <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
                           setEditData((prevState) => {
@@ -240,7 +240,7 @@ const ProductModalEdit = (props) => {
                         label="description"
                         size="small"
                       />
-                    </div>
+                    </div> */}
                     <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
