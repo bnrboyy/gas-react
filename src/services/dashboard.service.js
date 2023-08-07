@@ -7,8 +7,8 @@ export const svGetOrderBar = (startDate, endDate, type) => {
     )
 }
 
-export const svGetOrderDonut = () => {
-    return axios.get(`dashboard/order/chart/donut`).then(
+export const svGetOrderCompleted = () => {
+    return axios.get(`dashboard/order/completed`).then(
     (res) => { return { status: true, data: res.data.data }},
     (error) => { return { status: false, description: (!error.response.data)?"Something went wrong":error.response.data.description }}
     )

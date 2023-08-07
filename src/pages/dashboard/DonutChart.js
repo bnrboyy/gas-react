@@ -4,13 +4,14 @@ import Chart from "react-apexcharts";
 function DonutChart({ data, labelTitles }) {
   const colors = ["#005EA0", "#FF7D00"];
   const labels = labelTitles?.filter((item) => item !== "Total");
+  console.log(data)
 
   return (
     <React.Fragment>
       <Chart
         type="donut"
-        width={600}
-        height={600}
+        width={550}
+        height={550}
         series={[100,40]}
         // series={data}
         options={{
@@ -32,7 +33,7 @@ function DonutChart({ data, labelTitles }) {
                 },
               },
               expandOnClick: true,
-              size: 299,
+              size: 250,
             },
           },
           responsive: [
@@ -40,7 +41,7 @@ function DonutChart({ data, labelTitles }) {
               breakpoint: 1670,
               options: {
                 chart: {
-                  width: 450,
+                  width: 350,
                 },
                 legend: {
                   position: "bottom",

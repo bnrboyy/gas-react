@@ -22,7 +22,7 @@ import { appActions } from "../../store/app-slice";
 import Chart from "./chart";
 import DonutChart from "./DonutChart";
 import TableTab from "./TableTab";
-import { svGetOrderDonut } from "../../services/dashboard.service";
+import { svGetOrderCompleted } from "../../services/dashboard.service";
 
 const DashboardPage = () => {
   const { t } = useTranslation(["dashboard-page"]);
@@ -50,6 +50,10 @@ const DashboardPage = () => {
   const [orderListTable, setOrderListTable] = useState([]);
   const [dateTitle, setDateTitle] = useState("");
 
+  const date = dayjs();
+  const formatDate = date.format("YYYY-MM-DD");
+  console.log(formatDate)
+
   function setDate() {
     let date = dayjs().get("date");
     let month = new Date().toLocaleString("default", { month: "long" });
@@ -67,7 +71,9 @@ const DashboardPage = () => {
       const today = new Date();
       const currentYear = today.getFullYear();
       today.toLocaleString("default", { month: "long" });
-      setTitle(today.toLocaleString("default", { month: "long" }) + " " + currentYear);
+      setTitle(
+        today.toLocaleString("default", { month: "long" }) + " " + currentYear
+      );
     } else if (views === "year") {
       setTitle("2023");
     }
@@ -75,7 +81,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     dispatch(appActions.isSpawnActive(true));
-    svGetOrderDonut().then((res) => {
+    svGetOrderCompleted().then((res) => {
       let priceDetails = [];
       let listDetails = [];
       let orderTable = [];
@@ -88,6 +94,10 @@ const DashboardPage = () => {
       let ttAll = 0;
       let orderComplete = 0;
       let orderFails = 0;
+
+      console.log(res.data);
+      return;
+
       if (res.status) {
         res.data?.map((item, ind) => {
           if (item.status_id === 4) {
@@ -137,7 +147,7 @@ const DashboardPage = () => {
   }, [refreshData]);
 
   useEffect(() => {
-    svGetOrderDonut().then((res) => {
+    svGetOrderCompleted().then((res) => {
       let data = [];
       if (res.status) {
         if (viewsList === "all") {
@@ -179,10 +189,7 @@ const DashboardPage = () => {
     "/images/dashboard/total.png",
   ];
 
-  const labelTitles = [
-    "เปลี่ยนถัง/สั่งสินค้า",
-    "ค่าจัดส่ง",
-  ];
+  const labelTitles = ["เปลี่ยนถัง/สั่งสินค้า", "ค่าจัดส่ง"];
 
   const detailsStyle = [
     {
@@ -297,7 +304,7 @@ const DashboardPage = () => {
               >
                 <img src="images/dashboard/barchart.png" alt="" width={30} />
                 <Typography variant="subtitle1" gutterBottom sx={{ mb: "0" }}>
-                รายได้ / สัปดาห์ / เดือน / ปี
+                  รายได้ / สัปดาห์ / เดือน / ปี
                 </Typography>
               </div>
               <div className="date-picker">
@@ -361,9 +368,19 @@ const DashboardPage = () => {
 
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(0, 94, 160)"}}>เปลี่ยนถัง/สั่งสินค้า</Typography>
-                <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceWash} บาท</Typography>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  style={{ color: "rgb(0, 94, 160)" }}
+                >
+                  เปลี่ยนถัง/สั่งสินค้า
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  {title}
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  รวม: {totalPriceWash} บาท
+                </Typography>
               </div>
               <div className="card-body">
                 <Chart
@@ -383,9 +400,19 @@ const DashboardPage = () => {
             </div>
             <div className="card-chart-control">
               <div className="head-title">
-                <Typography variant="subtitle1" gutterBottom style={{color: "rgb(255, 125, 0)"}}>ค่าจัดส่ง</Typography>
-                <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>รวม: {totalPriceFood} บาท</Typography>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  style={{ color: "rgb(255, 125, 0)" }}
+                >
+                  ค่าจัดส่ง
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  {title}
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  รวม: {totalPriceFood} บาท
+                </Typography>
               </div>
               <div className="card-body">
                 <Chart
@@ -456,13 +483,13 @@ const DashboardPage = () => {
                     value="comlete"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="Complete"
+                    label="่จัดส่งสำเร็จ"
                   />
                   <FormControlLabel
                     value="fails"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="Fails"
+                    label="จัดส่งไม่สำเร็จ"
                   />
                 </RadioGroup>
               </FormControl>
