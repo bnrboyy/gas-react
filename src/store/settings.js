@@ -51,7 +51,7 @@ const appConfigDEV = {
 const appConfigPROD = {
   isDevMode: false,
   language: "th",
-  timeZone: "Europe/Paris",
+  timeZone: "Asia/Bangkok",
   languageAvailable: ["th"],
   apiPath: "https://juppgas-delivery.shop/api/backoffice/v1/",
   uploadPath: "https://juppgas-delivery.shop/",

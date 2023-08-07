@@ -24,32 +24,30 @@ const MainLayout = (props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      svGetOrderPending().then((res) => {
+      svGetOrderPending().then((res) =>
         dispatch(appActions.setNewOrders(res.data.data))
-
-      }
       );
     }, 10000);
     return () => clearInterval(interval);
   }, []);
 
-
   useEffect(() => {
-    if (newOrders > followNO && followNO !== 0) {
-      Swal.fire({
-        title: "คุณได้รับคำสั่งซื้อใหม่!",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Ok",
-      }).then(() => {
-        audioPlayer.current.pause();
-        dispatch(appActions.setFollowNewOrders(newOrders));
-        return;
-      });
-      audioPlayer.current.play();
+    if (newOrders > followNO) {
+      setTimeout(() => {
+        audioPlayer.current.play();
+        Swal.fire({
+          title: "คุณมีคำสั่งซื้อที่รอการยืนยัน!",
+          icon: "warning",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ok",
+        }).then(() => {
+          audioPlayer.current.pause();
+        });
+      }, 1000)
     }
+    dispatch(appActions.setFollowNewOrders(newOrders));
   }, [newOrders]);
 
   return (
