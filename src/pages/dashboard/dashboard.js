@@ -480,7 +480,7 @@ const DashboardPage = () => {
             >
               <img src="images/dashboard/orderlist.png" alt="" width={30} />
               <Typography variant="subtitle1" gutterBottom sx={{ mb: "0" }}>
-                รายงาน / รายวัน
+                รายงาน / รายวัน : {orderListTable.length} รายการ
               </Typography>
             </div>
             <div className="head-checkbox">
