@@ -37,22 +37,22 @@ const DashboardPage = () => {
   });
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [totalPriceWash, setTotalPriceWash] = useState(0);
-  const [totalPriceFood, setTotalPriceFood] = useState(0);
   const [mountChecked, setMountChecked] = useState(true);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [views, setViews] = useState("week");
   const [viewsList, setViewsList] = useState("all");
   const [title, setTitle] = useState("");
   const [orderDonut, setOrderDonut] = useState([]);
-  const [donut, setDonut] = useState([]);
   const [orderList, setOrderList] = useState([]);
   const [orderListTable, setOrderListTable] = useState([]);
   const [dateTitle, setDateTitle] = useState("");
-
+  const [orders, setOrders] = useState([]);
+  
+  const [donut, setDonut] = useState([]);
+  const [totalGross, setTotalGross] = useState(0);
+  const [totalDelivery, setTotalDelivery] = useState(0);
+  
   const date = dayjs();
-  const formatDate = date.format("YYYY-MM-DD");
-  console.log(formatDate)
+  const currentDate = date.format("YYYY-MM-DD");
 
   function setDate() {
     let date = dayjs().get("date");
@@ -75,14 +75,13 @@ const DashboardPage = () => {
         today.toLocaleString("default", { month: "long" }) + " " + currentYear
       );
     } else if (views === "year") {
-      setTitle("2023");
+      setTitle(dayjs().format('YYYY'));
     }
   }, [views]);
 
   useEffect(() => {
     dispatch(appActions.isSpawnActive(true));
     svGetOrderCompleted().then((res) => {
-      let priceDetails = [];
       let listDetails = [];
       let orderTable = [];
       let donutArr = [];
@@ -90,12 +89,28 @@ const DashboardPage = () => {
       let ttDry = 0;
       let ttFoods = 0;
       let ttIron = 0;
-      let ttDelivery = 0;
       let ttAll = 0;
       let orderComplete = 0;
       let orderFails = 0;
+      
+      let priceDetails = [];
+      let ttGross = 0;
+      let ttDelivery = 0;
 
-      console.log(res.data);
+      if (res.status) {
+        const result = res.data;
+        setOrders(result);
+        res.data?.map((item, ind) => {
+          if (dayjs(item.date_drop).toISOString().substring(0, 10) === currentDate) {
+            ttGross += item.total_price;
+            ttDelivery += item.delivery_price;
+          }
+        })
+        priceDetails.push(ttGross)
+        priceDetails.push(ttDelivery)
+
+        setDonut(priceDetails);
+      }
       return;
 
       if (res.status) {
@@ -150,14 +165,11 @@ const DashboardPage = () => {
     svGetOrderCompleted().then((res) => {
       let data = [];
       if (res.status) {
+        console.log(viewsList)
         if (viewsList === "all") {
           data = res.data?.filter(
             (item) => item.status_id === 4 || item.status_id === 5
           );
-        } else if (viewsList === "wash&dry") {
-          data = res.data?.filter((item) => item.type_order === "washing");
-        } else if (viewsList === "food") {
-          data = res.data?.filter((item) => item.type_order === "foods");
         } else if (viewsList === "fails") {
           data = res.data?.filter((item) => item.status_id === 5);
         } else {
@@ -179,6 +191,8 @@ const DashboardPage = () => {
       setViews(e.target.value);
     }
   };
+  
+  const labelTitles = ["เปลี่ยนถัง/สั่งสินค้า", "ค่าจัดส่ง"];
 
   const thumbnailType = [
     "/images/dashboard/washing.png",
@@ -188,8 +202,6 @@ const DashboardPage = () => {
     "/images/dashboard/delivery.png",
     "/images/dashboard/total.png",
   ];
-
-  const labelTitles = ["เปลี่ยนถัง/สั่งสินค้า", "ค่าจัดส่ง"];
 
   const detailsStyle = [
     {
@@ -291,7 +303,9 @@ const DashboardPage = () => {
             </div>
             <div className="chart-content">
               <div className="content-left">
+              { donut.length > 0 &&
                 <DonutChart data={donut} labelTitles={labelTitles} />
+              }
               </div>
             </div>
           </div>
@@ -379,24 +393,26 @@ const DashboardPage = () => {
                   {title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  รวม: {totalPriceWash} บาท
+                  รวม: {totalGross} บาท
                 </Typography>
               </div>
-              <div className="card-body">
-                <Chart
-                  colorRGB={"0, 94, 160, 1"}
-                  barTitle={"Wash&Dry"}
-                  setMountChecked={setMountChecked}
-                  setRefreshData={setRefreshData}
-                  refreshData={refreshData}
-                  views={views}
-                  startDate={startDate}
-                  endDate={endDate}
-                  setTotalPriceFood={setTotalPriceFood}
-                  setTotalPriceWash={setTotalPriceWash}
-                  setTotalPrice={setTotalPrice}
-                />
-              </div>
+              { orders.length > 0 &&
+                <div className="card-body">
+                  <Chart
+                    colorRGB={"0, 94, 160, 1"}
+                    barTitle={"totalGross"}
+                    setMountChecked={setMountChecked}
+                    setRefreshData={setRefreshData}
+                    refreshData={refreshData}
+                    views={views}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setTotalGross={setTotalGross}
+                    setTotalDelivery={setTotalDelivery}
+                    orders={orders}
+                  />
+                </div>
+              }
             </div>
             <div className="card-chart-control">
               <div className="head-title">
@@ -411,24 +427,26 @@ const DashboardPage = () => {
                   {title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  รวม: {totalPriceFood} บาท
+                  รวม: {totalDelivery} บาท
                 </Typography>
               </div>
-              <div className="card-body">
-                <Chart
-                  colorRGB={"255, 125, 0, 1"}
-                  barTitle={"Vending&Cafe"}
-                  setMountChecked={setMountChecked}
-                  refreshData={refreshData}
-                  setRefreshData={setRefreshData}
-                  views={views}
-                  dateStart={startDate}
-                  dateEnd={endDate}
-                  setTotalPriceFood={setTotalPriceFood}
-                  setTotalPriceWash={setTotalPriceWash}
-                  setTotalPrice={setTotalPrice}
-                />
-              </div>
+              { orders.length > 0 &&
+                <div className="card-body">
+                  <Chart
+                    colorRGB={"255, 125, 0, 1"}
+                    barTitle={"Delivery"}
+                    setMountChecked={setMountChecked}
+                    refreshData={refreshData}
+                    setRefreshData={setRefreshData}
+                    views={views}
+                    dateStart={startDate}
+                    dateEnd={endDate}
+                    setTotalGross={setTotalGross}
+                    setTotalDelivery={setTotalDelivery}
+                    orders={orders}
+                  />
+                </div>
+              }
             </div>
             {/* <div className="card-chart-control">
               <div className="head-title">
@@ -483,7 +501,7 @@ const DashboardPage = () => {
                     value="comlete"
                     onChange={handleChange}
                     control={<Radio />}
-                    label="่จัดส่งสำเร็จ"
+                    label="จัดส่งสำเร็จ"
                   />
                   <FormControlLabel
                     value="fails"

@@ -141,14 +141,14 @@ export default function TableTab({ orderList }) {
                     style={{cursor: "pointer"}}
                   >
                     <TableCell component="th" scope="row" padding="normal">
-                      {row.type_order === "washing" ? "Washing and Drying" : "Foods"}
+                      {row.orders_number}
                     </TableCell>
                     <TableCell align="left">{row.transaction_date}</TableCell>
-                    <TableCell align="left">{row.delivery_price} THB</TableCell>
                     <TableCell align="left">{row.total_price} THB</TableCell>
-                    <TableCell align="left">{row.total_price + row.delivery_price} THB</TableCell>
+                    <TableCell align="left">{row.delivery_price} THB</TableCell>
+                    <TableCell align="left">{row.discount} THB</TableCell>
                     <TableCell align="left" style={{ textTransform: "capitalize" }}>
-                      {row.type_payment}
+                      {(row.total_price + row.delivery_price) - row.discount} THB
                     </TableCell>
                     <TableCell
                       align="left"

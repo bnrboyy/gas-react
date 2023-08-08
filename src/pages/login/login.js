@@ -101,7 +101,8 @@ const LoginPage = () => {
         <img src="images/icons/gas-delivery.png" className="logo" />
       </figure>
       <div className="input-form">
-        <h1 className="login-title">Gas-Delivery</h1>
+        <h1 className="login-title"> - Jupp Gas Delivery - </h1>
+        <p className="login-desc">ระบบหลังบ้าน</p>
         <p className="login-desc">เข้าสู่ระบบ</p>
         <div className="input-group">
           <figure className="login-icon">

@@ -4,7 +4,6 @@ import Chart from "react-apexcharts";
 function DonutChart({ data, labelTitles }) {
   const colors = ["#005EA0", "#FF7D00"];
   const labels = labelTitles?.filter((item) => item !== "Total");
-  console.log(data)
 
   return (
     <React.Fragment>
@@ -12,8 +11,8 @@ function DonutChart({ data, labelTitles }) {
         type="donut"
         width={550}
         height={550}
-        series={[100,40]}
-        // series={data}
+        // series={[100,40]}
+        series={data}
         options={{
           colors: colors,
           chart: {
