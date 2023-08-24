@@ -76,6 +76,7 @@ function EnhancedTableHead() {
 }
 
 export default function TableTab({ orderList }) {
+  console.log(orderList)
   // const [dense, setDense] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -96,28 +97,46 @@ export default function TableTab({ orderList }) {
   const [selectedProductsName, setSelectedProductsName] = useState([]);
   const [selectedTypesOrder, setSelectedTypesOrder] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productDetails, setProductDetails] = useState({
+    orders_number: "",
+    customer_name: "",
+    status_id: "",
+    status: "",
+    total_gross: 0,
+    discount: 0,
+    transaction_date: "",
+    date_drop: "",
 
-  const handleTableRowClick = (ordersNumber, productsName, typesOrder) => {
-    setSelectedOrdersNumber(ordersNumber);
-    setSelectedProductsName(productsName);
-    setSelectedTypesOrder(typesOrder);
+  });
+
+  const handleTableRowClick = (row) => {
+    const details = {
+      orders_number: row.orders_number,
+      customer_name: row.customer_name,
+      status_id: row.status_id,
+      status: row.status_id === 4 ? "จัดส่งสำเร็จ" : row.status_id === 5 ? "จัดส่งไม่สำเร็จ" : "",
+      total_gross: row.total_price + row.delivery_price,
+      discount: row.discount,
+      transaction_date: row.transaction_date,
+      date_drop: row.date_drop,
+    }
+    setProductDetails(details)
+    setSelectedOrdersNumber(row.orders_number);
     setIsModalOpen(true);
+    console.log(productDetails)
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  let productWashingCap, productWashingTemp, productDryingCap, productFoods;
-
-  if (selectedProductsName && typeof selectedProductsName === "string") {
-    const productsArray = selectedProductsName.split(",");
-    productWashingCap = productsArray[0];
-    productWashingTemp = productsArray[1];
-    productDryingCap = productsArray[2];
-    productFoods = selectedProductsName.replace(/,/g, ", ")
+  const modalTitleStyle = {
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      gap: "0.25rem",
+      fontSize: "20px",
   }
-
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -136,7 +155,7 @@ export default function TableTab({ orderList }) {
                     tabIndex={-1}
                     key={index}
                     onClick={() =>
-                      handleTableRowClick(row.orders_number, row.product_name, row.type_order)
+                      handleTableRowClick(row)
                     }
                     style={{cursor: "pointer"}}
                   >
@@ -181,6 +200,9 @@ export default function TableTab({ orderList }) {
             >
               <Box
                 sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
                   position: "absolute",
                   top: "50%",
                   left: "50%",
@@ -193,42 +215,33 @@ export default function TableTab({ orderList }) {
                   borderRadius: "10px",
                 }}
               >
-                <div
-                  id="modal-title"
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    fontSize: "20px",
-                  }}
-                >
-                  <p style={{ fontWeight: "bold" }}>Orders Number :</p>
-                  <p>{selectedOrdersNumber}</p>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>เลขคำสั่งซื้อ :</p>
+                  <p>{productDetails.orders_number}</p>
                 </div>
-                <div
-                  id="modal-description"
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-                    gap: "0.25rem",
-                    fontSize: "20px",
-                    width: "100%",
-                  }}
-                >
-                  <div>
-                    <p style={{ fontWeight: "bold" }}>Product : </p>
-                  </div>
-                  <div>
-                    {selectedTypesOrder === "washing" ? (
-                      <p>
-                        Washing {productWashingCap} {productWashingTemp}, Drying {productDryingCap}
-                      </p>
-                    ) : (
-                      <p>{productFoods}</p>
-                    )}
-                  </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>ชื่อลูกค้า :</p>
+                  <p>{productDetails.customer_name}</p>
+                </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>สถานะคำสั่งซื้อ :</p>
+                  <p style={{ color: productDetails.status_id === 4 ? "green" : "red" }}>{productDetails.status}</p>
+                </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>วันที่ทำรายการ :</p>
+                  <p>{productDetails.transaction_date}</p>
+                </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>วันเวลาที่จัดส่ง :</p>
+                  <p>{productDetails.date_drop}</p>
+                </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>ราคาสินค้า(รวมค่าจัดส่ง) :</p>
+                  <p>{productDetails.total_gross} บาท</p>
+                </div>
+                <div id="modal-title" style={modalTitleStyle} >
+                  <p style={{ fontWeight: "500" }}>ส่วนลด :</p>
+                  <p>{productDetails.discount} บาท</p>
                 </div>
               </Box>
             </Modal>

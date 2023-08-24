@@ -110,6 +110,7 @@ const Chart = ({
   useEffect(() => {
     let tt = 0;
     let data = [];
+    let discount = 0;
     if (views === "week") {
       const labelArr = setWeekLabels();
       if (barTitle === "totalGross") {
@@ -117,10 +118,11 @@ const Chart = ({
           if (labelArr.includes(order.shipping_date)) {
             data.push(order);
             tt += order.total_price;
+            discount += order.discount;
           }
         });
         setOrderBar(data);
-        setTotalGross(tt);
+        setTotalGross(tt - discount);
       } else if (barTitle === "Delivery") {
         orderComplete.map((order) => {
           if (labelArr.includes(order.shipping_date)) {
@@ -138,16 +140,17 @@ const Chart = ({
           if (dayjs(order.shipping_date).month() + 1 === dayjs().month() + 1) {
             data.push(order);
             tt += order.total_price;
+            discount += order.discount;
           }
         });
         let dd = data?.map((item) => {
           return {
             ...item,
-            shipping_date: `0${dayjs(item.shipping_date).date()}`,
+            shipping_date: item.shipping_date.substring(8, 10),
           };
         });
         setOrderBar(dd);
-        setTotalGross(tt)
+        setTotalGross(tt - discount);
       } else if (barTitle === "Delivery") {
         orderComplete.map((order) => {
           if (dayjs(order.shipping_date).month() + 1 === dayjs().month() + 1) {
@@ -158,7 +161,7 @@ const Chart = ({
         let dd = data?.map((item) => {
           return {
             ...item,
-            shipping_date: `0${dayjs(item.shipping_date).date()}`,
+            shipping_date: item.shipping_date.substring(8, 10),
           };
         });
         setOrderBar(dd);
@@ -171,16 +174,17 @@ const Chart = ({
           if (dayjs(order.shipping_date).year() === dayjs().year()) {
             data.push(order);
             tt += order.total_price;
+            discount += order.discount;
           }
         });
         let dd = data?.map((item) => {
           return {
             ...item,
-            shipping_date: `0${dayjs(item.shipping_date).month() + 1}`,
+            shipping_date: item.shipping_date.substring(5, 7),
           };
         });
         setOrderBar(dd);
-        setTotalGross(tt);
+        setTotalGross(tt - discount);
       } else if (barTitle === "Delivery") {
         orderComplete.map((order) => {
           if (dayjs(order.shipping_date).year() === dayjs().year()) {
@@ -191,7 +195,7 @@ const Chart = ({
         let dd = data?.map((item) => {
           return {
             ...item,
-            shipping_date: `0${dayjs(item.shipping_date).month() + 1}`,
+            shipping_date: item.shipping_date.substring(5, 7),
           };
         });
         setOrderBar(dd);
@@ -243,9 +247,9 @@ const Chart = ({
 
   const data = {
     labels,
-    datasets: [
+    datasets: barTitle === "totalGross" ? [
       {
-        label: "Total ",
+        label: barTitle === "totalGross" ? "ราคาสินค้า " : "ค่าจัดส่ง ",
         // data: labels.map(() => Math.random(1, 1000) * 100),
         data: labels?.map((item, ind) => {
           let tt = 0;
@@ -264,11 +268,42 @@ const Chart = ({
         borderWidth: 1,
         borderRadius: 5,
       },
-      // {
-      //   label: 'Dataset 2',
-      //   data: labels.map(() => Math.floor(Math.random() * 100)),
-      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      // },
+      { 
+        label: 'ส่วนลด ',
+        data: labels?.map((item, ind) => {
+          let tt = 0;
+          for (let i of orderBar) {
+            if (i.shipping_date === item) {
+              tt += i.discount;
+            }
+          }
+          return tt;
+        }),
+        backgroundColor: 'rgba(82, 167, 66, 0.5)',
+        borderWidth: 1,
+        borderRadius: 5,
+      }
+    ] : [
+      {
+        label: barTitle === "totalGross" ? "ราคาสินค้า " : "ค่าจัดส่ง ",
+        // data: labels.map(() => Math.random(1, 1000) * 100),
+        data: labels?.map((item, ind) => {
+          let tt = 0;
+          for (let i of orderBar) {
+            if (i.shipping_date === item) {
+              if (barTitle === "Delivery") {
+                tt += i.delivery_price;
+              } else {
+                tt += i.total_price;
+              }
+            }
+          }
+          return tt;
+        }),
+        backgroundColor: `rgba(${colorRGB})`,
+        borderWidth: 1,
+        borderRadius: 5,
+      },
     ],
   };
 

@@ -28,21 +28,12 @@ const DashboardPage = () => {
   const { t } = useTranslation(["dashboard-page"]);
   const dispatch = useDispatch();
   const [refreshData, setRefreshData] = useState(0);
-  const [settings, setSettings] = useState({
-    numberPeople: 1,
-    timesAvailable: "",
-    disabledDay: "",
-    disabledDate: "",
-    disabledHoliday: "",
-  });
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [mountChecked, setMountChecked] = useState(true);
   const [views, setViews] = useState("week");
   const [viewsList, setViewsList] = useState("all");
   const [title, setTitle] = useState("");
-  const [orderDonut, setOrderDonut] = useState([]);
-  const [orderList, setOrderList] = useState([]);
   const [orderListTable, setOrderListTable] = useState([]);
   const [dateTitle, setDateTitle] = useState("");
   const [orders, setOrders] = useState([]);
@@ -82,27 +73,18 @@ const DashboardPage = () => {
   useEffect(() => {
     dispatch(appActions.isSpawnActive(true));
     svGetOrderCompleted().then((res) => {
-      let listDetails = [];
-      let orderTable = [];
-      let donutArr = [];
-      let ttWash = 0;
-      let ttDry = 0;
-      let ttFoods = 0;
-      let ttIron = 0;
-      let ttAll = 0;
-      let orderComplete = 0;
-      let orderFails = 0;
-      
       let priceDetails = [];
       let ttGross = 0;
       let ttDelivery = 0;
 
       if (res.status) {
         const result = res.data;
+        // const orders = result?.filter((item) => item.status_id === 4);
+        setOrderLists(result)
         setOrders(result);
         res.data?.map((item, ind) => {
-          if (dayjs(item.date_drop).toISOString().substring(0, 10) === currentDate) {
-            ttGross += item.total_price;
+          if (dayjs(item.shipping_date) === currentDate) {
+            ttGross += (item.total_price - item.discount);
             ttDelivery += item.delivery_price;
           }
         })
@@ -111,50 +93,6 @@ const DashboardPage = () => {
 
         setDonut(priceDetails);
       }
-      return;
-
-      if (res.status) {
-        res.data?.map((item, ind) => {
-          if (item.status_id === 4) {
-            if (item.type_order === "washing") {
-              ttWash += item.washing_price;
-              ttDry += item.drying_price;
-            } else if (item.type_order === "foods") {
-              ttFoods += item.total_price;
-            } else {
-              ttIron += item.total_price;
-            }
-            orderComplete += 1;
-            ttDelivery += item.delivery_price;
-          } else if (item.status_id === 5) {
-            orderFails += 1;
-          }
-          if (item.status_id === 4 || item.status_id === 5) {
-            orderTable.push(item);
-          }
-          ttAll = ttDelivery + ttWash + ttDry + ttFoods;
-        });
-        priceDetails.push(ttWash);
-        priceDetails.push(ttDry);
-        priceDetails.push(ttFoods);
-        priceDetails.push(ttIron);
-        priceDetails.push(ttDelivery);
-        priceDetails.push(ttAll);
-        donutArr = priceDetails.filter(
-          (item, ind) => ind !== priceDetails.length - 1
-        );
-
-        listDetails.push(orderComplete);
-        listDetails.push(orderFails);
-        listDetails.push(ttWash + ttDry + ttFoods);
-        listDetails.push(ttDelivery);
-        listDetails.push(ttAll);
-
-        setOrderDonut(priceDetails);
-        setOrderList(listDetails);
-        setOrderListTable(orderTable);
-        setDonut(donutArr);
-      }
       dispatch(appActions.isSpawnActive(false));
     });
 
@@ -162,23 +100,25 @@ const DashboardPage = () => {
   }, [refreshData]);
 
   useEffect(() => {
-    svGetOrderCompleted().then((res) => {
-      let data = [];
-      if (res.status) {
-        console.log(viewsList)
-        if (viewsList === "all") {
-          data = res.data?.filter(
-            (item) => item.status_id === 4 || item.status_id === 5
-          );
-        } else if (viewsList === "fails") {
-          data = res.data?.filter((item) => item.status_id === 5);
-        } else {
-          data = res.data?.filter((item) => item.status_id === 4);
-        }
-      }
-      setOrderListTable(data);
-    });
+    setOrderLists(orders)
   }, [viewsList]);
+
+  function setOrderLists(_orders) {
+    let data = [];
+    if (viewsList === "all") {
+      data = _orders?.filter(
+        (item) => item.status_id === 4 || item.status_id === 5
+      );
+      console.log(_orders)
+
+    } else if (viewsList === "fails") {
+      console.log(_orders)
+      data = _orders?.filter((item) => item.status_id === 5);
+    } else {
+      data = _orders?.filter((item) => item.status_id === 4);
+    }
+    setOrderListTable(data);
+  }
 
   const handleChange = (e) => {
     if (
@@ -186,6 +126,7 @@ const DashboardPage = () => {
       e.target.value !== "month" &&
       e.target.value !== "year"
     ) {
+      console.log(e.target.value)
       setViewsList(e.target.value);
     } else {
       setViews(e.target.value);
@@ -379,7 +320,6 @@ const DashboardPage = () => {
               </div> */}
               </div>
             </div>
-
             <div className="card-chart-control">
               <div className="head-title">
                 <Typography
@@ -393,7 +333,7 @@ const DashboardPage = () => {
                   {title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  รวม: {totalGross} บาท
+                  รวม(หลังหักส่วนลด) : {totalGross} บาท
                 </Typography>
               </div>
               { orders.length > 0 &&
@@ -480,7 +420,7 @@ const DashboardPage = () => {
             >
               <img src="images/dashboard/orderlist.png" alt="" width={30} />
               <Typography variant="subtitle1" gutterBottom sx={{ mb: "0" }}>
-                รายงาน / รายวัน : {orderListTable.length} รายการ
+                รายงาน : {orderListTable.length} รายการ
               </Typography>
             </div>
             <div className="head-checkbox">
@@ -529,7 +469,9 @@ const DashboardPage = () => {
             ))}
           </div> */}
           <div className="table-tab">
-            <TableTab orderList={orderListTable} />
+            { orderListTable &&
+              <TableTab orderList={orderListTable} />
+            }
           </div>
         </div>
       </div>
