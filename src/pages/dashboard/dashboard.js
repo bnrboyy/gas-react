@@ -109,10 +109,7 @@ const DashboardPage = () => {
       data = _orders?.filter(
         (item) => item.status_id === 4 || item.status_id === 5
       );
-      console.log(_orders)
-
     } else if (viewsList === "fails") {
-      console.log(_orders)
       data = _orders?.filter((item) => item.status_id === 5);
     } else {
       data = _orders?.filter((item) => item.status_id === 4);
