@@ -83,14 +83,13 @@ const DashboardPage = () => {
         setOrderLists(result)
         setOrders(result);
         res.data?.map((item, ind) => {
-          if (dayjs(item.shipping_date) === currentDate) {
+          if ((item.shipping_date) === currentDate) {
             ttGross += (item.total_price - item.discount);
             ttDelivery += item.delivery_price;
           }
         })
         priceDetails.push(ttGross)
         priceDetails.push(ttDelivery)
-
         setDonut(priceDetails);
       }
       dispatch(appActions.isSpawnActive(false));
@@ -123,7 +122,6 @@ const DashboardPage = () => {
       e.target.value !== "month" &&
       e.target.value !== "year"
     ) {
-      console.log(e.target.value)
       setViewsList(e.target.value);
     } else {
       setViews(e.target.value);
