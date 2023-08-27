@@ -23,6 +23,7 @@ import Chart from "./chart";
 import DonutChart from "./DonutChart";
 import TableTab from "./TableTab";
 import { svGetOrderCompleted } from "../../services/dashboard.service";
+import OrdersListTable from "./OrdersListTable";
 
 const DashboardPage = () => {
   const { t } = useTranslation(["dashboard-page"]);
@@ -464,8 +465,10 @@ const DashboardPage = () => {
             ))}
           </div> */}
           <div className="table-tab">
+              {/* <OrdersListTable orderList={orderListTable} /> */}
             { orderListTable &&
               <TableTab orderList={orderListTable} />
+              
             }
           </div>
         </div>
