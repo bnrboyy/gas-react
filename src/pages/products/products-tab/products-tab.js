@@ -81,7 +81,6 @@ const ProductsTab = ({
   ];
 
   const handleChange = (event, newValue) => {
-    console.log(newValue)
     setTabSelect(newValue);
     setLimited({ begin: 0, end: rowsPerPage });
     setPage(0);

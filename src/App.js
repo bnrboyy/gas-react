@@ -43,7 +43,7 @@ function App() {
     <Suspense>
       {/* Animetion loading */}
       {/* <BounceLoading /> */}
-      {/* <SpawnLoading /> */}
+      <SpawnLoading />
       <Routes>
         <Route element={<PrivateRoutes />}>
           {<Route path="/" element={<Navigate to={defaultPath} />} />}
