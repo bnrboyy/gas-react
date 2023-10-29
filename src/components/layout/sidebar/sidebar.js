@@ -81,7 +81,6 @@ const SidebarComponent = (props) => {
             <p className="sub-website">{t("Managements")}</p>
           </div>
         </Link>
-
         {/* <hr className="line-section" />
         <div className="title-section">{t("Languages")}</div>
         <div className="language-selection">
@@ -98,7 +97,6 @@ const SidebarComponent = (props) => {
             </Button>
           ))}
         </div> */}
-
         <div className="sidenav-main">
           {pagesAllow.groups.notify && (uPermission.superAdmin || uPermission.rider) && (
             <Fragment>
@@ -229,168 +227,9 @@ const SidebarComponent = (props) => {
                       <div className="menu-title">{t("ProductsPage")}</div>
                     </NavLink>
                   )}
-                {/* <li className="menu-link has-child opened">
-                  {(uPermission.superAdmin || uPermission.admin) && (
-                    <a
-                      className={`navlink `}
-                      title={t("ProductsTitleMenu")}
-                      onClick={toggleSubMenu}
-                    >
-                      <FontAwesomeIcon icon={faCaretDown} className="toggle-submenu" />
-                      <span className="collap-title">
-                        <FontAwesomeIcon icon={faBoxOpen} />
-                      </span>
-                      <div className="menu-title">{t("ProductsTitleMenu")}</div>
-                    </a>
-                  )}
-                  <div className="child-menu ">
-                    <ul className="nav-items ">
-                      {pagesAllow.productcate && (uPermission.superAdmin || uPermission.admin) && (
-                        <li>
-                          <NavLink
-                            onClick={closeSidebarhandler}
-                            to="/productcate"
-                            className={`items `}
-                            title={t("ProductCategory")}
-                            liClass="sub-items"
-                          >
-                            <span className="collap-title">
-                              <FontAwesomeIcon icon={faSignsPost} />
-                            </span>
-                            <span className="menu-title">{t("ProductCategory")}</span>
-                          </NavLink>
-                        </li>
-                      )}
-                      {pagesAllow.products && (uPermission.superAdmin || uPermission.admin) && (
-                        <NavLink
-                          onClick={closeSidebarhandler}
-                          to="/products"
-                          className={`items `}
-                          title={t("ProductsPage")}
-                          liClass="sub-items"
-                        >
-                          <span className="collap-title">
-                            <FontAwesomeIcon icon={faSignsPost} />
-                          </span>
-                          <span className="menu-title">{t("ProductsPage")}</span>
-                        </NavLink>
-                      )}
-                    </ul>
-                  </div>
-                </li> */}
-               
-                {/* {pagesAllow.members && (uPermission.superAdmin || uPermission.admin) && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/members"
-                    className={`navlink `}
-                    title={t("MembersPage")}
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faStreetView} />
-                    </figure>
-                    <div className="menu-title">{t("MembersPage")}</div>
-                  </NavLink>
-                )} */}
-                {/* Report */}
-                {/* {pagesAllow.reports && (uPermission.superAdmin || uPermission.admin) && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/reports"
-                    className={`navlink `}
-                    title={t("ReportsPage")}
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faFolderOpen} />
-                    </figure>
-                    <div className="menu-title">{t("ReportsPage")}</div>
-                  </NavLink>
-                )} */}
               </ul>
             </Fragment>
           )}
-
-          {/* {pagesAllow.groups.article && (uPermission.superAdmin || uPermission.admin) && (
-            <Fragment>
-              <hr className="line-section gap" />
-              <div className="title-section">{t("ManageContent")}</div>
-              <ul className="nav-menu">
-                {pagesAllow.slides && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/slides"
-                    className={`navlink `}
-                    title={t("SlidesPage")}
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faImages} />
-                    </figure>
-                    <div className="menu-title">{t("SlidesPage")}</div>
-                  </NavLink>
-                )}
-                <li className={`menu-link has-child opened`}> */}
-                  {/* opened */}
-                  {/* <a className={`navlink `} onClick={toggleSubMenu} title={t("ManageWebContent")}>
-                    <FontAwesomeIcon icon={faCaretDown} className="toggle-submenu" />
-                    <span className="collap-title">
-                      <FontAwesomeIcon icon={faListOl} />
-                    </span>
-                    <div className="menu-title">{t("ManageWebContent")}</div>
-                  </a>
-                  <div className="child-menu ">
-                    <ul className="nav-items ">
-                      {pagesAllow.menu && (
-                        <NavLink
-                          onClick={closeSidebarhandler}
-                          to="/menu"
-                          className={`items `}
-                          title={t("ManageWebContent")}
-                          liClass="sub-items"
-                        >
-                          <span className="collap-title">
-                            <FontAwesomeIcon icon={faSignsPost} />
-                          </span>
-                          <span className="menu-title">{t("MenuPage")}</span>
-                        </NavLink>
-                      )}
-                      {pagesAllow.category && (
-                        <NavLink
-                          onClick={closeSidebarhandler}
-                          to="/category"
-                          className={`items `}
-                          title={t("ManageWebContent")}
-                          liClass="sub-items"
-                        >
-                          <span className="collap-title">
-                            <FontAwesomeIcon icon={faSitemap} />
-                          </span>
-                          <span className="menu-title">{t("CategoryPage")}</span>
-                        </NavLink>
-                      )}
-                      {pagesAllow.posts && (
-                        <NavLink
-                          onClick={closeSidebarhandler}
-                          to="/posts"
-                          className={`items `}
-                          title={t("ManageWebContent")}
-                          liClass="sub-items"
-                        >
-                          <span className="collap-title">
-                            <FontAwesomeIcon icon={faNewspaper} />
-                          </span>
-                          <span className="menu-title">{t("PostPage")}</span>
-                        </NavLink>
-                      )}
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </Fragment>
-          )} */}
-
           {pagesAllow.groups.report && (uPermission.superAdmin || uPermission.admin) && (
             <Fragment>
               <hr className="line-section gap" />
@@ -462,50 +301,6 @@ const SidebarComponent = (props) => {
                       <div className="menu-title">{t("AdminPage")}</div>
                     </NavLink>
                   )}
-
-                {/* {pagesAllow.languages && (uPermission.superAdmin || uPermission.admin) && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/languages"
-                    className={`navlink `}
-                    title={t("LanguagePage")}
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faLanguage} />
-                    </figure>
-                    <div className="menu-title">{t("LanguagePage")}</div>
-                  </NavLink>
-                )} */}
-
-                
-                {/* {isDevMode && (
-                  <NavLink
-                    onClick={closeSidebarhandler}
-                    to="/componentui"
-                    className={`navlink `}
-                    title="UI Components"
-                    liClass="menu-link"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faIcons} />
-                    </figure>
-                    <div className="menu-title">UI Components</div>
-                  </NavLink>
-                )} */}
-                {/* <div className="menu-link">
-                  <a
-                    href={`${uploadPath}upload/manual/manual.pdf`}
-                    className={`navlink `}
-                    target="_blank"
-                    title="Manual"
-                  >
-                    <figure className="faIcon">
-                      <FontAwesomeIcon icon={faBook} />
-                    </figure>
-                    <div className="menu-title">Manual</div>
-                  </a>
-                </div> */}
               </ul>
             </Fragment>
           )}

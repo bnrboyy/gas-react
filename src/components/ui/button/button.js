@@ -70,7 +70,6 @@ const ButtonUI = (props) => {
         if(props.width === undefined) setButtonWidth('md');
         break;
       case "save":
-
         if(props.icon === undefined) {setButtonIcon(<FontAwesomeIcon icon={faSave} />)}
         if(props.children === undefined) setButtonText("Save");
         if(props.width === undefined) setButtonWidth('md');
@@ -105,7 +104,7 @@ const ButtonUI = (props) => {
       className={`custom-btn btn${onEvent} ${props.className} ${btnWith}`}
       loading={props.isLoading}
       startIcon={buttonIcon}
-      loadingPosition={buttonIcon && "start"} 
+      loadingPosition={buttonIcon && "center"} 
       variant="contained"
       size={btnSize} >
       {buttonText}

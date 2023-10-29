@@ -34,9 +34,10 @@ const ProductCateModalAdd = (props) => {
   const language = useSelector((state) => state.app.language);
   const [previews, setPreviews] = useState({ src: "", file: null, name: null });
   const [addData, setAddData] = useState(addDataDefault);
+  const [btnLoading, setBtnLoding] = useState(false);
   const [isError, setIsError] = useState({
     thumbnail: false,
-    title: false
+    title: false,
   });
 
   const setPreviewHandler = (data) => {
@@ -54,6 +55,7 @@ const ProductCateModalAdd = (props) => {
       isValid = false;
     }
     if (isValid) {
+      setBtnLoding(true);
       createSlideHandler();
     }
   };
@@ -73,7 +75,7 @@ const ProductCateModalAdd = (props) => {
     svCreateProductCate(formData).then((res) => {
       props.setClose(false);
       setAddData(addDataDefault);
-      setIsError({ thumbnail: false, title: false })
+      setIsError({ thumbnail: false, title: false });
       setPreviews({ src: "", file: null, name: null });
       SwalUI({ status: res.status, description: res.description });
       if (res.status) {
@@ -126,7 +128,7 @@ const ProductCateModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_title: e.target.value
+                              thumbnail_title: e.target.value,
                             };
                           })
                         }
@@ -143,7 +145,7 @@ const ProductCateModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_alt: e.target.value
+                              thumbnail_alt: e.target.value,
                             };
                           })
                         }
@@ -182,7 +184,7 @@ const ProductCateModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              details: e.target.value
+                              details: e.target.value,
                             };
                           })
                         }
@@ -205,7 +207,7 @@ const ProductCateModalAdd = (props) => {
                             setAddData((prevState) => {
                               return {
                                 ...prevState,
-                                display: e.target.checked
+                                display: e.target.checked,
                               };
                             })
                           }
@@ -217,7 +219,7 @@ const ProductCateModalAdd = (props) => {
 
                 <div className="btn-action">
                   <ButtonUI
-                    loader={true}
+                    isLoading={btnLoading}
                     onClick={createValidators}
                     className="btn-save"
                     on="save"

@@ -36,7 +36,13 @@ const ProductModalAdd = (props) => {
     thumbnail_alt: "",
     thumbnail_link: "",
     thumbnail_title: "",
-    title: ""
+    title: "",
+  };
+
+  const previewImage = {
+    src: "",
+    file: null,
+    name: null,
   };
 
   const { t } = useTranslation("product-page");
@@ -46,14 +52,29 @@ const ProductModalAdd = (props) => {
     productCate,
     cateForProduct,
     setClose,
-    setRefreshData
+    setRefreshData,
   } = props;
-  const [previews, setPreviews] = useState({ src: "", file: null, name: null });
+  const [previews, setPreviews] = useState(previewImage);
   const [addData, setAddData] = useState(addDataDefault);
+  const [btnLoading, setBtnLoding] = useState(false);
   const [isError, setIsError] = useState({
     thumbnail: false,
-    title: false
+    title: false,
+    price: false,
+    cate: false,
   });
+
+  function closeModal() {
+    setIsError({
+      thumbnail: false,
+      title: false,
+      price: false,
+      cate: false,
+    });
+    setPreviews(previewImage);
+    setAddData(addDataDefault);
+    setClose(false);
+  }
 
   useEffect(() => {
     setAddData({ ...addData, priority: totalData + 1 });
@@ -70,22 +91,48 @@ const ProductModalAdd = (props) => {
   const createValidators = () => {
     let isValid = true;
     if (previews.file === undefined || previews.file === null) {
-      setIsError({ ...isError, thumbnail: true });
+      setIsError((prev) => {
+        return { ...prev, thumbnail: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, thumbnail: false };
+      });
     }
-    if (addData.title.length < 1 || addData.title.file === null) {
-      setIsError({ ...isError, title: true });
+    if (addData.title.trim().length < 1 || addData.title.file === null) {
+      setIsError((prev) => {
+        return { ...prev, title: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, title: false };
+      });
     }
     if (addData.price === 0 || addData.price === "") {
-      setIsError({...isError, title: true})
+      setIsError((prev) => {
+        return { ...prev, price: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, price: false };
+      });
     }
     if (addData.cate_id === 0) {
-      setIsError({...isError, title: true})
+      setIsError((prev) => {
+        return { ...prev, cate: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, cate: false };
+      });
     }
+
     if (isValid) {
+      setBtnLoding(true);
       createSlideHandler();
     }
   };
@@ -106,9 +153,9 @@ const ProductModalAdd = (props) => {
     formData.append("details", addData.details);
     formData.append("price", addData.price);
     svCreateProduct(formData).then((res) => {
-      setClose(false);
+      closeModal();
       setAddData(addDataDefault);
-      setPreviews({ src: "", file: null, name: null });
+      setPreviews(previewImage);
       SwalUI({ status: res.status, description: res.description });
       if (res.status) {
         setRefreshData((prev) => prev + 1);
@@ -122,7 +169,7 @@ const ProductModalAdd = (props) => {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Modal
         open={isOpen}
-        onClose={(e) => setClose(false)}
+        onClose={(e) => closeModal()}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
@@ -153,6 +200,7 @@ const ProductModalAdd = (props) => {
                       className="edit-image"
                       previews={previews}
                       setPreviews={setPreviewHandler}
+                      setIsError={setIsError}
                     />
                     <div className="image-detail">
                       <TextField
@@ -160,7 +208,7 @@ const ProductModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_title: e.target.value
+                              thumbnail_title: e.target.value,
                             };
                           })
                         }
@@ -177,7 +225,7 @@ const ProductModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_alt: e.target.value
+                              thumbnail_alt: e.target.value,
                             };
                           })
                         }
@@ -191,7 +239,6 @@ const ProductModalAdd = (props) => {
                       />
                     </div>
                   </FieldsetUI>
-
                   <div className="product-details">
                     <h3 className="product-detail-title">{t("ModalDetail")}</h3>
                     <div className="input-xl-half">
@@ -210,39 +257,22 @@ const ProductModalAdd = (props) => {
                         size="small"
                       />
                     </div>
-                    {/* <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setAddData((prevState) => {
-                            return {
-                              ...prevState,
-                              description: e.target.value
-                            };
-                          })
-                        }
-                        value={addData.description}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-description"
-                        label="description"
-                        size="small"
-                      />
-                    </div> */}
                     <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              price: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
+                              price: !isNaN(parseInt(e.target.value))
+                                ? parseInt(e.target.value)
+                                : 0,
                             };
                           })
                         }
                         value={addData.price}
                         className="text-field-custom"
                         fullWidth={true}
-                        error={false}
+                        error={isError.price}
                         id="ad-price"
                         label="price"
                         size="small"
@@ -254,7 +284,7 @@ const ProductModalAdd = (props) => {
                           setAddData((prevState) => {
                             return {
                               ...prevState,
-                              details: e.target.value
+                              details: e.target.value,
                             };
                           })
                         }
@@ -267,63 +297,6 @@ const ProductModalAdd = (props) => {
                         size="small"
                       />
                     </div>
-                    {/* <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setAddData((prevState) => {
-                            return {
-                              ...prevState,
-                              price_per_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={addData.price_per_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="price per minutes"
-                        size="small"
-                      />
-                    </div>
-                    <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setAddData((prevState) => {
-                            return {
-                              ...prevState,
-                              round_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={addData.round_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="round minutes"
-                        size="small"
-                      />
-                    </div>
-                    <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setAddData((prevState) => {
-                            return {
-                              ...prevState,
-                              default_minutes: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
-                            };
-                          })
-                        }
-                        value={addData.default_minutes}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-details"
-                        label="default minutes"
-                        size="small"
-                      />
-                    </div> */}
                     <div className="input-half">
                       <FormControl
                         sx={{ m: 1, minWidth: 120 }}
@@ -337,6 +310,7 @@ const ProductModalAdd = (props) => {
                           labelId="add-product-type"
                           id="add-product-type"
                           value={addData.cate_id}
+                          error={isError.cate}
                           label={t("ModalSlcCategory")}
                           onChange={(e) =>
                             setAddData((prevState) => {
@@ -364,63 +338,26 @@ const ProductModalAdd = (props) => {
                             setAddData((prevState) => {
                               return {
                                 ...prevState,
-                                display: e.target.checked
+                                display: e.target.checked,
                               };
                             })
                           }
                         />
                       </div>
                     </div>
-                    {/* <div className="input-half">
-                      <FormControl
-                        sx={{ m: 1, minWidth: 120 }}
-                        size="small"
-                        className="form-control"
-                      >
-                        <InputLabel id="add-page-control">
-                          {t("ModalSlcCtronrolPage")}
-                        </InputLabel>
-                        <Select
-                          labelId="product-page"
-                          id="add-page-control"
-                          label={t("ModalSlcCtronrolPage")}
-                          className="input-page"
-                          size="small"
-                          onChange={(e) =>
-                            setAddData((prevState) => {
-                              return { ...prevState, page_id: e.target.value };
-                            })
-                          }
-                          value={addData.page_id}
-                        >
-                          <MenuItem value={0} disabled>
-                            {t("None")}
-                          </MenuItem>
-                          {cateForProduct &&
-                            cateForProduct.map((menu) => (
-                              <MenuItem key={menu.id} value={menu.id}>
-                                {menu.cate_title}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
-                    </div> */}
-                    <div className="input-sm-half">
-                     
-                    </div>
                   </div>
                 </Box>
 
                 <div className="btn-action">
                   <ButtonUI
-                    loader={true}
+                    isLoading={btnLoading}
                     onClick={createValidators}
                     className="btn-save"
                     on="save"
                     width="md"
                   />
                   <ButtonUI
-                    onClick={() => setClose(false)}
+                    onClick={() => closeModal()}
                     icon={<FontAwesomeIcon icon={faRedo} />}
                     className="btn-cancel"
                     on="cancel"

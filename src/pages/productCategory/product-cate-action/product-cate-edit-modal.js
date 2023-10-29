@@ -24,16 +24,16 @@ const ProductCateModalEdit = (props) => {
   const { isOpen, isEdit, editProduct } = props;
   const { t } = useTranslation("product-cate-page");
   const uploadPath = useSelector((state) => state.app.uploadPath);
-  const language = useSelector((state) => state.app.language);
+  const [btnLoading, setBtnLoding] = useState(false);
   const [previews, setPreviews] = useState({
     src: uploadPath + editProduct.thumbnail_link,
     file: null,
-    name: null
+    name: null,
   });
   const [editData, setEditData] = useState(editProduct);
   const [isError, setIsError] = useState({
     thumbnail: false,
-    title: false
+    title: false,
   });
 
   const setPreviewHandler = (data) => {
@@ -54,6 +54,7 @@ const ProductCateModalEdit = (props) => {
       isValid = false;
     }
     if (isValid) {
+      setBtnLoding(true);
       saveHandler();
     }
   };
@@ -87,7 +88,7 @@ const ProductCateModalEdit = (props) => {
           title: "Successful",
           text: res.description,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       } else {
         modalSwal.fire({
@@ -97,7 +98,7 @@ const ProductCateModalEdit = (props) => {
           title: "Failed.",
           text: res.description,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       }
     });
@@ -145,7 +146,7 @@ const ProductCateModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_title: e.target.value
+                              thumbnail_title: e.target.value,
                             };
                           })
                         }
@@ -162,7 +163,7 @@ const ProductCateModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_alt: e.target.value
+                              thumbnail_alt: e.target.value,
                             };
                           })
                         }
@@ -201,7 +202,7 @@ const ProductCateModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              details: e.target.value
+                              details: e.target.value,
                             };
                           })
                         }
@@ -224,33 +225,19 @@ const ProductCateModalEdit = (props) => {
                             setEditData((prevState) => {
                               return {
                                 ...prevState,
-                                display: e.target.checked
+                                display: e.target.checked,
                               };
                             })
                           }
                         />
                       </div>
-                      {/* <div className="group">
-                        <span>{t("ModalFoodStatus")}</span>
-                        <Switch
-                          checked={editData.is_food}
-                          onChange={(e) =>
-                            setEditData((prevState) => {
-                              return {
-                                ...prevState,
-                                is_food: e.target.checked
-                              };
-                            })
-                          }
-                        />
-                      </div> */}
                     </div>
                   </div>
                 </Box>
 
                 <div className="btn-action">
                   <ButtonUI
-                    loader={true}
+                    isLoading={btnLoading}
                     onClick={editValidators}
                     className="btn-save"
                     on="save"

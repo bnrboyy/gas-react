@@ -70,7 +70,7 @@ const PreviewImageUI = (props) => {
                         onChange={(e) => previewImageHandler(e)} />
                     <img title={previews.adImageTitle}
                         className="image-preview"
-                        src={previews.src}
+                        src={previews.src ? previews.src : srcError}
                         onError={imageError}
                         alt={""}
                     />

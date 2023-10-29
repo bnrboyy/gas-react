@@ -8,7 +8,7 @@ import {
   faAdd,
   faEdit,
   faMinus,
-  faRedo
+  faRedo,
 } from "@fortawesome/free-solid-svg-icons";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -19,8 +19,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { appActions } from "../../../store/app-slice";
 import { svUpdateProduct } from "../../../services/product.service";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -36,22 +37,31 @@ const ProductModalEdit = (props) => {
     productCate,
     cateForProduct,
     setRefreshData,
-    setClose
+    setClose,
   } = props;
+  const dispatch = useDispatch();
   const { t } = useTranslation("product-page");
   const uploadPath = useSelector((state) => state.app.uploadPath);
   const [previews, setPreviews] = useState({
     src: uploadPath + editProduct.thumbnail_link,
     file: null,
-    name: null
+    name: null,
   });
   const [editData, setEditData] = useState(editProduct);
+  const [btnLoading, setBtnLoding] = useState(false);
   const [isError, setIsError] = useState({
     thumbnail: false,
-    title: false
+    title: false,
+    price: false,
+    cate: false,
   });
   const language = useSelector((state) => state.app.language);
   const [productCateShow, setProductCateShow] = useState(productCate);
+
+  const setPreviewHandler = (data) => {
+    setIsError({ ...isError, thumbnail: false });
+    setPreviews(data);
+  };
 
   const editValidators = () => {
     let isValid = true;
@@ -59,19 +69,54 @@ const ProductModalEdit = (props) => {
       (previews.file === undefined || previews.file === null) &&
       editData.image === ""
     ) {
-      setIsError({ ...isError, thumbnail: true });
+      console.log("ok");
+      setIsError((prev) => {
+        return { ...prev, thumbnail: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, thumbnail: false };
+      });
     }
-    if (editData.title.length < 1 || editData.title.file === null) {
-      setIsError({ ...isError, title: true });
+    if (editData.title.trim().length < 1 || editData.title.file === null) {
+      setIsError((prev) => {
+        return { ...prev, title: true };
+      });
       isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, title: false };
+      });
+    }
+    if (editData.price === 0 || editData.price === "") {
+      setIsError((prev) => {
+        return { ...prev, price: true };
+      });
+      isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, price: false };
+      });
+    }
+    if (editData.cate_id === 0) {
+      setIsError((prev) => {
+        return { ...prev, cate: true };
+      });
+      isValid = false;
+    } else {
+      setIsError((prev) => {
+        return { ...prev, cate: false };
+      });
     }
     if (isValid) {
+      setBtnLoding(true)
       saveHandler();
     }
   };
 
   const saveHandler = () => {
+    // dispatch(appActions.isSpawnActive(true));
     const formData = new FormData();
     if (previews.file) {
       formData.append("image", previews.file);
@@ -92,6 +137,7 @@ const ProductModalEdit = (props) => {
     formData.append("price", editData.price);
     formData.append("language", language);
     svUpdateProduct(editData.id, formData).then((res) => {
+      // dispatch(appActions.isSpawnActive(false));
       setClose({ isEdit, isOpen: false });
       if (res.status) {
         setRefreshData((prev) => prev + 1);
@@ -102,7 +148,7 @@ const ProductModalEdit = (props) => {
           title: "Successful",
           text: res.description,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       } else {
         modalSwal.fire({
@@ -112,7 +158,7 @@ const ProductModalEdit = (props) => {
           title: "Failed.",
           text: res.description,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       }
     });
@@ -165,7 +211,8 @@ const ProductModalEdit = (props) => {
                     <PreviewImageUI
                       className="edit-image"
                       previews={previews}
-                      setPreviews={setPreviews}
+                      setPreviews={setPreviewHandler}
+                      setIsError={setIsError}
                     />
                     <div className="image-detail">
                       <TextField
@@ -173,7 +220,7 @@ const ProductModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_title: e.target.value
+                              thumbnail_title: e.target.value,
                             };
                           })
                         }
@@ -190,7 +237,7 @@ const ProductModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              thumbnail_alt: e.target.value
+                              thumbnail_alt: e.target.value,
                             };
                           })
                         }
@@ -222,39 +269,22 @@ const ProductModalEdit = (props) => {
                         size="small"
                       />
                     </div>
-                    {/* <div className="input-xl-half">
-                      <TextField
-                        onChange={(e) =>
-                          setEditData((prevState) => {
-                            return {
-                              ...prevState,
-                              description: e.target.value
-                            };
-                          })
-                        }
-                        value={editData.description}
-                        className="text-field-custom"
-                        fullWidth={true}
-                        error={false}
-                        id="ad-description"
-                        label="description"
-                        size="small"
-                      />
-                    </div> */}
                     <div className="input-xl-half">
                       <TextField
                         onChange={(e) =>
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              price: !isNaN(parseInt(e.target.value))?parseInt(e.target.value):0
+                              price: !isNaN(parseInt(e.target.value))
+                                ? parseInt(e.target.value)
+                                : 0,
                             };
                           })
                         }
                         value={editData.price}
                         className="text-field-custom"
                         fullWidth={true}
-                        error={false}
+                        error={isError.price}
                         id="ad-price"
                         label="price"
                         size="small"
@@ -266,7 +296,7 @@ const ProductModalEdit = (props) => {
                           setEditData((prevState) => {
                             return {
                               ...prevState,
-                              details: e.target.value
+                              details: e.target.value,
                             };
                           })
                         }
@@ -292,6 +322,7 @@ const ProductModalEdit = (props) => {
                           labelId="edit-product-type"
                           id="edit-product-type"
                           value={editData.cate_id}
+                          error={isError.cate}
                           label={t("ModalSlcCategory")}
                           onChange={(e) =>
                             setEditData((prevState) => {
@@ -319,15 +350,14 @@ const ProductModalEdit = (props) => {
                             setEditData((prevState) => {
                               return {
                                 ...prevState,
-                                display: e.target.checked
+                                display: e.target.checked,
                               };
                             })
                           }
                         />
                       </div>
                     </div>
-                    <div className="input-sm-half">
-                    </div>
+                    <div className="input-sm-half"></div>
                     <div className="input-sm-half">
                       {editData.page_id === 15 && (
                         <>
@@ -339,7 +369,7 @@ const ProductModalEdit = (props) => {
                                 setEditData((prevState) => {
                                   return {
                                     ...prevState,
-                                    can_wave: e.target.checked
+                                    can_wave: e.target.checked,
                                   };
                                 })
                               }
@@ -353,7 +383,7 @@ const ProductModalEdit = (props) => {
                                 setEditData((prevState) => {
                                   return {
                                     ...prevState,
-                                    can_sweet: e.target.checked
+                                    can_sweet: e.target.checked,
                                   };
                                 })
                               }
@@ -364,10 +394,9 @@ const ProductModalEdit = (props) => {
                     </div>
                   </div>
                 </Box>
-
                 <div className="btn-action">
                   <ButtonUI
-                    loader={true}
+                    isLoading={btnLoading}
                     onClick={editValidators}
                     className="btn-save"
                     on="save"
