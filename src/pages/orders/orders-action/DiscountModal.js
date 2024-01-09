@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faMinus, faTags } from "@fortawesome/free-solid-svg-icons";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
 import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -71,13 +71,11 @@ function DiscountModal({
   };
 
   const handleSaveDiscount = (_orderNumb) => {
-    console.log(discount);
     if (discount >= orderShow.totalPrice + orderShow.delivery_price)
       return false;
     handleClose();
     svUpdateDiscount(_orderNumb, discount)
       .then((res) => {
-        // console.log(res.status)
         if (res.status) {
           ToastModal.fire({
             icon: "success",

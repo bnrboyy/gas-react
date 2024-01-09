@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import ButtonUI from "../../../components/ui/button/button";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,33 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
   faArrowRightFromBracket,
-  faBook,
   faCheck,
   faMapLocationDot,
   faRandom,
   faXmark,
-  faTag
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import Box from "@mui/material/Box";
-import {
-  Chip,
-  Dialog,
-  FormControl,
-  InputLabel,
-  Menu,
-  MenuItem,
-  Modal,
-  Input,
-  Select,
-  Button,
-  
-} from "@mui/material";
+import { Chip, Menu, MenuItem, Modal, Button } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import DateMoment from "../../../components/ui/date-moment/date-moment";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import WashingTable from "./washing-table";
 import ListTable from "./lists-table";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -45,17 +29,8 @@ import {
   svGetOrderPending,
   svGetOrderByOrderNumber,
 } from "../../../services/orders.service";
-import { svProductCapacity } from "../../../services/product.service";
 import { appActions } from "../../../store/app-slice";
-import {
-  PDFViewer,
-  PDFDownloadLink,
-  Document,
-  Page,
-  Text,
-  BlobProvider,
-  pdf,
-} from "@react-pdf/renderer";
+import { pdf } from "@react-pdf/renderer";
 import PDFFile from "./pdffile";
 import DiscountModal from "./DiscountModal";
 

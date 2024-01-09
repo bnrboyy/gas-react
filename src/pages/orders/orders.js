@@ -1,6 +1,5 @@
 import {
   faRedo,
-  faSearch,
   faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import HeadPageComponent from "../../components/layout/headpage/headpage";
 import ButtonUI from "../../components/ui/button/button";
-import { svGetOrders, svGetOrderPending } from "../../services/orders.service";
+import { svGetOrders } from "../../services/orders.service";
 import { appActions } from "../../store/app-slice";
 import OrdersTab from "./orders-tab";
 import "./orders.scss";
@@ -41,10 +40,6 @@ const Orders = () => {
       }
       dispatch(appActions.isSpawnActive(false));
     });
-    // svGetOrderPending().then((res) => {
-    //   dispatch(appActions.setNewOrders(res.data.data));
-    //   dispatch(appActions.setFollowNewOrders(res.data.data));
-    // });
   };
 
   useEffect(() => {
@@ -55,7 +50,6 @@ const Orders = () => {
   const OnChangeTextSearchHandler = (e) => {
     setTextSearch(e.target.value);
     setSearchParams(`search=${e.target.value}`);
-    // navigate({pathname: '/orders',search: '?search=' + e.target.value })
     setRefreshData(refreshData + 1);
   };
 

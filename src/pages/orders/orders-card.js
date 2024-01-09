@@ -1,14 +1,7 @@
-import {
-  faBan,
-  faBook,
-  faEye,
-  faTrash,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBan, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
-  Box,
   Chip,
   Paper,
   Table,
@@ -17,15 +10,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
 } from "@mui/material";
-import { t } from "i18next";
 import React from "react";
 import { useSelector } from "react-redux";
-
 import ButtonUI from "../../components/ui/button/button";
 import DateMoment from "../../components/ui/date-moment/date-moment";
-
 
 const OrdersCard = ({ items, editHandler, cancelHandler }) => {
   const uPermission = useSelector((state) => state.auth.userPermission);
@@ -59,12 +48,6 @@ const OrdersCard = ({ items, editHandler, cancelHandler }) => {
                 <TableCell align="left">{row.orders_number}</TableCell>
                 <TableCell align="left">{row.customer_name}</TableCell>
                 <TableCell align="left">{row.phone_number}</TableCell>
-                {/* <TableCell align="left">{row.branch_name}</TableCell> */}
-                {/* {row.type_order === "washing" ? (
-                <TableCell align="left">Washing and Drying</TableCell>
-              ) : (
-                <TableCell align="left">Foods</TableCell>
-              )} */}
                 <TableCell align="left">
                   <Chip
                     label={row.status_name}
@@ -111,16 +94,18 @@ const OrdersCard = ({ items, editHandler, cancelHandler }) => {
                   >
                     {"แสดง"}
                   </ButtonUI>
-                  { row.status_id !== 5 && row.status_id !== 4 && uPermission.superAdmin &&
-                    <ButtonUI
-                      onClick={(e) => cancelHandler(row.orders_number)}
-                      on="edit"
-                      className="btn-custom onDelete"
-                      icon={<FontAwesomeIcon icon={faBan} />}
-                    >
-                      {"ยกเลิก"}
-                    </ButtonUI>
-                  }
+                  {row.status_id !== 5 &&
+                    row.status_id !== 4 &&
+                    uPermission.superAdmin && (
+                      <ButtonUI
+                        onClick={(e) => cancelHandler(row.orders_number)}
+                        on="edit"
+                        className="btn-custom onDelete"
+                        icon={<FontAwesomeIcon icon={faBan} />}
+                      >
+                        {"ยกเลิก"}
+                      </ButtonUI>
+                    )}
                 </TableCell>
               </TableRow>
             ))}

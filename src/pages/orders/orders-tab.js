@@ -9,19 +9,15 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab, TablePagination } from "@mui/material";
 import { t } from "i18next";
 import React, { Fragment, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import {
   svCancelOrder,
-  svDeleteOrder,
   svGetOrderByOrderNumber,
 } from "../../services/orders.service";
 import SwalUI from "../../components/ui/swal-ui/swal-ui";
 import OrdersModal from "./orders-action/orders-modal";
 import OrdersCard from "./orders-card";
 import OrdersCardMobile from "./orders-card-mobile";
-import PDFFile from "./orders-action/pdffile";
 
 const OrdersTab = ({
   ordersModal,
@@ -35,7 +31,6 @@ const OrdersTab = ({
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [limited, setLimited] = useState({ begin: 0, end: rowsPerPage });
   const [page, setPage] = useState(0);
-  const modalSwal = withReactContent(Swal);
 
   const [filteredData, setFilteredData] = useState(ordersData);
   const [totalData, setTotalData] = useState(0);
@@ -84,7 +79,6 @@ const OrdersTab = ({
     }
     svGetOrderByOrderNumber({ orders_number: _ord_number }).then(
       ({ data: d }) => {
-
         const result = {
           orders_number: d.orders_number,
           delivery_drop_address: d.delivery_drop_address,

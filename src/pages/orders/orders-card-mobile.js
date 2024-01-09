@@ -1,11 +1,8 @@
 import {
-  faCartShopping,
   faClock,
-  faLanguage,
   faMoneyBill,
   faCreditCard,
   faUser,
-  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Chip } from "@mui/material";

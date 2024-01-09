@@ -52,9 +52,7 @@ const WashingTable = ({
           <TableCell align="left">Product Name</TableCell>
           <TableCell align="left">Title</TableCell>
           <TableCell align="left">Price</TableCell>
-          {/* <TableCell align="left">Minutes</TableCell> */}
           <TableCell align="left">Minutes Add</TableCell>
-          {/* <TableCell align="left">Weight</TableCell> */}
           <TableCell align="center">Action</TableCell>
         </TableRow>
       </TableHead>
@@ -94,11 +92,6 @@ const WashingTable = ({
               </TableCell>
               <TableCell align="left">{row.title}</TableCell>
               <TableCell align="left">{row.totalPrice + " " + orderShow.currency_symbol}</TableCell>
-              {/* <TableCell align="left">
-                {row.page_id === 11
-                  ? row.default_minutes + " minutes"
-                  : "0"}
-              </TableCell> */}
               <TableCell align="left">
                 {(row.page_id === 11 && row.minutes_add > 0) ? (
                   <Chip
@@ -110,7 +103,6 @@ const WashingTable = ({
                   "0"
                 )}
               </TableCell>
-              {/* <TableCell align="left">{row.weight ? row.weight + " KG." : ""}</TableCell> */}
               <TableCell align="center">
                 {!!!row.verified && (
                   <ButtonUI
