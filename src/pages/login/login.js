@@ -10,6 +10,8 @@ import "./login.scss";
 import validator from "validator";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import html2canvas from "html2canvas";
+import { useScreenshot, createFileName } from 'use-react-screenshot'
 
 const modalSwal = withReactContent(Swal);
 const ToastModal = modalSwal.mixin({
@@ -28,8 +30,14 @@ const LoginPage = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const keepRef = useRef();
+  const elementRef = useRef(null);
 
-  useEffect(() => {}, [isLoggedIn]);
+  const [image, takeScreenshot] = useScreenshot({ type: "image/png", quality: 1.0 });
+
+  useEffect(() => {
+    // capImg();
+    // getImage();
+  }, [isLoggedIn]);
 
   const signInHandler = async () => {
     if (!validator.isEmail(usernameRef.current.value.trim())) {
@@ -92,11 +100,34 @@ const LoginPage = () => {
     } catch (err) {}
   };
 
+  const downloadScreenshot = (image) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = createFileName("png", "bill_img")
+    a.click();
+  }
+
+  const getImage = () => takeScreenshot(elementRef.current).then(() => console.log('success'))
+  
+
+  const capImg = () => {
+    const elementToCapture = elementRef.current;
+   
+    html2canvas(elementToCapture).then((canvas) => {
+      const dataUrl = canvas.toDataURL("image/png");
+
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = "my-image.png";
+      link.click();
+    });
+  };
+
   if (isLoggedIn) {
     return <Navigate to="/" />;
   }
   return (
-    <form id="login-page" className="guest-form">
+    <form id="login-page" className="guest-form" ref={elementRef}>
       <figure className="fig-logo">
         <img src="images/icons/gas-delivery.png" className="logo" />
       </figure>
@@ -122,7 +153,7 @@ const LoginPage = () => {
           />
         </div>
         {/* <div className="rows"> */}
-          {/* <div className="keep-login">
+        {/* <div className="keep-login">
           <input
             type="checkbox"
             ref={keepRef}
@@ -131,7 +162,7 @@ const LoginPage = () => {
           />
           <label htmlFor="check-keep">{t("KeepLogin")}</label>
         </div> */}
-          {/* <div className="forget-password">
+        {/* <div className="forget-password">
             <Link to="/forgetpassword">{t("ForgetPassword")}</Link>
           </div>
         </div> */}
